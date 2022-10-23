@@ -1,0 +1,19 @@
+#mainBox1, #mainBox2{
+    overflow: hidden;
+    position:relative;
+}
+#box1, #box2{
+    display: inline-block;
+    position:relative;
+    white-space:nowrap;
+}
+#box1{
+    margin-bottom: 32px;
+}
+#box1 img, #box2 img{
+    width: auto;
+    /* height: 48px; */
+}
+#counter-comment{
+    display: none;
+}
