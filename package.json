@@ -4,9 +4,6 @@
   "description": "Scroll carousel, a unique content slider that specially works on window scroll.",
   "main": "dist/scroll-carousel.js",
   "style": "dist/scroll-carousel.css",
-  "directories": {
-    "example": "example"
-  },
   "scripts": {
     "start": "npm run watch & npm run start:dev",
     "start:dev": "webpack serve",
@@ -27,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/asif-jalil/scroll-carousel/issues"
   },
-  "homepage": "https://github.com/asif-jalil/scroll-carousel#readme",
+  "homepage": "https://github.com/asif-jalil/scroll-carousel",
   "devDependencies": {
     "@babel/core": "^7.19.6",
     "@babel/preset-env": "^7.19.4",
@@ -51,3 +48,4 @@
     "node-sass": "^7.0.3"
   }
 }
+
