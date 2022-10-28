@@ -1,12 +1,13 @@
 const webpack = require('webpack');
 const path = require('path');
+const os = require('os');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const pkg = require('./package.json');
 
-const { name, version, description, homepage } = pkg;
+const { name, version, homepage } = pkg;
 const isProd = process.env.NODE_ENV === 'production';
 
 const banner = `
@@ -18,6 +19,7 @@ ${homepage}
 
 module.exports = {
   mode: isProd ? 'production' : 'development',
+  target: ['web', 'es5'],
   entry: {
     'scroll.carousel': ['./src/js/index.js', './src/scss/main.scss']
   },
@@ -25,16 +27,17 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: isProd ? '[name].min.js' : '[name].js',
     publicPath: '/dist',
-    clean: true
+    library: name,
+    globalObject: 'this',
+    libraryExport: 'default',
+    libraryTarget: 'umd'
   },
   plugins: [
     new RemoveEmptyScriptsPlugin(),
     new MiniCssExtractPlugin({
       filename: isProd ? '[name].min.css' : '[name].css'
     }),
-    new webpack.BannerPlugin({
-      banner
-    })
+    ...(isProd ? [new webpack.BannerPlugin({ banner })] : [])
   ],
   module: {
     rules: [
@@ -52,6 +55,7 @@ module.exports = {
       },
       {
         test: /\.s[ac]ss$/i,
+        exclude: /(node_modules)/,
         use: [
           // Extract CSS
           MiniCssExtractPlugin.loader,
@@ -59,7 +63,7 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: true,
+              sourceMap: !isProd,
               url: false
             }
           },
@@ -67,7 +71,7 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: true
+              sourceMap: !isProd
             }
           }
         ]
@@ -79,8 +83,7 @@ module.exports = {
     minimizer: [
       new CssMinimizerPlugin({
         include: /\.min\.css/,
-        parallel: true,
-        minify: CssMinimizerPlugin.cleanCssMinify,
+        parallel: os.cpus().length,
         minimizerOptions: {
           preset: [
             'default',
@@ -92,8 +95,7 @@ module.exports = {
       }),
       new TerserPlugin({
         include: /\.min\.js/,
-        parallel: true,
-        minify: TerserPlugin.terserMinify,
+        parallel: os.cpus().length,
         terserOptions: {
           format: {
             comments: false
@@ -111,6 +113,12 @@ module.exports = {
     watchFiles: ['./src/**/*'],
     open: true,
     hot: true
-  }
+  },
+  stats: {
+    preset: 'minimal',
+    warnings: true,
+    publicPath: true
+  },
+  cache: true
 };
 
