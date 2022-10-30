@@ -1,4 +1,4 @@
-function ScrollCarousel (element){
+export function ScrollCarousel (element){
     
     this.element = element;
 
