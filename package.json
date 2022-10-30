@@ -1,0 +1,50 @@
+{
+  "name": "scroll-carousel",
+  "version": "1.0.0",
+  "description": "Scroll carousel, a unique content slider that specially works on window scroll.",
+  "main": "dist/scroll-carousel.js",
+  "style": "dist/scroll-carousel.css",
+  "scripts": {
+    "start": "npm run watch & npm run start:dev",
+    "start:dev": "webpack serve",
+    "watch": "webpack --watch",
+    "build": "cross-env NODE_ENV=production webpack"
+  },
+  "keywords": [
+    "scroll",
+    "carousel",
+    "slider"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asif-jalil/scroll-carousel.git"
+  },
+  "author": "Asif | Jihad | Tanveer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asif-jalil/scroll-carousel/issues"
+  },
+  "homepage": "https://github.com/asif-jalil/scroll-carousel",
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@babel/preset-env": "^7.19.4",
+    "babel-loader": "^9.0.0",
+    "babel-plugin-add-module-exports": "^1.0.4",
+    "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^4.2.2",
+    "mini-css-extract-plugin": "^2.6.1",
+    "sass": "^1.55.0",
+    "sass-loader": "^13.1.0",
+    "terser-webpack-plugin": "^5.3.6",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1",
+    "webpack-remove-empty-scripts": "^1.0.1"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "lodash": "^4.17.21",
+    "node-sass": "^7.0.3"
+  }
+}
+
