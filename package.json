@@ -6,9 +6,13 @@
   "style": "dist/scroll-carousel.css",
   "scripts": {
     "start": "npm run watch & npm run start:dev",
-    "start:dev": "webpack serve",
-    "watch": "webpack --watch",
-    "build": "cross-env NODE_ENV=production webpack"
+    "start:dev": "webpack serve --config webpack.config.js",
+    "watch": "webpack --watch --config webpack.config.js",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "docs": "npm run docs:watch & npm run docs:dev",
+    "docs:dev": "webpack serve --config webpack.docs.js",
+    "docs:watch": "webpack --watch --config webpack.docs.js",
+    "docs:build": "webpack --config webpack.docs.js"
   },
   "keywords": [
     "scroll",
@@ -32,9 +36,16 @@
     "babel-plugin-add-module-exports": "^1.0.4",
     "css-loader": "^6.7.1",
     "css-minimizer-webpack-plugin": "^4.2.2",
+    "glob": "^8.0.3",
+    "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.1",
+    "postcss": "^8.4.18",
+    "postcss-loader": "^7.0.1",
+    "postcss-preset-env": "^7.8.2",
     "sass": "^1.55.0",
     "sass-loader": "^13.1.0",
+    "style-loader": "^3.3.1",
+    "tailwindcss": "^3.2.1",
     "terser-webpack-plugin": "^5.3.6",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
