@@ -12,7 +12,7 @@
     "docs": "npm run docs:watch & npm run docs:dev",
     "docs:dev": "webpack serve --config webpack.docs.js",
     "docs:watch": "webpack --watch --config webpack.docs.js",
-    "docs:build": "webpack --config webpack.docs.js"
+    "docs:build": "cross-env NODE_ENV=production webpack --config webpack.docs.js"
   },
   "keywords": [
     "scroll",

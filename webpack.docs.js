@@ -7,9 +7,10 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 const htmlFilesPaths = glob.sync('./docs_src/**/*.html');
+const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
-  mode: 'production',
+  mode: isProd ? 'production' : 'development',
   target: ['web', 'es5'],
   entry: {
     bundle: ['./docs_src/js/index.js', './docs_src/css/style.css']
@@ -77,7 +78,7 @@ module.exports = {
     ]
   },
   optimization: {
-    minimize: true,
+    minimize: isProd,
     minimizer: [
       new CssMinimizerPlugin({
         include: /\.min\.css/,
