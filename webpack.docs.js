@@ -17,12 +17,12 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'docs'),
-    filename: './js/[name].min.js',
+    filename: `./js/[name]${isProd ? '.min' : ''}.js`,
     clean: true
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: './css/[name].min.css'
+      filename: `./css/[name]${isProd ? '.min' : ''}.css`
     }),
     ...htmlFilesPaths.map(file => {
       return new HtmlWebpackPlugin({
@@ -46,7 +46,7 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        exclude: /(node_modules)/,
+        include: path.resolve(__dirname, 'docs_src'),
         use: [
           // Extract CSS
           MiniCssExtractPlugin.loader,
