@@ -1,3 +1,17 @@
 .scroll-carousel {
   position: relative;
 }
+#mainBox1{
+  overflow: hidden;
+  position:relative;
+}
+.scroll-carousel-slider{
+  display: inline-block;
+  position:relative;
+  white-space:nowrap;
+}
+.scroll-carousel-slider img{
+  width: auto;
+  margin: 1px;
+  /* height: 48px; */
+}

@@ -43,8 +43,6 @@
   },
   "dependencies": {
     "cross-env": "^7.0.3",
-    "lodash": "^4.17.21",
     "node-sass": "^7.0.3"
   }
 }
-
