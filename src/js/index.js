@@ -1,3 +1,3 @@
-import { ScrollCarousel } from "./core";
+import { ScrollCarousel } from './core';
 
 window.ScrollCarousel = ScrollCarousel;
