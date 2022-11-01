@@ -11,7 +11,7 @@ export function ScrollCarousel (element){
 }
 
 ScrollCarousel.defaults = {
-    friction: 0.055
+    speed: 0.055
 };
 
 // hash of methods triggered on _create()
@@ -49,21 +49,19 @@ proto.activate = function() {
     this.slider.append( ...slideElems );
     this.element.append( this.slider );
 
+    window.addEventListener('scroll', () => this._transform.call( this ) );
 }
-window.addEventListener("scroll", something);
-function something (){
-    // console.log(this)
+
+// to transform the slider
+proto._transform = function (){
+    if (isScrolledIntoView(this.element)) {
+        this.slider.style.transform = `translateX(${this._translate}%)`;
+        this._translate -= this.options.speed;
+        if (this._translate <= -50) {
+            this._translate = 0;
+        }
+    }
 }
-// window.addEventListener("scroll", function(){
-//     // if (isScrolledIntoView(this.element)) {
-//         console.log(this.slider)
-//         this.slider.style.transform = `translateX(${this._translate}%)`;
-//         this._translate -= this.options.friction;
-//         if (this._translate <= -50) {
-//             this._translate = 0;
-//         }
-//     // }
-// });
 
 // slider positions the slide
 proto._createSlider = function() {

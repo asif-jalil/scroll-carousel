@@ -43,7 +43,7 @@ function ScrollCarousel(element) {
   this._create();
 }
 ScrollCarousel.defaults = {
-  friction: 0.055
+  speed: 0.055
 };
 
 // hash of methods triggered on _create()
@@ -66,7 +66,8 @@ proto.option = function (opts) {
   Object.assign(this.options, opts);
 };
 proto.activate = function () {
-  var _this$slider;
+  var _this$slider,
+    _this = this;
   if (this.isActive) return;
   this.isActive = true;
   this._translate = 0;
@@ -75,21 +76,21 @@ proto.activate = function () {
   var slideElems = this._filterFindSlideElements(this.element.children);
   (_this$slider = this.slider).append.apply(_this$slider, _toConsumableArray(slideElems));
   this.element.append(this.slider);
+  window.addEventListener('scroll', function () {
+    return _this._transform.call(_this);
+  });
 };
-window.addEventListener("scroll", something);
-function something() {
-  // console.log(this)
-}
-// window.addEventListener("scroll", function(){
-//     // if (isScrolledIntoView(this.element)) {
-//         console.log(this.slider)
-//         this.slider.style.transform = `translateX(${this._translate}%)`;
-//         this._translate -= this.options.friction;
-//         if (this._translate <= -50) {
-//             this._translate = 0;
-//         }
-//     // }
-// });
+
+// to transform the slider
+proto._transform = function () {
+  if (isScrolledIntoView(this.element)) {
+    this.slider.style.transform = "translateX(".concat(this._translate, "%)");
+    this._translate -= this.options.speed;
+    if (this._translate <= -50) {
+      this._translate = 0;
+    }
+  }
+};
 
 // slider positions the slide
 proto._createSlider = function () {
