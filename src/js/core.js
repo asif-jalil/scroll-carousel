@@ -1,5 +1,5 @@
 export function ScrollCarousel(element) {
-  this.element = element;
+  this.element = getQueryElement(element);
 
   // options
   this.options = { ...this.constructor.defaults };
@@ -46,7 +46,8 @@ proto.activate = function () {
   this.slider.append(...slideElems);
   this.element.append(this.slider);
 
-  window.addEventListener('scroll', () => this._transform.call(this));
+  // transform function call on scroll
+  window.addEventListener('scroll', () => this._transform());
 };
 
 // to transform the slider
@@ -72,6 +73,8 @@ proto._filterFindSlideElements = function (elems) {
   return filterFindElements(elems, this.options.slideSelector);
 };
 
+// ----- isScrolledIntoView ----- //
+
 function isScrolledIntoView(el) {
   if (!el) {
     return false;
@@ -84,7 +87,17 @@ function isScrolledIntoView(el) {
   return vertInView && horInView;
 }
 
-// filterFindElements
+// ----- getQueryElement ----- //
+
+// use element as selector string
+function getQueryElement(elem) {
+  if (typeof elem == 'string') {
+    return document.querySelector(elem);
+  }
+  return elem;
+}
+
+// ----- filterFindElements ----- //
 function filterFindElements(elems, selector) {
   // make array of elems
   elems = makeArray(elems);
@@ -113,7 +126,7 @@ function filterFindElements(elems, selector) {
   );
 }
 
-// makeArray
+// ----- makeArray ----- //
 
 // turn element or NodeList into an array
 function makeArray(obj) {
@@ -130,3 +143,4 @@ function makeArray(obj) {
   // array of single index
   return [obj];
 }
+
