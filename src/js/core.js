@@ -9,6 +9,7 @@ export function ScrollCarousel(element) {
   this._create();
 }
 
+// default options
 ScrollCarousel.defaults = {
   speed: 0.055
 };
@@ -106,22 +107,22 @@ function filterFindElements(elems, selector) {
     elems
       // check that elem is an actual element
       .filter(elem => elem instanceof HTMLElement)
-      .reduce((ffElems, elem) => {
+      .reduce((scElems, elem) => {
         // add elem of no selector
         if (!selector) {
-          ffElems.push(elem);
-          return ffElems;
+          scElems.push(elem);
+          return scElems;
         }
         // filter & find items if we have a selector
         // filter
         if (elem.matches(selector)) {
-          ffElems.push(elem);
+          scElems.push(elem);
         }
         // find children
         let childElems = elem.querySelectorAll(selector);
         // concat childElems to filterFound array
-        ffElems = ffElems.concat(...childElems);
-        return ffElems;
+        scElems = scElems.concat(...childElems);
+        return scElems;
       }, [])
   );
 }

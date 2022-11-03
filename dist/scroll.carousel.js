@@ -33,7 +33,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function ScrollCarousel(element) {
-  this.element = element;
+  this.element = getQueryElement(element);
 
   // options
   this.options = _objectSpread({}, this.constructor.defaults);
@@ -42,6 +42,8 @@ function ScrollCarousel(element) {
   // kick things off
   this._create();
 }
+
+// default options
 ScrollCarousel.defaults = {
   speed: 0.055
 };
@@ -76,8 +78,10 @@ proto.activate = function () {
   var slideElems = this._filterFindSlideElements(this.element.children);
   (_this$slider = this.slider).append.apply(_this$slider, _toConsumableArray(slideElems));
   this.element.append(this.slider);
+
+  // transform function call on scroll
   window.addEventListener('scroll', function () {
-    return _this._transform.call(_this);
+    return _this._transform();
   });
 };
 
@@ -102,6 +106,9 @@ proto._createSlider = function () {
 proto._filterFindSlideElements = function (elems) {
   return filterFindElements(elems, this.options.slideSelector);
 };
+
+// ----- isScrolledIntoView ----- //
+
 function isScrolledIntoView(el) {
   if (!el) {
     return false;
@@ -114,7 +121,17 @@ function isScrolledIntoView(el) {
   return vertInView && horInView;
 }
 
-// filterFindElements
+// ----- getQueryElement ----- //
+
+// use element as selector string
+function getQueryElement(elem) {
+  if (typeof elem == 'string') {
+    return document.querySelector(elem);
+  }
+  return elem;
+}
+
+// ----- filterFindElements ----- //
 function filterFindElements(elems, selector) {
   // make array of elems
   elems = makeArray(elems);
@@ -122,27 +139,27 @@ function filterFindElements(elems, selector) {
   // check that elem is an actual element
   .filter(function (elem) {
     return elem instanceof HTMLElement;
-  }).reduce(function (ffElems, elem) {
-    var _ffElems;
+  }).reduce(function (scElems, elem) {
+    var _scElems;
     // add elem of no selector
     if (!selector) {
-      ffElems.push(elem);
-      return ffElems;
+      scElems.push(elem);
+      return scElems;
     }
     // filter & find items if we have a selector
     // filter
     if (elem.matches(selector)) {
-      ffElems.push(elem);
+      scElems.push(elem);
     }
     // find children
     var childElems = elem.querySelectorAll(selector);
     // concat childElems to filterFound array
-    ffElems = (_ffElems = ffElems).concat.apply(_ffElems, _toConsumableArray(childElems));
-    return ffElems;
+    scElems = (_scElems = scElems).concat.apply(_scElems, _toConsumableArray(childElems));
+    return scElems;
   }, []);
 }
 
-// makeArray
+// ----- makeArray ----- //
 
 // turn element or NodeList into an array
 function makeArray(obj) {
