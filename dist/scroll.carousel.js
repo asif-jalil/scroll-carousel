@@ -33,7 +33,7 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function ScrollCarousel(element) {
-  this.element = element;
+  this.element = getQueryElement(element);
 
   // options
   this.options = _objectSpread({}, this.constructor.defaults);
@@ -76,8 +76,10 @@ proto.activate = function () {
   var slideElems = this._filterFindSlideElements(this.element.children);
   (_this$slider = this.slider).append.apply(_this$slider, _toConsumableArray(slideElems));
   this.element.append(this.slider);
+
+  // transform function call on scroll
   window.addEventListener('scroll', function () {
-    return _this._transform.call(_this);
+    return _this._transform();
   });
 };
 
@@ -102,6 +104,9 @@ proto._createSlider = function () {
 proto._filterFindSlideElements = function (elems) {
   return filterFindElements(elems, this.options.slideSelector);
 };
+
+// ----- isScrolledIntoView ----- //
+
 function isScrolledIntoView(el) {
   if (!el) {
     return false;
@@ -114,7 +119,17 @@ function isScrolledIntoView(el) {
   return vertInView && horInView;
 }
 
-// filterFindElements
+// ----- getQueryElement ----- //
+
+// use element as selector string
+function getQueryElement(elem) {
+  if (typeof elem == 'string') {
+    return document.querySelector(elem);
+  }
+  return elem;
+}
+
+// ----- filterFindElements ----- //
 function filterFindElements(elems, selector) {
   // make array of elems
   elems = makeArray(elems);
@@ -142,7 +157,7 @@ function filterFindElements(elems, selector) {
   }, []);
 }
 
-// makeArray
+// ----- makeArray ----- //
 
 // turn element or NodeList into an array
 function makeArray(obj) {
@@ -158,6 +173,35 @@ function makeArray(obj) {
   // array of single index
   return [obj];
 }
+
+/***/ }),
+
+/***/ "./src/js/index.js":
+/*!*************************!*\
+  !*** ./src/js/index.js ***!
+  \*************************/
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core */ "./src/js/core.js");
+/* module decorator */ module = __webpack_require__.hmd(module);
+
+// const ScrollCarousel = require('./core');
+
+window.ScrollCarousel = _core__WEBPACK_IMPORTED_MODULE_0__.ScrollCarousel;
+module.exports = _core__WEBPACK_IMPORTED_MODULE_0__.ScrollCarousel;
+
+/***/ }),
+
+/***/ "./src/scss/main.scss":
+/*!****************************!*\
+  !*** ./src/scss/main.scss ***!
+  \****************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
 
 /***/ })
 
@@ -175,13 +219,16 @@ function makeArray(obj) {
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			// no module.id needed
-/******/ 			// no module.loaded needed
+/******/ 			id: moduleId,
+/******/ 			loaded: false,
 /******/ 			exports: {}
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -197,6 +244,21 @@ function makeArray(obj) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/harmony module decorator */
+/******/ 	!function() {
+/******/ 		__webpack_require__.hmd = function(module) {
+/******/ 			module = Object.create(module);
+/******/ 			if (!module.children) module.children = [];
+/******/ 			Object.defineProperty(module, 'exports', {
+/******/ 				enumerable: true,
+/******/ 				set: function() {
+/******/ 					throw new Error('ES Modules may not assign module.exports or exports.*, Use ESM export syntax, instead: ' + module.id);
+/******/ 				}
+/******/ 			});
+/******/ 			return module;
 /******/ 		};
 /******/ 	}();
 /******/ 	
@@ -217,28 +279,14 @@ function makeArray(obj) {
 /******/ 	}();
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
-!function() {
-var __webpack_exports__ = {};
-/*!*************************!*\
-  !*** ./src/js/index.js ***!
-  \*************************/
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core */ "./src/js/core.js");
-
-window.ScrollCarousel = _core__WEBPACK_IMPORTED_MODULE_0__.ScrollCarousel;
-}();
-// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
-!function() {
-/*!****************************!*\
-  !*** ./src/scss/main.scss ***!
-  \****************************/
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-}();
-__webpack_exports__ = __webpack_exports__["default"];
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	__webpack_require__("./src/js/index.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/scss/main.scss");
+/******/ 	__webpack_exports__ = __webpack_exports__["default"];
+/******/ 	
 /******/ 	return __webpack_exports__;
 /******/ })()
 ;
