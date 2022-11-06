@@ -1,15 +1,22 @@
 .scroll-carousel {
   position: relative;
 }
-#mainBox1{
+
+.scroll-carousel-viewport{
   overflow: hidden;
-  position:relative;
+  position: relative;
 }
+
 .scroll-carousel-slider{
-  display: inline-block;
   position:relative;
   white-space:nowrap;
+  // display: flex;
 }
+
+.sc-cell{
+  display: inline-block;
+}
+
 .scroll-carousel-slider img{
   width: auto;
   margin: 1px;
