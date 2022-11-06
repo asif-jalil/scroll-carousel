@@ -60,7 +60,6 @@ proto._create = function () {
   this._createSlider();
 
   // add listeners from on option
-
   this.activate();
 };
 

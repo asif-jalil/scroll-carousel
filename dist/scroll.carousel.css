@@ -13,7 +13,11 @@
 .scroll-carousel-slider {
   position: relative;
   white-space: nowrap;
-  display: flex;
+  display: inline-block;
+}
+
+.sc-cell {
+  display: inline-block;
 }
 
 .scroll-carousel-slider img {
