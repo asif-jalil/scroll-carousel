@@ -46,13 +46,13 @@ To get started using **Scroll Carousel** right away, there are a few CDN availab
 Just add a link to the css file in your `<head>`:
 
 ```
-<link rel="stylesheet" href="https://unpkg.com/scroll-carousel/dist/scroll.carousel.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/asif-jalil/scroll-carousel/dist/scroll.carousel.min.css">
 ```
 
 Then, before your closing `<body>` tag add:
 
 ```
-<script src="https://unpkg.com/scroll-carousel/dist/scroll.carousel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/asif-jalil/scroll-carousel/dist/scroll.carousel.min.js"></script>
 ```
 
 ### Package managers
