@@ -53,6 +53,9 @@ ScrollCarousel.defaults = {
 ScrollCarousel.create = {};
 var proto = ScrollCarousel.prototype;
 proto._create = function () {
+  // create viewport
+  this._createViewport();
+
   // create slider
   this._createSlider();
 
@@ -77,13 +80,29 @@ proto.activate = function () {
 
   // move initial cell elements so they can be loaded as cells
   var slideElems = this._filterFindSlideElements(this.element.children);
-  (_this$slider = this.slider).append.apply(_this$slider, _toConsumableArray(slideElems));
-  this.element.append(this.slider);
+  this.cellElems = this._makeCells(slideElems);
+  var duplicateCellElems = (0,_util__WEBPACK_IMPORTED_MODULE_0__.duplicateElems)(this.cellElems);
+  (_this$slider = this.slider).append.apply(_this$slider, _toConsumableArray(this.cellElems).concat(_toConsumableArray(duplicateCellElems)));
+  this.viewport.append(this.slider);
+  this.element.append(this.viewport);
 
   // transform function call on scroll
   window.addEventListener('scroll', function () {
     return _this._transform();
   });
+};
+proto._makeCells = function (elems) {
+  var _this2 = this;
+  return elems.map(function (el) {
+    return _this2._makeCell(el);
+  });
+};
+proto._makeCell = function (elem) {
+  var cellElem = document.createElement('div');
+  cellElem.className = 'sc-cell';
+  this.cellElem = cellElem;
+  this.cellElem.append(elem);
+  return this.cellElem;
 };
 
 // to transform the slider
@@ -104,6 +123,10 @@ proto._createSlider = function () {
   slider.className = 'scroll-carousel-slider';
   this.slider = slider;
 };
+proto._createViewport = function () {
+  this.viewport = document.createElement('div');
+  this.viewport.className = 'scroll-carousel-viewport';
+};
 proto._filterFindSlideElements = function (elems) {
   return (0,_util__WEBPACK_IMPORTED_MODULE_0__.filterFindElements)(elems, this.options.slideSelector);
 };
@@ -120,6 +143,7 @@ proto._filterFindSlideElements = function (elems) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "duplicateElems": function() { return /* binding */ duplicateElems; },
 /* harmony export */   "filterFindElements": function() { return /* binding */ filterFindElements; },
 /* harmony export */   "getQueryElement": function() { return /* binding */ getQueryElement; },
 /* harmony export */   "isScrolledIntoView": function() { return /* binding */ isScrolledIntoView; },
@@ -197,6 +221,11 @@ function makeArray(obj) {
 
   // array of single index
   return [obj];
+}
+function duplicateElems(elems) {
+  return elems.map(function (node) {
+    return node.cloneNode(true);
+  });
 }
 
 /***/ })

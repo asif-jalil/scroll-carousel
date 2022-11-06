@@ -67,3 +67,7 @@ export function makeArray(obj) {
   return [obj];
 }
 
+export function duplicateElems(elems) {
+  return elems.map(node => node.cloneNode(true));
+}
+
