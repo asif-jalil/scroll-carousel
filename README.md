@@ -84,9 +84,9 @@ new ScrollCarousel(".carousel", {
 
 ### Options
 
-| Options | Type   | Default | Description                                                                                                                |
-| ------- | ------ | ------- | -------------------------------------------------------------------------------------------------------------------------- |
-| speed   | number | 7       | Movement speed when scroll. Value must be greater than 1. The value is actually how many `px` you want to move per scroll. |
+| Option | Type   | Default | Description                                                                                                                |
+| ------ | ------ | ------- | -------------------------------------------------------------------------------------------------------------------------- |
+| speed  | number | 7       | Movement speed when scroll. Value must be greater than 1. The value is actually how many `px` you want to move per scroll. |
 
 ##### Example with speed
 
