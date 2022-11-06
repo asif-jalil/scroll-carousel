@@ -1,11 +1,16 @@
-import { duplicateElems, filterFindElements, getQueryElement, isScrolledIntoView } from './util';
+import { duplicateElems, filterFindElements, getQueryElement, isScrolledIntoView, validation } from './util';
 
-export function ScrollCarousel(element) {
+export function ScrollCarousel(element, options = {}) {
   this.element = getQueryElement(element);
 
   // options
   this.options = { ...this.constructor.defaults };
-  this.option(this.options);
+
+  // validated options
+  const validatedOptions = validation(options);
+
+  // merge options with prototype
+  this.option(validatedOptions);
 
   // kick things off
   this._create();
@@ -13,7 +18,7 @@ export function ScrollCarousel(element) {
 
 // default options
 ScrollCarousel.defaults = {
-  speed: 0.055
+  speed: 7
 };
 
 // hash of methods triggered on _create()
@@ -73,9 +78,10 @@ proto._makeCell = function (elem) {
 // to transform the slider
 proto._transform = function () {
   if (isScrolledIntoView(this.element)) {
-    this.slider.style.transform = `translateX(${this._translate}%)`;
+    const rect = this.slider.getBoundingClientRect();
+    this.slider.style.transform = `translateX(${this._translate}px)`;
     this._translate -= this.options.speed;
-    if (this._translate <= -50) {
+    if (this._translate <= -rect.width / 2) {
       this._translate = 0;
     }
   }
@@ -97,6 +103,4 @@ proto._createViewport = function () {
 proto._filterFindSlideElements = function (elems) {
   return filterFindElements(elems, this.options.slideSelector);
 };
-
-// ----- isScrolledIntoView ----- //
 

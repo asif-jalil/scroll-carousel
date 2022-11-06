@@ -34,11 +34,17 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function ScrollCarousel(element) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   this.element = (0,_util__WEBPACK_IMPORTED_MODULE_0__.getQueryElement)(element);
 
   // options
   this.options = _objectSpread({}, this.constructor.defaults);
-  this.option(this.options);
+
+  // validated options
+  var validatedOptions = (0,_util__WEBPACK_IMPORTED_MODULE_0__.validation)(options);
+
+  // merge options with prototype
+  this.option(validatedOptions);
 
   // kick things off
   this._create();
@@ -46,7 +52,7 @@ function ScrollCarousel(element) {
 
 // default options
 ScrollCarousel.defaults = {
-  speed: 0.055
+  speed: 7
 };
 
 // hash of methods triggered on _create()
@@ -107,9 +113,10 @@ proto._makeCell = function (elem) {
 // to transform the slider
 proto._transform = function () {
   if ((0,_util__WEBPACK_IMPORTED_MODULE_0__.isScrolledIntoView)(this.element)) {
-    this.slider.style.transform = "translateX(".concat(this._translate, "%)");
+    var rect = this.slider.getBoundingClientRect();
+    this.slider.style.transform = "translateX(".concat(this._translate, "px)");
     this._translate -= this.options.speed;
-    if (this._translate <= -50) {
+    if (this._translate <= -rect.width / 2) {
       this._translate = 0;
     }
   }
@@ -130,8 +137,6 @@ proto._filterFindSlideElements = function (elems) {
   return (0,_util__WEBPACK_IMPORTED_MODULE_0__.filterFindElements)(elems, this.options.slideSelector);
 };
 
-// ----- isScrolledIntoView ----- //
-
 /***/ }),
 
 /***/ "./src/js/util.js":
@@ -146,7 +151,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "filterFindElements": function() { return /* binding */ filterFindElements; },
 /* harmony export */   "getQueryElement": function() { return /* binding */ getQueryElement; },
 /* harmony export */   "isScrolledIntoView": function() { return /* binding */ isScrolledIntoView; },
-/* harmony export */   "makeArray": function() { return /* binding */ makeArray; }
+/* harmony export */   "makeArray": function() { return /* binding */ makeArray; },
+/* harmony export */   "validation": function() { return /* binding */ validation; }
 /* harmony export */ });
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -225,6 +231,10 @@ function duplicateElems(elems) {
   return elems.map(function (node) {
     return node.cloneNode(true);
   });
+}
+function validation(options) {
+  if (Number(options.speed) <= 0) options.speed = 1;
+  return options;
 }
 
 /***/ })
