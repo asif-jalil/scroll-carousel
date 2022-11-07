@@ -71,3 +71,9 @@ export function duplicateElems(elems) {
   return elems.map(node => node.cloneNode(true));
 }
 
+export function validation(options) {
+  if (Number(options.speed) <= 0) options.speed = 1;
+
+  return options;
+}
+

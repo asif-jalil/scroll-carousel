@@ -11,15 +11,9 @@
   display: inline-block;
   position:relative;
   white-space:nowrap;
-  // display: flex;
+  display: inline-flex;
 }
 
 .sc-cell{
   display: inline-block;
-}
-
-.scroll-carousel-slider img{
-  width: auto;
-  margin: 1px;
-  /* height: 48px; */
 }
