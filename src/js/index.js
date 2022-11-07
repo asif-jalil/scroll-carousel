@@ -3,5 +3,5 @@ import { ScrollCarousel } from './core';
 
 window.ScrollCarousel = ScrollCarousel;
 
-module.exports = ScrollCarousel;
+// module.exports = ScrollCarousel;
 

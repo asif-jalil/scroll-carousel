@@ -13,7 +13,7 @@ export function ScrollCarousel(element) {
 
 // default options
 ScrollCarousel.defaults = {
-  speed: 0.055
+  speed: 0.5
 };
 
 // hash of methods triggered on _create()
@@ -74,6 +74,7 @@ proto._makeCell = function (elem) {
 // to transform the slider
 proto._transform = function () {
   if (isScrolledIntoView(this.element)) {
+    // const rect = this.slider.getBoundingClientRect();
     this.slider.style.transform = `translateX(${this._translate}%)`;
     this._translate -= this.options.speed;
     if (this._translate <= -50) {
