@@ -51,28 +51,18 @@ proto.activate = function () {
   this.isActive = true;
   this._translate = 0;
 
-  // move initial cell elements so they can be loaded as cells
+  // move initial slide elements so they can be loaded as slides
   let slideElems = this._filterFindSlideElements(this.element.children);
-  this.cellElems = this._makeCells(slideElems);
-  let duplicateCellElems = duplicateElems(this.cellElems);
-  this.slider.append(...this.cellElems, ...duplicateCellElems);
+  this.slideElems = this._makeSlides(slideElems);
+
+  // to duplicate the slide array
+  let duplicateSlideElems = duplicateElems(this.slideElems);
+  this.slider.append(...this.slideElems, ...duplicateSlideElems);
   this.viewport.append(this.slider);
   this.element.append(this.viewport);
 
   // transform function call on scroll
   window.addEventListener('scroll', () => this._transform());
-};
-
-proto._makeCells = function (elems) {
-  return elems.map(el => this._makeCell(el));
-};
-
-proto._makeCell = function (elem) {
-  let cellElem = document.createElement('div');
-  cellElem.className = 'sc-cell';
-  this.cellElem = cellElem;
-  this.cellElem.append(elem);
-  return this.cellElem;
 };
 
 // to transform the slider
@@ -87,6 +77,20 @@ proto._transform = function () {
   }
 };
 
+// every node will be in sc-slide
+proto._makeSlide = function (elem) {
+  let slideElem = document.createElement('div');
+  slideElem.className = 'sc-slide';
+  this.slideElem = slideElem;
+  this.slideElem.append(elem);
+  return this.slideElem;
+};
+
+// full array of node
+proto._makeSlides = function (elems) {
+  return elems.map(elem => this._makeSlide(elem));
+};
+
 // slider positions the slide
 proto._createSlider = function () {
   // slider element does all the positioning
@@ -95,6 +99,7 @@ proto._createSlider = function () {
   this.slider = slider;
 };
 
+// slider will be in a viewport and it will transform
 proto._createViewport = function () {
   this.viewport = document.createElement('div');
   this.viewport.className = 'scroll-carousel-viewport';
