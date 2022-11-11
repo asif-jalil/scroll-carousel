@@ -75,7 +75,13 @@ export function makeArray(obj) {
   return [obj];
 }
 
-// to duplicate a node
+/**
+ * Duplicate a node
+ *
+ * @param Array
+ * @return cloned array
+ *
+ */
 export function duplicateElems(elems) {
   return elems.map(node => node.cloneNode(true));
 }
