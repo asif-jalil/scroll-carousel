@@ -1,3 +1,11 @@
+/**
+ * check an element or node is into view or not
+ *
+ * @param element
+ * @param node
+ *
+ * @return Number|falsy value
+ */
 export function isScrolledIntoView(el) {
   if (!el) {
     return false;
@@ -67,10 +75,12 @@ export function makeArray(obj) {
   return [obj];
 }
 
+// to duplicate a node
 export function duplicateElems(elems) {
   return elems.map(node => node.cloneNode(true));
 }
 
+// option validation
 export function validation(options) {
   if (Number(options.speed) <= 0) options.speed = 1;
 
