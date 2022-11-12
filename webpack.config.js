@@ -21,7 +21,7 @@ module.exports = {
   mode: isProd ? 'production' : 'development',
   target: ['web', 'es5'],
   entry: {
-    'scroll.carousel': ['./src/js/index.js', './src/scss/main.scss']
+    'scroll.carousel': './src/js/scroll.carousel.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -30,7 +30,8 @@ module.exports = {
     library: {
       name: 'ScrollCarousel',
       type: 'umd',
-      export: 'default'
+      export: 'default',
+      umdNamedDefine: true
     },
     globalObject: 'this'
   },
