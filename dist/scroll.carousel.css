@@ -1,3 +1,11 @@
+/*!
+ * 
+ * scroll-carousel - 1.0.0
+ * Responsive scroll slider
+ *
+ * https://github.com/asif-jalil/scroll-carousel
+ *
+ */
 /*!*********************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/scss/main.scss ***!
   \*********************************************************************************************************************************************************************/
@@ -19,5 +27,3 @@
 .sc-cell {
   display: inline-block;
 }
-
-/*# sourceMappingURL=scroll.carousel.css.map*/

@@ -1,12 +1,20 @@
+/*!
+ * 
+ * scroll-carousel - 1.0.0
+ * Responsive scroll slider
+ *
+ * https://github.com/asif-jalil/scroll-carousel
+ *
+ */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["scroll-carousel"] = factory();
+		exports["ScrollCarousel"] = factory();
 	else
-		root["scroll-carousel"] = factory();
+		root["ScrollCarousel"] = factory();
 })(this, function() {
 return /******/ (function() { // webpackBootstrap
 /******/ 	"use strict";
@@ -446,4 +454,3 @@ __webpack_exports__ = __webpack_exports__["default"];
 /******/ })()
 ;
 });
-//# sourceMappingURL=scroll.carousel.js.map
