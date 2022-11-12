@@ -33,6 +33,11 @@ function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (O
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+
+// globally unique identifiers
+var GUID = 0;
+// internal store of all ScrollCarousel instances
+var instances = {};
 function ScrollCarousel(element) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   this.element = (0,_util__WEBPACK_IMPORTED_MODULE_0__.getQueryElement)(element);
@@ -52,13 +57,19 @@ function ScrollCarousel(element) {
 
 // default options
 ScrollCarousel.defaults = {
-  speed: 7
+  speed: 7,
+  smartSpeed: false
 };
 
 // hash of methods triggered on _create()
 ScrollCarousel.create = {};
 var proto = ScrollCarousel.prototype;
 proto._create = function () {
+  // add id for ScrollCarousel.data
+  var id = this.guid = ++GUID;
+  this.element.scrollCarouselGUID = id; // expando
+  instances[id] = this; // associate via id
+
   // create viewport
   this._createViewport();
 
@@ -82,6 +93,8 @@ proto.activate = function () {
   if (this.isActive) return;
   this.isActive = true;
   this._translate = 0;
+  this.displacement = 0;
+  this.prevScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
 
   // move initial slide elements so they can be loaded as slides
   var slideElems = this._filterFindSlideElements(this.element.children);
@@ -103,10 +116,19 @@ proto.activate = function () {
 proto._transform = function () {
   if ((0,_util__WEBPACK_IMPORTED_MODULE_0__.isScrolledIntoView)(this.element)) {
     var rect = this.slider.getBoundingClientRect();
-    this.slider.style.transform = "translateX(".concat(this._translate, "px)");
-    this._translate -= this.options.speed;
-    if (this._translate <= -rect.width / 2) {
-      this._translate = 0;
+    var documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+    if (!this.options.smartSpeed) {
+      this.slider.style.transform = "translateX(".concat(this._translate, "px)");
+      this._translate -= this.options.speed;
+      if (this._translate <= -rect.width / 2) {
+        this._translate = 0;
+      }
+    } else {
+      if (this.prevScrollTop !== documentScrollTop) {
+        this.displacement -= Math.abs(this.prevScrollTop - documentScrollTop);
+        this.slider.style.transform = "translateX(".concat(this.displacement / 5.5e3 * (this.options.speed * 10) % 50, "%)");
+        this.prevScrollTop = documentScrollTop;
+      }
     }
   }
 };
@@ -144,6 +166,11 @@ proto._createViewport = function () {
 proto._filterFindSlideElements = function (elems) {
   return (0,_util__WEBPACK_IMPORTED_MODULE_0__.filterFindElements)(elems, this.options.slideSelector);
 };
+ScrollCarousel.data = function (elem) {
+  elem = (0,_util__WEBPACK_IMPORTED_MODULE_0__.getQueryElement)(elem);
+  if (elem) return instances[elem.scrollCarouselGUID];
+};
+(0,_util__WEBPACK_IMPORTED_MODULE_0__.htmlInit)(ScrollCarousel, 'carousel');
 
 /***/ }),
 
@@ -155,11 +182,14 @@ proto._filterFindSlideElements = function (elems) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "docReady": function() { return /* binding */ docReady; },
 /* harmony export */   "duplicateElems": function() { return /* binding */ duplicateElems; },
 /* harmony export */   "filterFindElements": function() { return /* binding */ filterFindElements; },
 /* harmony export */   "getQueryElement": function() { return /* binding */ getQueryElement; },
+/* harmony export */   "htmlInit": function() { return /* binding */ htmlInit; },
 /* harmony export */   "isScrolledIntoView": function() { return /* binding */ isScrolledIntoView; },
 /* harmony export */   "makeArray": function() { return /* binding */ makeArray; },
+/* harmony export */   "toDashed": function() { return /* binding */ toDashed; },
 /* harmony export */   "validation": function() { return /* binding */ validation; }
 /* harmony export */ });
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -169,6 +199,14 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+/**
+ * check an element, node, array, object is into view or not
+ *
+ * @param {[HTMLElement, NodeList, Array, Object]} el
+ * - single element, selected node, an array or a object
+ *
+ * @return Boolean
+ */
 function isScrolledIntoView(el) {
   if (!el) {
     return false;
@@ -235,11 +273,74 @@ function makeArray(obj) {
   // array of single index
   return [obj];
 }
+
+// ----- docReady ----- //
+
+function docReady(onDocReady) {
+  var readyState = document.readyState;
+  if (readyState == 'complete' || readyState == 'interactive') {
+    // do async to allow for other scripts to run. metafizzy/flickity#441
+    setTimeout(onDocReady);
+  } else {
+    document.addEventListener('DOMContentLoaded', onDocReady);
+  }
+}
+
+// ----- htmlInit ----- //
+
+// http://bit.ly/3oYLusc
+function toDashed(str) {
+  return str.replace(/(.)([A-Z])/g, function (match, $1, $2) {
+    return $1 + '-' + $2;
+  }).toLowerCase();
+}
+var console = __webpack_require__.g.console;
+
+// allow user to initialize classes via [data-namespace] or .js-namespace class
+// htmlInit( Widget, 'widgetName' )
+// options are parsed from data-namespace-options
+function htmlInit(WidgetClass, namespace) {
+  docReady(function () {
+    var dashedNamespace = toDashed(namespace);
+    var dataAttr = 'data-' + dashedNamespace;
+    var dataAttrElems = document.querySelectorAll("[".concat(dataAttr, "]"));
+    var jQuery = __webpack_require__.g.jQuery;
+    _toConsumableArray(dataAttrElems).forEach(function (elem) {
+      var attr = elem.getAttribute(dataAttr);
+      var options;
+      try {
+        options = attr && JSON.parse(attr);
+      } catch (error) {
+        // log error, do not initialize
+        if (console) {
+          console.error("Error parsing ".concat(dataAttr, " on ").concat(elem.className, ": ").concat(error));
+        }
+        return;
+      }
+      // initialize
+      var instance = new WidgetClass(elem, options);
+      // make available via $().data('namespace')
+      if (jQuery) {
+        jQuery.data(elem, namespace, instance);
+      }
+    });
+  });
+}
+
+/**
+ * Duplicate a node
+ *
+ * @param Array
+ * @return Array
+ *
+ */
 function duplicateElems(elems) {
   return elems.map(function (node) {
     return node.cloneNode(true);
   });
 }
+
+// option validation
 function validation(options) {
   if (Number(options.speed) <= 0) options.speed = 1;
   return options;
@@ -284,6 +385,18 @@ function validation(options) {
 /******/ 				}
 /******/ 			}
 /******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	!function() {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
 /******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
