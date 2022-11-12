@@ -10,7 +10,7 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define([], factory);
+		define("ScrollCarousel", [], factory);
 	else if(typeof exports === 'object')
 		exports["ScrollCarousel"] = factory();
 	else
@@ -19,168 +19,6 @@
 return /******/ (function() { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
-
-/***/ "./src/js/core.js":
-/*!************************!*\
-  !*** ./src/js/core.js ***!
-  \************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ScrollCarousel": function() { return /* binding */ ScrollCarousel; }
-/* harmony export */ });
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ "./src/js/util.js");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-// globally unique identifiers
-var GUID = 0;
-// internal store of all ScrollCarousel instances
-var instances = {};
-function ScrollCarousel(element) {
-  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  this.element = (0,_util__WEBPACK_IMPORTED_MODULE_0__.getQueryElement)(element);
-
-  // options
-  this.options = _objectSpread({}, this.constructor.defaults);
-
-  // validated options
-  var validatedOptions = (0,_util__WEBPACK_IMPORTED_MODULE_0__.validation)(options);
-
-  // merge options with prototype
-  this.option(validatedOptions);
-
-  // kick things off
-  this._create();
-}
-
-// default options
-ScrollCarousel.defaults = {
-  speed: 7,
-  smartSpeed: false
-};
-
-// hash of methods triggered on _create()
-ScrollCarousel.create = {};
-var proto = ScrollCarousel.prototype;
-proto._create = function () {
-  // add id for ScrollCarousel.data
-  var id = this.guid = ++GUID;
-  this.element.scrollCarouselGUID = id; // expando
-  instances[id] = this; // associate via id
-
-  // create viewport
-  this._createViewport();
-
-  // create slider
-  this._createSlider();
-
-  // add listeners from on option
-  this.activate();
-};
-
-/**
- * set options
- * @param {Object} opts - options to extend
- */
-proto.option = function (opts) {
-  Object.assign(this.options, opts);
-};
-proto.activate = function () {
-  var _this$slider,
-    _this = this;
-  if (this.isActive) return;
-  this.isActive = true;
-  this._translate = 0;
-  this.displacement = 0;
-  this.prevScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-
-  // move initial slide elements so they can be loaded as slides
-  var slideElems = this._filterFindSlideElements(this.element.children);
-  this.slideElems = this._makeSlides(slideElems);
-
-  // to duplicate the slide array
-  var duplicateSlideElems = (0,_util__WEBPACK_IMPORTED_MODULE_0__.duplicateElems)(this.slideElems);
-  (_this$slider = this.slider).append.apply(_this$slider, _toConsumableArray(this.slideElems).concat(_toConsumableArray(duplicateSlideElems)));
-  this.viewport.append(this.slider);
-  this.element.append(this.viewport);
-
-  // transform function call on scroll
-  window.addEventListener('scroll', function () {
-    return _this._transform();
-  });
-};
-
-// to transform the slider
-proto._transform = function () {
-  if ((0,_util__WEBPACK_IMPORTED_MODULE_0__.isScrolledIntoView)(this.element)) {
-    var rect = this.slider.getBoundingClientRect();
-    var documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-    if (!this.options.smartSpeed) {
-      this.slider.style.transform = "translateX(".concat(this._translate, "px)");
-      this._translate -= this.options.speed;
-      if (this._translate <= -rect.width / 2) {
-        this._translate = 0;
-      }
-    } else {
-      if (this.prevScrollTop !== documentScrollTop) {
-        this.displacement -= Math.abs(this.prevScrollTop - documentScrollTop);
-        this.slider.style.transform = "translateX(".concat(this.displacement / 5.5e3 * (this.options.speed * 10) % 50, "%)");
-        this.prevScrollTop = documentScrollTop;
-      }
-    }
-  }
-};
-
-// every node will be in sc-slide
-proto._makeSlide = function (elem) {
-  var slideElem = document.createElement('div');
-  slideElem.className = 'sc-slide';
-  this.slideElem = slideElem;
-  this.slideElem.append(elem);
-  return this.slideElem;
-};
-
-// full array of node
-proto._makeSlides = function (elems) {
-  var _this2 = this;
-  return elems.map(function (elem) {
-    return _this2._makeSlide(elem);
-  });
-};
-
-// slider positions the slide
-proto._createSlider = function () {
-  // slider element does all the positioning
-  var slider = document.createElement('div');
-  slider.className = 'scroll-carousel-slider';
-  this.slider = slider;
-};
-
-// slider will be in a viewport and it will transform
-proto._createViewport = function () {
-  this.viewport = document.createElement('div');
-  this.viewport.className = 'scroll-carousel-viewport';
-};
-proto._filterFindSlideElements = function (elems) {
-  return (0,_util__WEBPACK_IMPORTED_MODULE_0__.filterFindElements)(elems, this.options.slideSelector);
-};
-ScrollCarousel.data = function (elem) {
-  elem = (0,_util__WEBPACK_IMPORTED_MODULE_0__.getQueryElement)(elem);
-  if (elem) return instances[elem.scrollCarouselGUID];
-};
-(0,_util__WEBPACK_IMPORTED_MODULE_0__.htmlInit)(ScrollCarousel, 'carousel');
-
-/***/ }),
 
 /***/ "./src/js/util.js":
 /*!************************!*\
@@ -354,6 +192,18 @@ function validation(options) {
   return options;
 }
 
+/***/ }),
+
+/***/ "./src/scss/main.scss":
+/*!****************************!*\
+  !*** ./src/scss/main.scss ***!
+  \****************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
 /***/ })
 
 /******/ 	});
@@ -425,29 +275,164 @@ function validation(options) {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 !function() {
-var __webpack_exports__ = {};
-/*!*************************!*\
-  !*** ./src/js/index.js ***!
-  \*************************/
+/*!***********************************!*\
+  !*** ./src/js/scroll.carousel.js ***!
+  \***********************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./core */ "./src/js/core.js");
+/* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/main.scss */ "./src/scss/main.scss");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util */ "./src/js/util.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-// const ScrollCarousel = require('./core');
 
-window.ScrollCarousel = _core__WEBPACK_IMPORTED_MODULE_0__.ScrollCarousel;
 
-// module.exports = ScrollCarousel;
-}();
-// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
-!function() {
-/*!****************************!*\
-  !*** ./src/scss/main.scss ***!
-  \****************************/
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
+// globally unique identifiers
+var GUID = 0;
+// internal store of all ScrollCarousel instances
+var instances = {};
+function ScrollCarousel(element) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  this.element = (0,_util__WEBPACK_IMPORTED_MODULE_1__.getQueryElement)(element);
 
+  // options
+  this.options = _objectSpread({}, this.constructor.defaults);
+
+  // validated options
+  var validatedOptions = (0,_util__WEBPACK_IMPORTED_MODULE_1__.validation)(options);
+
+  // merge options with prototype
+  this.option(validatedOptions);
+
+  // kick things off
+  this._create();
+}
+
+// default options
+ScrollCarousel.defaults = {
+  speed: 7,
+  smartSpeed: false
+};
+
+// hash of methods triggered on _create()
+ScrollCarousel.create = {};
+var proto = ScrollCarousel.prototype;
+proto._create = function () {
+  // add id for ScrollCarousel.data
+  var id = this.guid = ++GUID;
+  this.element.scrollCarouselGUID = id; // expando
+  instances[id] = this; // associate via id
+
+  // create viewport
+  this._createViewport();
+
+  // create slider
+  this._createSlider();
+
+  // add listeners from on option
+  this.activate();
+};
+
+/**
+ * set options
+ * @param {Object} opts - options to extend
+ */
+proto.option = function (opts) {
+  Object.assign(this.options, opts);
+};
+proto.activate = function () {
+  var _this$slider,
+    _this = this;
+  if (this.isActive) return;
+  this.isActive = true;
+  this._translate = 0;
+  this.displacement = 0;
+  this.prevScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+
+  // move initial slide elements so they can be loaded as slides
+  var slideElems = this._filterFindSlideElements(this.element.children);
+  this.slideElems = this._makeSlides(slideElems);
+
+  // to duplicate the slide array
+  var duplicateSlideElems = (0,_util__WEBPACK_IMPORTED_MODULE_1__.duplicateElems)(this.slideElems);
+  (_this$slider = this.slider).append.apply(_this$slider, _toConsumableArray(this.slideElems).concat(_toConsumableArray(duplicateSlideElems)));
+  this.viewport.append(this.slider);
+  this.element.append(this.viewport);
+
+  // transform function call on scroll
+  window.addEventListener('scroll', function () {
+    return _this._transform();
+  });
+};
+
+// to transform the slider
+proto._transform = function () {
+  if ((0,_util__WEBPACK_IMPORTED_MODULE_1__.isScrolledIntoView)(this.element)) {
+    var rect = this.slider.getBoundingClientRect();
+    var documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+    if (!this.options.smartSpeed) {
+      this.slider.style.transform = "translateX(".concat(this._translate, "px)");
+      this._translate -= this.options.speed;
+      if (this._translate <= -rect.width / 2) {
+        this._translate = 0;
+      }
+    } else {
+      if (this.prevScrollTop !== documentScrollTop) {
+        this.displacement -= Math.abs(this.prevScrollTop - documentScrollTop);
+        this.slider.style.transform = "translateX(".concat(this.displacement / 5.5e3 * (this.options.speed * 10) % 50, "%)");
+        this.prevScrollTop = documentScrollTop;
+      }
+    }
+  }
+};
+
+// every node will be in sc-slide
+proto._makeSlide = function (elem) {
+  var slideElem = document.createElement('div');
+  slideElem.className = 'sc-slide';
+  this.slideElem = slideElem;
+  this.slideElem.append(elem);
+  return this.slideElem;
+};
+
+// full array of node
+proto._makeSlides = function (elems) {
+  var _this2 = this;
+  return elems.map(function (elem) {
+    return _this2._makeSlide(elem);
+  });
+};
+
+// slider positions the slide
+proto._createSlider = function () {
+  // slider element does all the positioning
+  var slider = document.createElement('div');
+  slider.className = 'scroll-carousel-slider';
+  this.slider = slider;
+};
+
+// slider will be in a viewport and it will transform
+proto._createViewport = function () {
+  this.viewport = document.createElement('div');
+  this.viewport.className = 'scroll-carousel-viewport';
+};
+proto._filterFindSlideElements = function (elems) {
+  return (0,_util__WEBPACK_IMPORTED_MODULE_1__.filterFindElements)(elems, this.options.slideSelector);
+};
+ScrollCarousel.data = function (elem) {
+  elem = (0,_util__WEBPACK_IMPORTED_MODULE_1__.getQueryElement)(elem);
+  if (elem) return instances[elem.scrollCarouselGUID];
+};
+(0,_util__WEBPACK_IMPORTED_MODULE_1__.htmlInit)(ScrollCarousel, 'carousel');
+/* harmony default export */ __webpack_exports__["default"] = (ScrollCarousel);
 }();
 __webpack_exports__ = __webpack_exports__["default"];
 /******/ 	return __webpack_exports__;
