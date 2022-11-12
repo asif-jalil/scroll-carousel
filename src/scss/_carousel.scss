@@ -15,4 +15,8 @@
 
 .sc-slide{
   display: inline-block;
+
+  img, video {
+    max-width: fit-content;
+  }
 }
