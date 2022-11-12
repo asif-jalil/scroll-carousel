@@ -1,3 +1,4 @@
+import '../scss/main.scss';
 import {
   duplicateElems,
   filterFindElements,
@@ -12,7 +13,7 @@ let GUID = 0;
 // internal store of all ScrollCarousel instances
 let instances = {};
 
-export function ScrollCarousel(element, options = {}) {
+function ScrollCarousel(element, options = {}) {
   this.element = getQueryElement(element);
 
   // options
@@ -146,4 +147,6 @@ ScrollCarousel.data = function (elem) {
 };
 
 htmlInit(ScrollCarousel, 'carousel');
+
+export default ScrollCarousel;
 
