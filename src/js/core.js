@@ -1,4 +1,16 @@
-import { duplicateElems, filterFindElements, getQueryElement, isScrolledIntoView, validation } from './util';
+import {
+  duplicateElems,
+  filterFindElements,
+  getQueryElement,
+  htmlInit,
+  isScrolledIntoView,
+  validation
+} from './util';
+
+// globally unique identifiers
+let GUID = 0;
+// internal store of all ScrollCarousel instances
+let instances = {};
 
 export function ScrollCarousel(element, options = {}) {
   this.element = getQueryElement(element);
@@ -18,7 +30,8 @@ export function ScrollCarousel(element, options = {}) {
 
 // default options
 ScrollCarousel.defaults = {
-  speed: 7
+  speed: 7,
+  smartSpeed: false
 };
 
 // hash of methods triggered on _create()
@@ -27,6 +40,11 @@ ScrollCarousel.create = {};
 let proto = ScrollCarousel.prototype;
 
 proto._create = function () {
+  // add id for ScrollCarousel.data
+  let id = (this.guid = ++GUID);
+  this.element.scrollCarouselGUID = id; // expando
+  instances[id] = this; // associate via id
+
   // create viewport
   this._createViewport();
 
@@ -50,6 +68,8 @@ proto.activate = function () {
 
   this.isActive = true;
   this._translate = 0;
+  this.displacement = 0;
+  this.prevScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
 
   // move initial slide elements so they can be loaded as slides
   let slideElems = this._filterFindSlideElements(this.element.children);
@@ -69,10 +89,21 @@ proto.activate = function () {
 proto._transform = function () {
   if (isScrolledIntoView(this.element)) {
     const rect = this.slider.getBoundingClientRect();
-    this.slider.style.transform = `translateX(${this._translate}px)`;
-    this._translate -= this.options.speed;
-    if (this._translate <= -rect.width / 2) {
-      this._translate = 0;
+    const documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+    if (!this.options.smartSpeed) {
+      this.slider.style.transform = `translateX(${this._translate}px)`;
+      this._translate -= this.options.speed;
+      if (this._translate <= -rect.width / 2) {
+        this._translate = 0;
+      }
+    } else {
+      if (this.prevScrollTop !== documentScrollTop) {
+        this.displacement -= Math.abs(this.prevScrollTop - documentScrollTop);
+        this.slider.style.transform = `translateX(${
+          ((this.displacement / 5.5e3) * (this.options.speed * 10)) % 50
+        }%)`;
+        this.prevScrollTop = documentScrollTop;
+      }
     }
   }
 };
@@ -108,4 +139,11 @@ proto._createViewport = function () {
 proto._filterFindSlideElements = function (elems) {
   return filterFindElements(elems, this.options.slideSelector);
 };
+
+ScrollCarousel.data = function (elem) {
+  elem = getQueryElement(elem);
+  if (elem) return instances[elem.scrollCarouselGUID];
+};
+
+htmlInit(ScrollCarousel, 'carousel');
 
