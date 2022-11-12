@@ -1,10 +1,10 @@
 /**
- * check an element or node is into view or not
+ * check an element, node, array, object is into view or not
  *
- * @param element
- * @param node
+ * @param {[HTMLElement, NodeList, Array, Object]} el
+ * - single element, selected node, an array or a object
  *
- * @return Number|falsy value
+ * @return Boolean
  */
 export function isScrolledIntoView(el) {
   if (!el) {
@@ -75,11 +75,68 @@ export function makeArray(obj) {
   return [obj];
 }
 
+// ----- docReady ----- //
+
+export function docReady(onDocReady) {
+  let readyState = document.readyState;
+  if (readyState == 'complete' || readyState == 'interactive') {
+    // do async to allow for other scripts to run. metafizzy/flickity#441
+    setTimeout(onDocReady);
+  } else {
+    document.addEventListener('DOMContentLoaded', onDocReady);
+  }
+}
+
+// ----- htmlInit ----- //
+
+// http://bit.ly/3oYLusc
+export function toDashed(str) {
+  return str
+    .replace(/(.)([A-Z])/g, function (match, $1, $2) {
+      return $1 + '-' + $2;
+    })
+    .toLowerCase();
+}
+
+let console = global.console;
+
+// allow user to initialize classes via [data-namespace] or .js-namespace class
+// htmlInit( Widget, 'widgetName' )
+// options are parsed from data-namespace-options
+export function htmlInit(WidgetClass, namespace) {
+  docReady(function () {
+    let dashedNamespace = toDashed(namespace);
+    let dataAttr = 'data-' + dashedNamespace;
+    let dataAttrElems = document.querySelectorAll(`[${dataAttr}]`);
+    let jQuery = global.jQuery;
+
+    [...dataAttrElems].forEach(elem => {
+      let attr = elem.getAttribute(dataAttr);
+      let options;
+      try {
+        options = attr && JSON.parse(attr);
+      } catch (error) {
+        // log error, do not initialize
+        if (console) {
+          console.error(`Error parsing ${dataAttr} on ${elem.className}: ${error}`);
+        }
+        return;
+      }
+      // initialize
+      let instance = new WidgetClass(elem, options);
+      // make available via $().data('namespace')
+      if (jQuery) {
+        jQuery.data(elem, namespace, instance);
+      }
+    });
+  });
+}
+
 /**
  * Duplicate a node
  *
  * @param Array
- * @return cloned array
+ * @return Array
  *
  */
 export function duplicateElems(elems) {
