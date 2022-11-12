@@ -2,7 +2,8 @@
   "name": "scroll-carousel",
   "version": "1.0.0",
   "description": "Scroll carousel, a unique content slider that specially works on window scroll.",
-  "main": "dist/scroll-carousel.js",
+  "main": "dist/scroll.carousel.js",
+  "types": "src/js/core.d.ts",
   "style": "dist/scroll-carousel.css",
   "scripts": {
     "start": "npm run watch & npm run start:dev",
@@ -46,3 +47,4 @@
     "node-sass": "^7.0.3"
   }
 }
+
