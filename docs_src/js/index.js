@@ -1,5 +1,5 @@
 import highlightjsInit from './highlight';
-import optionsInit from './options';
+// import optionsInit from './options';
 import clipboardInit from './clipboard';
 
 // Get Document ready
