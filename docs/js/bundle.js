@@ -30,36 +30,6 @@ var clipboardInit = function clipboardInit() {
 
 /***/ }),
 
-/***/ "./docs_src/js/data.js":
-/*!*****************************!*\
-  !*** ./docs_src/js/data.js ***!
-  \*****************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "options": function() { return /* binding */ options; }
-/* harmony export */ });
-var options = [{
-  name: 'items',
-  "default": 3,
-  type: 'number',
-  description: "Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu."
-}, {
-  name: 'loop',
-  "default": true,
-  type: 'boolean',
-  description: "Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu."
-}, {
-  name: 'autoplay',
-  "default": false,
-  type: 'boolean',
-  description: "Fugiat ipsum ipsum deserunt culpa aute sint do nostrud anim incididunt cillum culpa consequat. Excepteur qui ipsum aliquip consequat sint. Sit id mollit nulla mollit nostrud in ea officia proident. Irure nostrud pariatur mollit ad adipisicing reprehenderit deserunt qui eu."
-}];
-
-/***/ }),
-
 /***/ "./docs_src/js/highlight.js":
 /*!**********************************!*\
   !*** ./docs_src/js/highlight.js ***!
@@ -76,27 +46,6 @@ var highlightjsInit = function highlightjsInit() {
   });
 };
 /* harmony default export */ __webpack_exports__["default"] = (highlightjsInit);
-
-/***/ }),
-
-/***/ "./docs_src/js/options.js":
-/*!********************************!*\
-  !*** ./docs_src/js/options.js ***!
-  \********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _data__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./data */ "./docs_src/js/data.js");
-
-var optionsInit = function optionsInit() {
-  var optionsWrapper = document.querySelector('.options__wrapper');
-  _data__WEBPACK_IMPORTED_MODULE_0__.options.forEach(function (option, index) {
-    var html = "\n      <div class=\"py-5 sm:grid sm:grid-cols-4 sm:gap-4 ".concat(index !== _data__WEBPACK_IMPORTED_MODULE_0__.options.length - 1 && 'border-b', "\">\n        <dt class=\"text-xl text-gray-900\">").concat(option.name, "</dt>\n        <dd class=\"mt-5 text-sm text-gray-900 sm:col-span-3 sm:mt-0\">\n          <span class=\"block mb-2\">\n            Type:\n            <code\n              class=\"ml-2 whitespace-nowrap rounded bg-slate-100 py-0.5 px-2 text-xs font-mono text-red-500\"\n            >\n              ").concat(option.type, "\n            </code>\n          </span>\n          <span class=\"block\">\n            Default:\n            <code\n              class=\"ml-2 whitespace-nowrap rounded bg-slate-100 py-0.5 px-2 text-xs font-mono text-slate-700\"\n            >\n              ").concat(option["default"], "\n            </code>\n          </span>\n          <p class=\"mt-5\">\n            ").concat(option.description, "\n          </p>\n        </dd>\n      </div>");
-    optionsWrapper.insertAdjacentHTML('beforeend', html);
-  });
-};
-/* harmony default export */ __webpack_exports__["default"] = (optionsInit);
 
 /***/ }),
 
@@ -60128,10 +60077,9 @@ var __webpack_exports__ = {};
   \******************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _highlight__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./highlight */ "./docs_src/js/highlight.js");
-/* harmony import */ var _options__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./options */ "./docs_src/js/options.js");
-/* harmony import */ var _clipboard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./clipboard */ "./docs_src/js/clipboard.js");
+/* harmony import */ var _clipboard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./clipboard */ "./docs_src/js/clipboard.js");
 
-
+// import optionsInit from './options';
 
 
 // Get Document ready
@@ -60142,9 +60090,9 @@ var docReady = function docReady(fn) {
     setTimeout(fn, 1);
   }
 };
-(0,_options__WEBPACK_IMPORTED_MODULE_1__["default"])();
+optionsInit();
 docReady(_highlight__WEBPACK_IMPORTED_MODULE_0__["default"]);
-docReady(_clipboard__WEBPACK_IMPORTED_MODULE_2__["default"]);
+docReady(_clipboard__WEBPACK_IMPORTED_MODULE_1__["default"]);
 }();
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 !function() {

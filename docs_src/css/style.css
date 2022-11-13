@@ -17,7 +17,7 @@
 
 @layer components {
   .btn__default {
-    @apply rounded-lg text-slate-900 font-semibold transition flex items-center gap-2 text-[0.8125rem] leading-6 py-1 px-1.5 hover: bg-slate-900/[0.03] -my-1 -mx-1.5;
+    @apply rounded-lg text-slate-900 font-semibold transition flex items-center gap-2 text-[0.8125rem] leading-6 py-1 px-1.5 hover:bg-slate-900/[0.03] -my-1 -mx-1.5;
   }
 }
 
@@ -49,7 +49,7 @@
 
 /* Tooltip arrow */
 .tooltip::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 50%;
   bottom: 105%;
