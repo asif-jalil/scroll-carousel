@@ -1,10 +1,10 @@
 # Scroll Carousel
 
-A unique content slider that specially works on window scroll. It is free to use.
+Simple content slider, works on scroll. Absolutely free for use. Thriving for precision & community growth.
 
 [Examples](https://github.com/asif-jalil/scroll-carousel/tree/main/example)
 
-**Note:** A scroll carousel specially developed for static content that only operates in browsers.
+**Note:** This carousel only operates in browser.
 
 ## Contents
 
@@ -17,9 +17,8 @@ A unique content slider that specially works on window scroll. It is free to use
 
 - **Mobile friendly:** It is meant to be utilized in mobile web apps and mobile websites.
 - **Loop:** Scroll carousel is looped by default.
-- **Autoplay:** It supports autoplay. But we recommend to use use scroll play.
-- **Library Agnostic:** Scroll carousel is significantly smaller and faster because it doesn't need any JavaScript libraries like jQuery.
-- **Responsive:** It is responsive by default. You don't need to take hassle for this.
+- **Library Agnostic:** It is significantly smaller and faster because it doesn't need any JavaScript libraries like jQuery.
+- **Responsive:** It is responsive by default.
 
 ## Install
 
@@ -36,20 +35,19 @@ A unique content slider that specially works on window scroll. It is free to use
 
 ### CDN
 
-To get started using **Scroll Carousel** right away, there are a few CDN available to serve the file as fast as possible to your users:
+To get started with **Scroll Carousel** right away, there are a few CDN available to serve the file faster:
 
-- https://cdnjs.com/
 - https://www.jsdelivr.com/
 
 ##### Example usign jsDelivr
 
-Just add a link to the css file in your `<head>`:
+Add a link to the css file in your `<head>`:
 
 ```
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/asif-jalil/scroll-carousel/dist/scroll.carousel.min.css">
 ```
 
-Then, before your closing `<body>` tag add:
+Then, before your closing `<body>` tag, add:
 
 ```
 <script src="https://cdn.jsdelivr.net/gh/asif-jalil/scroll-carousel/dist/scroll.carousel.min.js"></script>
@@ -61,37 +59,48 @@ npm - `npm install scroll-carousel`
 
 ## Usage
 
-Scroll Carousel works with a container element and a set of child item elements. Wrap your item elements (`div`, `a`, `span`, `li` etc) with a container element (`div`, `ul` etc).
+Scroll Carousel basically works with a container element and a set of child item elements. Wrap your item elements (`div`, `a`, `span`, `li` etc) with a container element (`div`, `ul` etc).
 
 ```
-<div class="carousel">
-  <div class="carousel-cell">...</div>
-  <div class="carousel-cell">...</div>
-  <div class="carousel-cell">...</div>
+<div class="my-carousel">
+  <div class="my-slide">...</div>
+  <div class="my-slide">...</div>
+  <div class="my-slide">...</div>
   ...
 </div>
 ```
 
-**NOTE:** `carousel` class is not mandatory. You can use any class according to your choice and need.
+**NOTE:** `my-carousel` class name is not mandatory. You can use any class or id name according to your choice and need.
 
-Initialize the the Scroll Carousel with `new` keyword.
+Initialize the Scroll Carousel with `new` keyword.
 
 ```
-new ScrollCarousel(".carousel", {
+new ScrollCarousel(".my-carousel", {
+  ...options
+})
+```
+
+or,
+
+```
+const myCarousel = document.querySelector(".my-carousel");
+
+new ScrollCarousel(myCarousel, {
   ...options
 })
 ```
 
 ### Options
 
-| Option | Type   | Default | Description                                                                                                                |
-| ------ | ------ | ------- | -------------------------------------------------------------------------------------------------------------------------- |
-| speed  | number | 7       | Movement speed when scroll. Value must be greater than 1. The value is actually how many `px` you want to move per scroll. |
+| Option     | Type    | Default | Description                                                                                     |
+| ---------- | ------- | ------- | ----------------------------------------------------------------------------------------------- |
+| speed      | number  | 7       | The value given is actually how fast you want to move on scroll. It needs to be greater than 0. |
+| smartSpeed | boolean | false   | To calculate the speed more smartly on displacement and time difference.                        |
 
 ##### Example with speed
 
 ```
-new ScrollCarousel(".carousel", {
+new ScrollCarousel(".my-carousel", {
   speed: 15
 })
 ```
