@@ -49,6 +49,29 @@ var highlightjsInit = function highlightjsInit() {
 
 /***/ }),
 
+/***/ "./docs_src/js/tooltip.js":
+/*!********************************!*\
+  !*** ./docs_src/js/tooltip.js ***!
+  \********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var tooltipInit = function tooltipInit() {
+  var tooltips = document.querySelectorAll('.tooltip');
+  tooltips.forEach(function (tooltip) {
+    tooltip.addEventListener('click', function () {
+      tooltip.setAttribute('data-tooltip', 'Copied');
+    });
+    tooltip.addEventListener('mouseleave', function () {
+      tooltip.setAttribute('data-tooltip', 'Copy');
+    });
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (tooltipInit);
+
+/***/ }),
+
 /***/ "./node_modules/clipboard/dist/clipboard.js":
 /*!**************************************************!*\
   !*** ./node_modules/clipboard/dist/clipboard.js ***!
@@ -60078,6 +60101,8 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _highlight__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./highlight */ "./docs_src/js/highlight.js");
 /* harmony import */ var _clipboard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./clipboard */ "./docs_src/js/clipboard.js");
+/* harmony import */ var _tooltip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tooltip */ "./docs_src/js/tooltip.js");
+
 
 
 
@@ -60089,8 +60114,8 @@ var docReady = function docReady(fn) {
     setTimeout(fn, 1);
   }
 };
-optionsInit();
 docReady(_highlight__WEBPACK_IMPORTED_MODULE_0__["default"]);
+docReady(_tooltip__WEBPACK_IMPORTED_MODULE_2__["default"]);
 docReady(_clipboard__WEBPACK_IMPORTED_MODULE_1__["default"]);
 }();
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.

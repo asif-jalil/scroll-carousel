@@ -1,5 +1,6 @@
 import highlightjsInit from './highlight';
 import clipboardInit from './clipboard';
+import tooltipInit from './tooltip';
 
 // Get Document ready
 const docReady = fn => {
@@ -10,6 +11,6 @@ const docReady = fn => {
   }
 };
 
-optionsInit();
 docReady(highlightjsInit);
+docReady(tooltipInit);
 docReady(clipboardInit);

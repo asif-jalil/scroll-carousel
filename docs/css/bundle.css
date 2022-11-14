@@ -625,6 +625,9 @@ pre {
 .rounded{
   border-radius: 0.25rem;
 }
+.border{
+  border-width: 1px;
+}
 .border-l{
   border-left-width: 1px;
 }
@@ -821,21 +824,21 @@ pre {
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
-.tooltip {
+/* .tooltip {
   position: relative;
   display: inline-block;
-}
+} */
 
 /* Tooltip text */
 .tooltip::after {
   visibility: hidden;
-  font-size: 14px;
+  font-size: 12px;
   white-space: nowrap;
   background-color: #fff;
   color: #000;
   border: 1px solid #eeeeee;
   text-align: center;
-  padding: 5px;
+  padding: 5px 10px;
   border-radius: 6px;
 
   /* Position the tooltip text */
@@ -849,7 +852,7 @@ pre {
 
 /* Tooltip arrow */
 .tooltip::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 50%;
   bottom: 105%;
@@ -926,5 +929,6 @@ pre {
     line-height: 1;
   }
 }
+
 
 /*# sourceMappingURL=bundle.css.map*/
