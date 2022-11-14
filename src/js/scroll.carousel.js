@@ -13,6 +13,12 @@ let GUID = 0;
 // internal store of all ScrollCarousel instances
 let instances = {};
 
+/**
+ * Representing the Scroll Carousel
+ * @constructor
+ * @param {Node | Element | string} element - Target element where
+ * @param {object} options - Configuration options of the carousel
+ */
 function ScrollCarousel(element, options = {}) {
   this.element = getQueryElement(element);
 

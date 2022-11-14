@@ -299,6 +299,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var GUID = 0;
 // internal store of all ScrollCarousel instances
 var instances = {};
+
+/**
+ * Representing the Scroll Carousel
+ * @constructor
+ * @param {Node | Element | string} element - Target element where
+ * @param {object} options - Configuration options of the carousel
+ */
 function ScrollCarousel(element) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   this.element = (0,_util__WEBPACK_IMPORTED_MODULE_1__.getQueryElement)(element);
