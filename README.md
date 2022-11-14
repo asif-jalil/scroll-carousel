@@ -72,6 +72,8 @@ Scroll Carousel basically works with a container element and a set of child item
 
 **NOTE:** `my-carousel` class name is not mandatory. You can use any class or id name according to your choice and need.
 
+#### Initialize with vanilla Javascript
+
 Initialize the Scroll Carousel with `new` keyword.
 
 ```
@@ -90,6 +92,19 @@ new ScrollCarousel(myCarousel, {
 })
 ```
 
+#### Initialize with HTML
+
+You can initialize **Scroll Carousel** in HTML, without writing any JavaScript. Add `data-carousel` attribute to the carousel element. Options can be set in its value.
+
+```
+<div class="my-carousel" data-carousel>
+  <div class="my-slide">...</div>
+  <div class="my-slide">...</div>
+  <div class="my-slide">...</div>
+  ...
+</div>
+```
+
 ### Options
 
 | Option     | Type    | Default | Description                                                                                     |
@@ -97,13 +112,26 @@ new ScrollCarousel(myCarousel, {
 | speed      | number  | 7       | The value given is actually how fast you want to move on scroll. It needs to be greater than 0. |
 | smartSpeed | boolean | false   | To calculate the speed more smartly on displacement and time difference.                        |
 
-##### Example with speed
+##### Example for speed
 
 ```
 new ScrollCarousel(".my-carousel", {
   speed: 15
 })
 ```
+
+or,
+
+```
+<div class="my-carousel" data-carousel='{"speed": 15}'>
+  <div class="my-slide">...</div>
+  <div class="my-slide">...</div>
+  <div class="my-slide">...</div>
+  ...
+</div>
+```
+
+> :warning: Options set in HTML must be valid JSON. Keys need to be quoted, for example "speed":. Note that the attribute value uses single quotes ', but the JSON entities use double-quotes ".
 
 ## Browser support
 
