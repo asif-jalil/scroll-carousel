@@ -440,9 +440,13 @@ proto._createViewport = function () {
   this.viewport = document.createElement('div');
   this.viewport.className = 'scroll-carousel-viewport';
 };
+
+// filtering elements if the element child structure is too much complex (specially for slideSelector option)
 proto._filterFindSlideElements = function (elems) {
   return (0,_util__WEBPACK_IMPORTED_MODULE_1__.filterFindElements)(elems, this.options.slideSelector);
 };
+
+// data attribute hacks
 ScrollCarousel.data = function (elem) {
   elem = (0,_util__WEBPACK_IMPORTED_MODULE_1__.getQueryElement)(elem);
   if (elem) return instances[elem.scrollCarouselGUID];
