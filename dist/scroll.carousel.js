@@ -35,8 +35,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "htmlInit": function() { return /* binding */ htmlInit; },
 /* harmony export */   "isScrolledIntoView": function() { return /* binding */ isScrolledIntoView; },
 /* harmony export */   "makeArray": function() { return /* binding */ makeArray; },
-/* harmony export */   "toDashed": function() { return /* binding */ toDashed; },
-/* harmony export */   "validation": function() { return /* binding */ validation; }
+/* harmony export */   "sanitizer": function() { return /* binding */ sanitizer; },
+/* harmony export */   "toDashed": function() { return /* binding */ toDashed; }
 /* harmony export */ });
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -187,7 +187,7 @@ function duplicateElems(elems) {
 }
 
 // option validation
-function validation(options) {
+function sanitizer(options) {
   if (Number(options.speed) <= 0) options.speed = 1;
   return options;
 }
@@ -304,7 +304,7 @@ var instances = {};
  * Representing the Scroll Carousel
  * @constructor
  * @param {Node | Element | string} element - Target element where
- * @param {object} options - Configuration options of the carousel
+ * @param {ScrollCarousel.defaults} options - Configuration options of the carousel
  */
 function ScrollCarousel(element) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -314,10 +314,10 @@ function ScrollCarousel(element) {
   this.options = _objectSpread({}, this.constructor.defaults);
 
   // validated options
-  var validatedOptions = (0,_util__WEBPACK_IMPORTED_MODULE_1__.validation)(options);
+  var sanitizedOptions = (0,_util__WEBPACK_IMPORTED_MODULE_1__.sanitizer)(options);
 
   // merge options with prototype
-  this.option(validatedOptions);
+  this.option(sanitizedOptions);
 
   // kick things off
   this._create();
@@ -325,7 +325,9 @@ function ScrollCarousel(element) {
 
 // default options
 ScrollCarousel.defaults = {
+  // movement speed of the carousel
   speed: 7,
+  // handle the speed according to acceleration
   smartSpeed: false
 };
 
@@ -350,7 +352,7 @@ proto._create = function () {
 
 /**
  * set options
- * @param {Object} opts - options to extend
+ * @param {object} opts - options to extend
  */
 proto.option = function (opts) {
   Object.assign(this.options, opts);

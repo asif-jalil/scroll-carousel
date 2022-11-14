@@ -5,7 +5,7 @@ import {
   getQueryElement,
   htmlInit,
   isScrolledIntoView,
-  validation
+  sanitizer
 } from './util';
 
 // globally unique identifiers
@@ -17,7 +17,7 @@ let instances = {};
  * Representing the Scroll Carousel
  * @constructor
  * @param {Node | Element | string} element - Target element where
- * @param {object} options - Configuration options of the carousel
+ * @param {ScrollCarousel.defaults} options - Configuration options of the carousel
  */
 function ScrollCarousel(element, options = {}) {
   this.element = getQueryElement(element);
@@ -26,10 +26,10 @@ function ScrollCarousel(element, options = {}) {
   this.options = { ...this.constructor.defaults };
 
   // validated options
-  const validatedOptions = validation(options);
+  const sanitizedOptions = sanitizer(options);
 
   // merge options with prototype
-  this.option(validatedOptions);
+  this.option(sanitizedOptions);
 
   // kick things off
   this._create();
@@ -37,7 +37,9 @@ function ScrollCarousel(element, options = {}) {
 
 // default options
 ScrollCarousel.defaults = {
+  // movement speed of the carousel
   speed: 7,
+  // handle the speed according to acceleration
   smartSpeed: false
 };
 
@@ -64,7 +66,7 @@ proto._create = function () {
 
 /**
  * set options
- * @param {Object} opts - options to extend
+ * @param {object} opts - options to extend
  */
 proto.option = function (opts) {
   Object.assign(this.options, opts);

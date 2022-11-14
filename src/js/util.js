@@ -144,7 +144,7 @@ export function duplicateElems(elems) {
 }
 
 // option validation
-export function validation(options) {
+export function sanitizer(options) {
   if (Number(options.speed) <= 0) options.speed = 1;
 
   return options;
