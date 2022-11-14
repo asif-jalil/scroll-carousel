@@ -84,8 +84,9 @@ proto.activate = function () {
   let slideElems = this._filterFindSlideElements(this.element.children);
   this.slideElems = this._makeSlides(slideElems);
 
-  // to duplicate the slide array
+  // duplicate the slide array
   let duplicateSlideElems = duplicateElems(this.slideElems);
+
   this.slider.append(...this.slideElems, ...duplicateSlideElems);
   this.viewport.append(this.slider);
   this.element.append(this.viewport);
@@ -96,25 +97,33 @@ proto.activate = function () {
 
 // to transform the slider
 proto._transform = function () {
-  if (isScrolledIntoView(this.element)) {
-    const rect = this.slider.getBoundingClientRect();
-    const documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-    if (!this.options.smartSpeed) {
-      this.slider.style.transform = `translateX(${this._translate}px)`;
-      this._translate -= this.options.speed;
-      if (this._translate <= -rect.width / 2) {
-        this._translate = 0;
-      }
-    } else {
-      if (this.prevScrollTop !== documentScrollTop) {
-        this.displacement -= Math.abs(this.prevScrollTop - documentScrollTop);
-        this.slider.style.transform = `translateX(${
-          ((this.displacement / 5.5e3) * (this.options.speed * 10)) % 50
-        }%)`;
-        this.prevScrollTop = documentScrollTop;
-      }
-    }
+  if (!isScrolledIntoView(this.element)) return;
+
+  if (!this.options.smartSpeed) {
+    this._calcRegularSpeed();
+  } else {
+    this._calcSmartSpeed();
   }
+};
+
+// calculate speed without smart speed
+proto._calcRegularSpeed = function () {
+  const rect = this.slider.getBoundingClientRect();
+
+  this.slider.style.transform = `translateX(${this._translate}px)`;
+  this._translate -= this.options.speed;
+  if (this._translate <= -rect.width / 2) this._translate = 0;
+};
+
+// calculate smart speed
+proto._calcSmartSpeed = function () {
+  if (this.prevScrollTop === documentScrollTop) return;
+
+  const documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+  this.displacement -= Math.abs(this.prevScrollTop - documentScrollTop);
+  const translateAmount = ((this.displacement / 5.5e3) * (this.options.speed * 10)) % 50;
+  this.slider.style.transform = `translateX(${translateAmount}%)`;
+  this.prevScrollTop = documentScrollTop;
 };
 
 // every node will be in sc-slide

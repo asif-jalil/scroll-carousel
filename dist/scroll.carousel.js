@@ -370,7 +370,7 @@ proto.activate = function () {
   var slideElems = this._filterFindSlideElements(this.element.children);
   this.slideElems = this._makeSlides(slideElems);
 
-  // to duplicate the slide array
+  // duplicate the slide array
   var duplicateSlideElems = (0,_util__WEBPACK_IMPORTED_MODULE_1__.duplicateElems)(this.slideElems);
   (_this$slider = this.slider).append.apply(_this$slider, _toConsumableArray(this.slideElems).concat(_toConsumableArray(duplicateSlideElems)));
   this.viewport.append(this.slider);
@@ -384,23 +384,30 @@ proto.activate = function () {
 
 // to transform the slider
 proto._transform = function () {
-  if ((0,_util__WEBPACK_IMPORTED_MODULE_1__.isScrolledIntoView)(this.element)) {
-    var rect = this.slider.getBoundingClientRect();
-    var documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-    if (!this.options.smartSpeed) {
-      this.slider.style.transform = "translateX(".concat(this._translate, "px)");
-      this._translate -= this.options.speed;
-      if (this._translate <= -rect.width / 2) {
-        this._translate = 0;
-      }
-    } else {
-      if (this.prevScrollTop !== documentScrollTop) {
-        this.displacement -= Math.abs(this.prevScrollTop - documentScrollTop);
-        this.slider.style.transform = "translateX(".concat(this.displacement / 5.5e3 * (this.options.speed * 10) % 50, "%)");
-        this.prevScrollTop = documentScrollTop;
-      }
-    }
+  if (!(0,_util__WEBPACK_IMPORTED_MODULE_1__.isScrolledIntoView)(this.element)) return;
+  if (!this.options.smartSpeed) {
+    this._calcRegularSpeed();
+  } else {
+    this._calcSmartSpeed();
   }
+};
+
+// calculate speed without smart speed
+proto._calcRegularSpeed = function () {
+  var rect = this.slider.getBoundingClientRect();
+  this.slider.style.transform = "translateX(".concat(this._translate, "px)");
+  this._translate -= this.options.speed;
+  if (this._translate <= -rect.width / 2) this._translate = 0;
+};
+
+// calculate smart speed
+proto._calcSmartSpeed = function () {
+  if (this.prevScrollTop === documentScrollTop) return;
+  var documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+  this.displacement -= Math.abs(this.prevScrollTop - documentScrollTop);
+  var translateAmount = this.displacement / 5.5e3 * (this.options.speed * 10) % 50;
+  this.slider.style.transform = "translateX(".concat(translateAmount, "%)");
+  this.prevScrollTop = documentScrollTop;
 };
 
 // every node will be in sc-slide
