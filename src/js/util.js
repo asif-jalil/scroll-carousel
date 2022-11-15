@@ -98,8 +98,6 @@ export function toDashed(str) {
     .toLowerCase();
 }
 
-let console = global.console;
-
 // allow user to initialize classes via [data-namespace] or .js-namespace class
 // htmlInit( Widget, 'widgetName' )
 // options are parsed from data-namespace-options

@@ -140,7 +140,6 @@ function toDashed(str) {
     return $1 + '-' + $2;
   }).toLowerCase();
 }
-var console = __webpack_require__.g.console;
 
 // allow user to initialize classes via [data-namespace] or .js-namespace class
 // htmlInit( Widget, 'widgetName' )
@@ -245,18 +244,6 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 		};
 /******/ 	}();
 /******/ 	
-/******/ 	/* webpack/runtime/global */
-/******/ 	!function() {
-/******/ 		__webpack_require__.g = (function() {
-/******/ 			if (typeof globalThis === 'object') return globalThis;
-/******/ 			try {
-/******/ 				return this || new Function('return this')();
-/******/ 			} catch (e) {
-/******/ 				if (typeof window === 'object') return window;
-/******/ 			}
-/******/ 		})();
-/******/ 	}();
-/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	!function() {
 /******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
@@ -308,14 +295,24 @@ var instances = {};
  */
 function ScrollCarousel(element) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  this.element = (0,_util__WEBPACK_IMPORTED_MODULE_1__.getQueryElement)(element);
+  var queryElement = (0,_util__WEBPACK_IMPORTED_MODULE_1__.getQueryElement)(element);
+  if (!queryElement) {
+    if (console) console.error("Bad element for Scroll Carousel: ".concat(queryElement || element));
+    return;
+  }
+  this.element = queryElement;
+
+  // do not initialize twice on same element
+  if (this.element.scrollCarouselGUID) {
+    var instance = instances[this.element.scrollCarouselGUID];
+    if (instance) instance.option(options);
+    return instance;
+  }
 
   // options
   this.options = _objectSpread({}, this.constructor.defaults);
-
   // validated options
   var sanitizedOptions = (0,_util__WEBPACK_IMPORTED_MODULE_1__.sanitizer)(options);
-
   // merge options with prototype
   this.option(sanitizedOptions);
 
@@ -335,7 +332,7 @@ var proto = ScrollCarousel.prototype;
 // start creating the carousel
 proto._create = function () {
   // add id for ScrollCarousel.data
-  var id = ++GUID;
+  var id = this.guid = ++GUID;
   this.element.scrollCarouselGUID = id; // expando
   instances[id] = this; // associate via id
 

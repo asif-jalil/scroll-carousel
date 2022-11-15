@@ -20,14 +20,24 @@ let instances = {};
  * @param {ScrollCarousel.defaults} options - Configuration options of the carousel
  */
 function ScrollCarousel(element, options = {}) {
-  this.element = getQueryElement(element);
+  let queryElement = getQueryElement(element);
+  if (!queryElement) {
+    if (console) console.error(`Bad element for Scroll Carousel: ${queryElement || element}`);
+    return;
+  }
+  this.element = queryElement;
+
+  // do not initialize twice on same element
+  if (this.element.scrollCarouselGUID) {
+    let instance = instances[this.element.scrollCarouselGUID];
+    if (instance) instance.option(options);
+    return instance;
+  }
 
   // options
   this.options = { ...this.constructor.defaults };
-
   // validated options
   const sanitizedOptions = sanitizer(options);
-
   // merge options with prototype
   this.option(sanitizedOptions);
 
@@ -48,7 +58,7 @@ let proto = ScrollCarousel.prototype;
 // start creating the carousel
 proto._create = function () {
   // add id for ScrollCarousel.data
-  let id = ++GUID;
+  let id = (this.guid = ++GUID);
   this.element.scrollCarouselGUID = id; // expando
   instances[id] = this; // associate via id
 

@@ -1,7 +1,3 @@
-.scroll-carousel {
-  position: relative;
-}
-
 .scroll-carousel-viewport{
   overflow: hidden;
   position: relative;
@@ -14,6 +10,7 @@
 }
 
 .sc-slide{
+  position: relative;
   display: inline-block;
 
   img, video {
