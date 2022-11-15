@@ -48,10 +48,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 /**
  * check an element, node, array, object is into view or not
  *
- * @param {[HTMLElement, NodeList, Array, Object]} el
+ * @param {[Node, Element]} el
  * - single element, selected node, an array or a object
  *
- * @return Boolean
+ * @return {Boolean} - Boolean
  */
 function isScrolledIntoView(el) {
   if (!el) {
@@ -125,7 +125,7 @@ function makeArray(obj) {
 function docReady(onDocReady) {
   var readyState = document.readyState;
   if (readyState == 'complete' || readyState == 'interactive') {
-    // do async to allow for other scripts to run. metafizzy/flickity#441
+    // do async to allow for other scripts to run.
     setTimeout(onDocReady);
   } else {
     document.addEventListener('DOMContentLoaded', onDocReady);
@@ -134,7 +134,7 @@ function docReady(onDocReady) {
 
 // ----- htmlInit ----- //
 
-// http://bit.ly/3oYLusc
+// source: http://bit.ly/3oYLusc
 function toDashed(str) {
   return str.replace(/(.)([A-Z])/g, function (match, $1, $2) {
     return $1 + '-' + $2;
@@ -150,7 +150,6 @@ function htmlInit(WidgetClass, namespace) {
     var dashedNamespace = toDashed(namespace);
     var dataAttr = 'data-' + dashedNamespace;
     var dataAttrElems = document.querySelectorAll("[".concat(dataAttr, "]"));
-    var jQuery = __webpack_require__.g.jQuery;
     _toConsumableArray(dataAttrElems).forEach(function (elem) {
       var attr = elem.getAttribute(dataAttr);
       var options;
@@ -164,11 +163,7 @@ function htmlInit(WidgetClass, namespace) {
         return;
       }
       // initialize
-      var instance = new WidgetClass(elem, options);
-      // make available via $().data('namespace')
-      if (jQuery) {
-        jQuery.data(elem, namespace, instance);
-      }
+      new WidgetClass(elem, options);
     });
   });
 }
@@ -176,8 +171,8 @@ function htmlInit(WidgetClass, namespace) {
 /**
  * Duplicate a node
  *
- * @param Array
- * @return Array
+ * @param {Array} elems
+ * @return {Array} array of element
  *
  */
 function duplicateElems(elems) {
@@ -187,6 +182,11 @@ function duplicateElems(elems) {
 }
 
 // option validation
+/**
+ *
+ * @param {Object} options
+ * @returns {Object} Same object of param with sanitization
+ */
 function sanitizer(options) {
   if (Number(options.speed) <= 0) options.speed = 1;
   return options;
@@ -303,7 +303,7 @@ var instances = {};
 /**
  * Representing the Scroll Carousel
  * @constructor
- * @param {Node | Element | string} element - Target element where
+ * @param {[Node, Element, string]} element - Target element where
  * @param {ScrollCarousel.defaults} options - Configuration options of the carousel
  */
 function ScrollCarousel(element) {
@@ -330,13 +330,12 @@ ScrollCarousel.defaults = {
   // handle the speed according to acceleration
   smartSpeed: false
 };
-
-// hash of methods triggered on _create()
-ScrollCarousel.create = {};
 var proto = ScrollCarousel.prototype;
+
+// start creating the carousel
 proto._create = function () {
   // add id for ScrollCarousel.data
-  var id = this.guid = ++GUID;
+  var id = ++GUID;
   this.element.scrollCarouselGUID = id; // expando
   instances[id] = this; // associate via id
 
@@ -350,13 +349,12 @@ proto._create = function () {
   this.activate();
 };
 
-/**
- * set options
- * @param {object} opts - options to extend
- */
+// assign default option with user input option
 proto.option = function (opts) {
   Object.assign(this.options, opts);
 };
+
+// main mechanism of Scroll Carousel
 proto.activate = function () {
   var _this$slider,
     _this = this;
@@ -382,7 +380,7 @@ proto.activate = function () {
   });
 };
 
-// to transform the slider
+// transform the slider
 proto._transform = function () {
   if (!(0,_util__WEBPACK_IMPORTED_MODULE_1__.isScrolledIntoView)(this.element)) return;
   if (!this.options.smartSpeed) {
@@ -446,11 +444,17 @@ proto._filterFindSlideElements = function (elems) {
   return (0,_util__WEBPACK_IMPORTED_MODULE_1__.filterFindElements)(elems, this.options.slideSelector);
 };
 
-// data attribute hacks
+/**
+ * get Scroll Carousel instance from element
+ * @param {[Node, Element, String]} elem - element or selector string
+ * @returns {ScrollCarousel} - Scroll Carousel instance
+ */
 ScrollCarousel.data = function (elem) {
   elem = (0,_util__WEBPACK_IMPORTED_MODULE_1__.getQueryElement)(elem);
   if (elem) return instances[elem.scrollCarouselGUID];
 };
+
+// initialize with data attribute from here
 (0,_util__WEBPACK_IMPORTED_MODULE_1__.htmlInit)(ScrollCarousel, 'carousel');
 /* harmony default export */ __webpack_exports__["default"] = (ScrollCarousel);
 }();

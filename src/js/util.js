@@ -1,10 +1,10 @@
 /**
  * check an element, node, array, object is into view or not
  *
- * @param {[HTMLElement, NodeList, Array, Object]} el
+ * @param {[Node, Element]} el
  * - single element, selected node, an array or a object
  *
- * @return Boolean
+ * @return {Boolean} - Boolean
  */
 export function isScrolledIntoView(el) {
   if (!el) {
@@ -80,7 +80,7 @@ export function makeArray(obj) {
 export function docReady(onDocReady) {
   let readyState = document.readyState;
   if (readyState == 'complete' || readyState == 'interactive') {
-    // do async to allow for other scripts to run. metafizzy/flickity#441
+    // do async to allow for other scripts to run.
     setTimeout(onDocReady);
   } else {
     document.addEventListener('DOMContentLoaded', onDocReady);
@@ -89,7 +89,7 @@ export function docReady(onDocReady) {
 
 // ----- htmlInit ----- //
 
-// http://bit.ly/3oYLusc
+// source: http://bit.ly/3oYLusc
 export function toDashed(str) {
   return str
     .replace(/(.)([A-Z])/g, function (match, $1, $2) {
@@ -108,7 +108,6 @@ export function htmlInit(WidgetClass, namespace) {
     let dashedNamespace = toDashed(namespace);
     let dataAttr = 'data-' + dashedNamespace;
     let dataAttrElems = document.querySelectorAll(`[${dataAttr}]`);
-    let jQuery = global.jQuery;
 
     [...dataAttrElems].forEach(elem => {
       let attr = elem.getAttribute(dataAttr);
@@ -123,11 +122,7 @@ export function htmlInit(WidgetClass, namespace) {
         return;
       }
       // initialize
-      let instance = new WidgetClass(elem, options);
-      // make available via $().data('namespace')
-      if (jQuery) {
-        jQuery.data(elem, namespace, instance);
-      }
+      new WidgetClass(elem, options);
     });
   });
 }
@@ -135,8 +130,8 @@ export function htmlInit(WidgetClass, namespace) {
 /**
  * Duplicate a node
  *
- * @param Array
- * @return Array
+ * @param {Array} elems
+ * @return {Array} array of element
  *
  */
 export function duplicateElems(elems) {
@@ -144,8 +139,13 @@ export function duplicateElems(elems) {
 }
 
 // option validation
+/**
+ *
+ * @param {Object} options
+ * @returns {Object} Same object of param with sanitization
+ */
 export function sanitizer(options) {
-  if (Number(options.speed) <= 0) options.speed = 1;
+  if (Number(options.speed) <= 0 || !Number(options.speed)) options.speed = 1;
 
   return options;
 }

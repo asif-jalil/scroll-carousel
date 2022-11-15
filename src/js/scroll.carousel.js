@@ -16,7 +16,7 @@ let instances = {};
 /**
  * Representing the Scroll Carousel
  * @constructor
- * @param {Node | Element | string} element - Target element where
+ * @param {[Node, Element, string]} element - Target element where
  * @param {ScrollCarousel.defaults} options - Configuration options of the carousel
  */
 function ScrollCarousel(element, options = {}) {
@@ -43,14 +43,12 @@ ScrollCarousel.defaults = {
   smartSpeed: false
 };
 
-// hash of methods triggered on _create()
-ScrollCarousel.create = {};
-
 let proto = ScrollCarousel.prototype;
 
+// start creating the carousel
 proto._create = function () {
   // add id for ScrollCarousel.data
-  let id = (this.guid = ++GUID);
+  let id = ++GUID;
   this.element.scrollCarouselGUID = id; // expando
   instances[id] = this; // associate via id
 
@@ -64,14 +62,12 @@ proto._create = function () {
   this.activate();
 };
 
-/**
- * set options
- * @param {object} opts - options to extend
- */
+// assign default option with user input option
 proto.option = function (opts) {
   Object.assign(this.options, opts);
 };
 
+// main mechanism of Scroll Carousel
 proto.activate = function () {
   if (this.isActive) return;
 
@@ -95,7 +91,7 @@ proto.activate = function () {
   window.addEventListener('scroll', () => this._transform());
 };
 
-// to transform the slider
+// transform the slider
 proto._transform = function () {
   if (!isScrolledIntoView(this.element)) return;
 
@@ -159,12 +155,17 @@ proto._filterFindSlideElements = function (elems) {
   return filterFindElements(elems, this.options.slideSelector);
 };
 
-// data attribute hacks
+/**
+ * get Scroll Carousel instance from element
+ * @param {[Node, Element, String]} elem - element or selector string
+ * @returns {ScrollCarousel} - Scroll Carousel instance
+ */
 ScrollCarousel.data = function (elem) {
   elem = getQueryElement(elem);
   if (elem) return instances[elem.scrollCarouselGUID];
 };
 
+// initialize with data attribute from here
 htmlInit(ScrollCarousel, 'carousel');
 
 export default ScrollCarousel;
