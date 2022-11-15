@@ -188,7 +188,7 @@ function duplicateElems(elems) {
  * @returns {Object} Same object of param with sanitization
  */
 function sanitizer(options) {
-  if (Number(options.speed) <= 0) options.speed = 1;
+  if (Number(options.speed) <= 0 || !Number(options.speed)) options.speed = 1;
   return options;
 }
 
