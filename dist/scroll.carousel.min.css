@@ -1,21 +1,2 @@
-.scroll-carousel {
-  position: relative;
-}
-.scroll-carousel-viewport {
-  overflow: hidden;
-  position: relative;
-}
-.scroll-carousel-slider {
-  display: inline-flex;
-  position: relative;
-  white-space: nowrap;
-}
-.sc-slide {
-  display: inline-block;
-}
-.sc-slide img,
-.sc-slide video {
-  max-width: fit-content !important;
-}
+.scroll-carousel-viewport{overflow:hidden;position:relative}.scroll-carousel-slider{display:inline-flex;position:relative;white-space:nowrap}.sc-slide{display:inline-block;position:relative}.sc-slide img,.sc-slide video{max-width:fit-content!important}
 /*# sourceMappingURL=scroll.carousel.min.css.map*/
-
