@@ -27,6 +27,8 @@
 .sc-slide {
   display: inline-block;
 }
-.sc-slide img, .sc-slide video {
+.sc-slide img,
+.sc-slide video {
   max-width: fit-content !important;
 }
+

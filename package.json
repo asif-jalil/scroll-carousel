@@ -6,21 +6,33 @@
   "types": "src/js/scroll.carousel.d.ts",
   "style": "dist/scroll.carousel.css",
   "scripts": {
-    "start": "npm run watch & npm run start:dev",
-    "start:dev": "webpack serve",
-    "watch": "webpack --watch",
-    "build": "cross-env NODE_ENV=production webpack"
+    "start": "npm run start:watch & npm run start:serve",
+    "start:serve": "webpack serve --config webpack.config.js",
+    "start:watch": "webpack --watch --config webpack.config.js",
+    "build:debug": "webpack --config webpack.config.js",
+    "build:prod": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "docs": "npm run docs:watch & npm run docs:serve",
+    "docs:serve": "webpack serve --config webpack.docs.js",
+    "docs:watch": "webpack --watch --config webpack.docs.js",
+    "docs:build:debug": "webpack --config webpack.docs.js",
+    "docs:build:prod": "cross-env NODE_ENV=production webpack --config webpack.docs.js"
   },
   "keywords": [
     "scroll",
     "carousel",
-    "slider"
+    "slider",
+    "plugin",
+    "responsive",
+    "DOM",
+    "browser",
+    "ios",
+    "mobile"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/asif-jalil/scroll-carousel.git"
   },
-  "author": "Asif | Jihad | Tanveer",
+  "author": "Asif | Emran | Tanveer",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/asif-jalil/scroll-carousel/issues"
@@ -31,11 +43,19 @@
     "@babel/preset-env": "^7.19.4",
     "babel-loader": "^9.0.0",
     "babel-plugin-add-module-exports": "^1.0.4",
+    "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.1",
     "css-minimizer-webpack-plugin": "^4.2.2",
+    "glob": "^8.0.3",
+    "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "^2.6.1",
+    "postcss": "^8.4.18",
+    "postcss-loader": "^7.0.1",
+    "postcss-preset-env": "^7.8.2",
     "sass": "^1.55.0",
     "sass-loader": "^13.1.0",
+    "style-loader": "^3.3.1",
+    "tailwindcss": "^3.2.1",
     "terser-webpack-plugin": "^5.3.6",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",

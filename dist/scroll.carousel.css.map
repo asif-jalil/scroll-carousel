@@ -1,0 +1,1 @@
+{"version":3,"file":"scroll.carousel.css","mappings":";;;;;;;;;;;AAAA;EACE;ACCF","sources":["webpack://scroll-carousel/./src/scss/_body.scss","webpack://scroll-carousel/./src/scss/main.scss"],"sourcesContent":[".scroll-carousel {\n  position: relative;\n}",".scroll-carousel {\n  position: relative;\n}"],"names":[],"sourceRoot":""}
