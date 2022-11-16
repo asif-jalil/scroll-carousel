@@ -1,4 +1,4 @@
-![](https://github.com/asif-jalil/scroll-carousel/blob/tree/document/readme/carousel.gif)
+![](https://github.com/asif-jalil/scroll-carousel/blob/document/readme/carousel.gif)
 
 # Scroll Carousel
 
