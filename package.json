@@ -80,8 +80,6 @@
     "cross-env": "^7.0.3",
     "gh-pages": "^4.0.0",
     "highlight.js": "^11.6.0",
-    "lodash": "^4.17.21",
     "node-sass": "^7.0.3"
   }
 }
-
