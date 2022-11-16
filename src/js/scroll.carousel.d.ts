@@ -4,8 +4,8 @@ declare class ScrollCarousel {
 
 declare namespace ScrollCarousel {
   interface Options {
-    speed: number;
-    smartSpeed: boolean;
+    speed?: number;
+    smartSpeed?: boolean;
   }
 }
 
