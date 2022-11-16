@@ -21,23 +21,26 @@ module.exports = {
   mode: isProd ? 'production' : 'development',
   target: ['web', 'es5'],
   entry: {
-    'scroll.carousel': ['./src/js/index.js', './src/scss/main.scss']
+    'scroll.carousel': './src/js/scroll.carousel.js'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: isProd ? '[name].min.js' : '[name].js',
     publicPath: '/dist',
-    library: name,
-    globalObject: 'this',
-    libraryExport: 'default',
-    libraryTarget: 'umd'
+    library: {
+      name: 'ScrollCarousel',
+      type: 'umd',
+      export: 'default',
+      umdNamedDefine: true
+    },
+    globalObject: 'this'
   },
   plugins: [
     new RemoveEmptyScriptsPlugin(),
     new MiniCssExtractPlugin({
       filename: isProd ? '[name].min.css' : '[name].css'
     }),
-    ...(!isProd ? [new webpack.BannerPlugin({ banner })] : [])
+    new webpack.BannerPlugin({ banner })
   ],
   module: {
     rules: [
@@ -63,7 +66,7 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              sourceMap: !isProd,
+              sourceMap: isProd,
               url: false
             }
           },
@@ -105,7 +108,7 @@ module.exports = {
       })
     ]
   },
-  devtool: isProd ? false : 'source-map',
+  devtool: !isProd ? false : 'source-map',
   devServer: {
     static: {
       directory: path.resolve(__dirname, 'example')
