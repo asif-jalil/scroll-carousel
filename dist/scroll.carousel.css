@@ -16,7 +16,6 @@
 
 .scroll-carousel-slider {
   position: relative;
-  white-space: nowrap;
   display: inline-flex;
 }
 
