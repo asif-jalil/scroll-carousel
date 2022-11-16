@@ -39,20 +39,20 @@ Simple content slider, works on scroll. Absolutely free for use. Thriving for pr
 
 To get started with **Scroll Carousel** right away, there are a few CDN available to serve the file faster:
 
-- https://www.jsdelivr.com/
+- [jsDelivr](https://www.jsdelivr.com/package/npm/scroll-carousel)
 
 ##### Example usign jsDelivr
 
 Add a link to the css file in your `<head>`:
 
 ```
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/asif-jalil/scroll-carousel/dist/scroll.carousel.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scroll-carousel/dist/scroll.carousel.min.css">
 ```
 
 Then, before your closing `<body>` tag, add:
 
 ```
-<script src="https://cdn.jsdelivr.net/gh/asif-jalil/scroll-carousel/dist/scroll.carousel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/scroll-carousel/dist/scroll.carousel.min.js"></script>
 ```
 
 ### Package managers
