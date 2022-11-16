@@ -28,12 +28,25 @@
     "ios",
     "mobile"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/asif-jalil/scroll-carousel.git"
-  },
-  "author": "Asif | Emran | Tanveer",
-  "license": "ISC",
+  "contributors": [
+    {
+      "name": "Asif Jalil",
+      "email": "asifjalil0@gmail.com",
+      "url": "https://www.linkedin.com/in/asifjalil0/"
+    },
+    {
+      "name": "Md Emran Hossain",
+      "email": "emranhossain4005@gmail.com",
+      "url": "https://www.linkedin.com/in/md-emran-h/"
+    },
+    {
+      "name": "Mostofa Nobi",
+      "email": "m.mostofanobi@gmail.com",
+      "url": "https://www.linkedin.com/in/mostofanobi/"
+    }
+  ],
+  "license": "MIT",
+  "repository": "asif-jalil/scroll-carousel",
   "bugs": {
     "url": "https://github.com/asif-jalil/scroll-carousel/issues"
   },
