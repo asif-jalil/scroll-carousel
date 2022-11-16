@@ -9,12 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link href="/dist/output.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/asif-jalil/scroll-carousel/dist/scroll.carousel.css">
   <title>Scroll Carousel</title>
 </head>
 
 <body>
   <!-- header -->
-  <header class="bg-slate-50 pt-6 relative overflow-hidden mx-auto">
+  <header class="bg-slate-50 pt-6 pb-16 relative overflow-hidden mx-auto">
     <img src="assets/img/header-bg.png" alt="" class="absolute mx-auto inset-0 opacity-50" />
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       <!-- top -->
@@ -79,6 +80,78 @@
       </div>
       <!-- /core -->
     </div>
+    <div data-carousel='{"smartSpeed": true}'>
+      <div class="bg-blue-200/5 border border-blue-500 rounded-lg ml-5 p-5">
+        <div class="w-96 mr-5 space-y-5">
+          <div class="relative w-12 h-12">
+            <img src="assets/img/rectangle.svg" alt="" class="absolute w-14 h-14 top-0 left-2">
+            <img src="assets/img/mobile.svg" alt="" class="relative w-full h-full">
+          </div>
+          <div>
+            <h2 class="text-sm font-semibold leading-6 text-slate-900">Responsive</h2>
+            <p class="mt-2 text-sm leading-6 text-slate-700">
+              It is meant to be utilized in mobile web apps and mobile websites. It is responsive by default. No need of manual control.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-blue-200/5 border border-blue-500 rounded-lg ml-5 p-5">
+        <div class="w-96 mr-5 space-y-5">
+          <div class="relative w-12 h-12">
+            <img src="assets/img/rectangle.svg" alt="" class="absolute w-14 h-14 top-0 left-2">
+            <img src="assets/img/user-friendly.svg" alt="" class="relative w-full h-full">
+          </div>
+          <div>
+            <h2 class="text-sm font-semibold leading-6 text-slate-900">Easy to use</h2>
+            <p class="mt-2 text-sm leading-6 text-slate-700">
+              Scroll carousel has two ways of initialization which make it easier to use. If you have only knowledge of HTML, you can use this.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-blue-200/5 border border-blue-500 rounded-lg ml-5 p-5">
+        <div class="w-96 mr-5 space-y-5">
+          <div class="relative w-12 h-12">
+            <img src="assets/img/rectangle.svg" alt="" class="absolute w-14 h-14 top-0 left-2">
+            <img src="assets/img/library-agnostic.svg" alt="" class="relative w-full h-full">
+          </div>
+          <div>
+            <h2 class="text-sm font-semibold leading-6 text-slate-900">Library agnostic</h2>
+            <p class="mt-2 text-sm leading-6 text-slate-700">
+              It is significantly smaller and faster because of vanilla Javascript. It doesn’t need any JavaScript libraries like jQuery.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-blue-200/5 border border-blue-500 rounded-lg ml-5 p-5">
+        <div class="w-96 mr-5 space-y-5">
+          <div class="relative w-12 h-12">
+            <img src="assets/img/rectangle.svg" alt="" class="absolute w-14 h-14 top-0 left-2">
+            <img src="assets/img/typescript.svg" alt="" class="relative w-full h-full">
+          </div>
+          <div>
+            <h2 class="text-sm font-semibold leading-6 text-slate-900">Typescript support </h2>
+            <p class="mt-2 text-sm leading-6 text-slate-700">
+              Scroll carousel is fully typed. Make sure you have a environment with typescript setup. Now just import and initialize. BOOM!!
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-blue-200/5 border border-blue-500 rounded-lg ml-5 p-5">
+        <div class="w-96 mr-5 space-y-5">
+          <div class="relative w-12 h-12">
+            <img src="assets/img/rectangle.svg" alt="" class="absolute w-14 h-14 top-0 left-2">
+            <img src="assets/img/light-weight.svg" alt="" class="relative w-full h-full">
+          </div>
+          <div>
+            <h2 class="text-sm font-semibold leading-6 text-slate-900">Lightweight</h2>
+            <p class="mt-2 text-sm leading-6 text-slate-700">
+              Our structure provides excellent compression. Oh yes, it weighs only ~8kb (~2kb gzipped) with every functionality included.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </header>
   <!-- /header -->
 
@@ -134,7 +207,7 @@
   <!-- /Sticky nav -->
 
   <!-- main -->
-  <main class="min-h-0 mb-40 relative">
+  <main class="min-h-0 mb-20 relative">
     <!-- Getting Started -->
     <div class="relative" id="get-started">
       <!-- page-header -->
@@ -155,27 +228,316 @@
         <div class="pb-5 mb-5 border-b border-gray-200">
           <h3 class="text-2xl leading-6 text-gray-900">Installation</h3>
         </div>
-
-        <div class="relative px-6 py-5 bg-slate-50 rounded-lg border">
-          <div class="tooltip absolute z-10 top-2 right-2" data-tooltip="Copy">
-            <button type="button" data-clipboard-text="npm i scroll-carousel" class="text-slate-500 hover:text-slate-400">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-7 h-7">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6" />
-              </svg>
-            </button>
-          </div>
-
-          <!-- code -->
-          <pre>
-            <code class="language-javascript !p-0 bg-transparent">
-              npm i scroll-carousel
-            </code>
-          </pre>
-
+        <!-- Download -->
+        <div class="mb-16">
+          <h3 class="text-xl leading-6 text-gray-900 mb-5">Download</h3>
+        
+          <dl class="space-y-8 pl-4 border-l">
+            <div>
+              <dt class="text-lg font-medium text-gray-700 mb-3 pl-2">CSS</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                <ul role="list" class="divide-y divide-gray-200 rounded-md border border-gray-200">
+                  <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
+                    <div class="flex w-0 flex-1 items-center">
+                      <svg class="h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M15.621 4.379a3 3 0 00-4.242 0l-7 7a3 3 0 004.241 4.243h.001l.497-.5a.75.75 0 011.064 1.057l-.498.501-.002.002a4.5 4.5 0 01-6.364-6.364l7-7a4.5 4.5 0 016.368 6.36l-3.455 3.553A2.625 2.625 0 119.52 9.52l3.45-3.451a.75.75 0 111.061 1.06l-3.45 3.451a1.125 1.125 0 001.587 1.595l3.454-3.553a3 3 0 000-4.242z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="ml-2 w-0 flex-1 truncate">
+                        minified: 
+                        <a target="_blank" class="text-indigo-600 hover:text-indigo-500 hover:underline" href="https://github.com/asif-jalil/scroll-carousel/blob/main/dist/scroll.carousel.min.css">
+                          scroll.carousel.min.css
+                        </a>
+                      </span>
+                    </div>
+                    <div class="ml-4 flex-shrink-0">
+                      <a target="_blank" href="https://raw.githubusercontent.com/asif-jalil/scroll-carousel/main/dist/scroll.carousel.min.css" class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
+                    </div>
+                  </li>
+                  <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
+                    <div class="flex w-0 flex-1 items-center">
+                      <!-- Heroicon name: mini/paper-clip -->
+                      <svg class="h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M15.621 4.379a3 3 0 00-4.242 0l-7 7a3 3 0 004.241 4.243h.001l.497-.5a.75.75 0 011.064 1.057l-.498.501-.002.002a4.5 4.5 0 01-6.364-6.364l7-7a4.5 4.5 0 016.368 6.36l-3.455 3.553A2.625 2.625 0 119.52 9.52l3.45-3.451a.75.75 0 111.061 1.06l-3.45 3.451a1.125 1.125 0 001.587 1.595l3.454-3.553a3 3 0 000-4.242z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="ml-2 w-0 flex-1 truncate">
+                        un-minified: 
+                        <a target="_blank" class="text-indigo-600 hover:text-indigo-500 hover:underline" href="https://github.com/asif-jalil/scroll-carousel/blob/main/dist/scroll.carousel.css">scroll.carousel.css</a>
+                      </span>
+                    </div>
+                    <div class="ml-4 flex-shrink-0">
+                      <a target="_blank" href="https://raw.githubusercontent.com/asif-jalil/scroll-carousel/main/dist/scroll.carousel.css" class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
+                    </div>
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div>
+              <dt class="text-lg font-medium text-gray-700 mb-3 pl-2">Javascript</dt>
+              <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                <ul role="list" class="divide-y divide-gray-200 rounded-md border border-gray-200">
+                  <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
+                    <div class="flex w-0 flex-1 items-center">
+                      <!-- Heroicon name: mini/paper-clip -->
+                      <svg class="h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M15.621 4.379a3 3 0 00-4.242 0l-7 7a3 3 0 004.241 4.243h.001l.497-.5a.75.75 0 011.064 1.057l-.498.501-.002.002a4.5 4.5 0 01-6.364-6.364l7-7a4.5 4.5 0 016.368 6.36l-3.455 3.553A2.625 2.625 0 119.52 9.52l3.45-3.451a.75.75 0 111.061 1.06l-3.45 3.451a1.125 1.125 0 001.587 1.595l3.454-3.553a3 3 0 000-4.242z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="ml-2 w-0 flex-1 truncate">
+                        minified: 
+                        <a target="_blank" class="text-indigo-600 hover:text-indigo-500 hover:underline" href="https://github.com/asif-jalil/scroll-carousel/blob/main/dist/scroll.carousel.min.js">
+                          scroll.carousel.min.js
+                        </a>
+                      </span>
+                    </div>
+                    <div class="ml-4 flex-shrink-0">
+                      <a target="_blank" href="https://raw.githubusercontent.com/asif-jalil/scroll-carousel/main/dist/scroll.carousel.min.js" class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
+                    </div>
+                  </li>
+                  <li class="flex items-center justify-between py-3 pl-3 pr-4 text-sm">
+                    <div class="flex w-0 flex-1 items-center">
+                      <svg class="h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M15.621 4.379a3 3 0 00-4.242 0l-7 7a3 3 0 004.241 4.243h.001l.497-.5a.75.75 0 011.064 1.057l-.498.501-.002.002a4.5 4.5 0 01-6.364-6.364l7-7a4.5 4.5 0 016.368 6.36l-3.455 3.553A2.625 2.625 0 119.52 9.52l3.45-3.451a.75.75 0 111.061 1.06l-3.45 3.451a1.125 1.125 0 001.587 1.595l3.454-3.553a3 3 0 000-4.242z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="ml-2 w-0 flex-1 truncate">
+                        un-minified: 
+                        <a target="_blank" class="text-indigo-600 hover:text-indigo-500 hover:underline" href="https://github.com/asif-jalil/scroll-carousel/blob/main/dist/scroll.carousel.js">scroll.carousel.js</a>
+                      </span>
+                    </div>
+                    <div class="ml-4 flex-shrink-0">
+                      <a target="_blank" href="https://raw.githubusercontent.com/asif-jalil/scroll-carousel/main/dist/scroll.carousel.js" class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
+                    </div>
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
         </div>
+        <!-- /Download -->
+
+        <!-- CDN -->
+        <div class="mb-16">
+          <h3 class="text-xl leading-6 text-gray-900 mb-5">CDN</h3>
+          <div class="pl-4 border-l">
+            <h4 class="text-lg leading-6 text-gray-800 mb-3 pl-2">CSS</h4>
+            <!-- code block -->
+            <div class="relative px-6 bg-slate-50 rounded-lg border mb-5">
+              <div class="tooltip absolute z-10 top-2 right-2" data-tooltip="Copy">
+                <button type="button" 
+                  class="text-slate-500 hover:text-slate-400"
+                  data-clipboard-text='<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/asif-jalil/scroll-carousel/dist/scroll.carousel.min.css />'>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-7 h-7">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6" />
+                  </svg>
+                </button>
+              </div>
+    
+              <!-- code -->
+              <pre>
+                <code class="language-javascript !p-0 bg-transparent hljs">
+                  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/asif-jalil/scroll-carousel/dist/scroll.carousel.min.css" /&gt;
+                </code>
+              </pre>
+            </div>
+            <!-- /code block -->
+            <h4 class="text-lg leading-6 text-gray-800 mb-3 pl-2">Javascript</h4>
+            <!-- code block -->
+            <div class="relative px-6 bg-slate-50 rounded-lg border">
+              <div class="tooltip absolute z-10 top-2 right-2" data-tooltip="Copy">
+                <button type="button" 
+                  data-clipboard-text='<script src="https://cdn.jsdelivr.net/gh/asif-jalil/scroll-carousel/dist/scroll.carousel.min.js"></script>' class="text-slate-500 hover:text-slate-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-7 h-7">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6" />
+                  </svg>
+                </button>
+              </div>
+    
+              <!-- code -->
+              <pre>
+                <code class="language-javascript !p-0 bg-transparent">
+                  &lt;script src="https://cdn.jsdelivr.net/gh/asif-jalil/scroll-carousel/dist/scroll.carousel.min.js"&gt;&lt;/script&gt;
+                </code>
+              </pre>
+    
+            </div>
+            <!-- /code block -->
+          </div>
+        </div>
+        <!-- /CDN -->
+
+        <!-- Package manager -->
+        <div class="mb-16">
+          <h3 class="text-xl leading-6 text-gray-900 mb-5">Package managers</h3>
+          <div class="pl-4 border-l">
+            <h4 class="text-lg leading-6 text-gray-800 mb-3 pl-2">npm</h4>
+            <!-- code block -->
+            <div class="relative px-6 bg-slate-50 rounded-lg border mb-5">
+              <div class="tooltip absolute z-10 top-2 right-2" data-tooltip="Copy">
+                <button type="button" data-clipboard-text="npm i scroll-carousel" class="text-slate-500 hover:text-slate-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-7 h-7">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6" />
+                  </svg>
+                </button>
+              </div>
+    
+              <!-- code -->
+              <pre>
+                <code class="language-javascript !p-0 bg-transparent">
+                  npm i scroll-carousel
+                </code>
+              </pre>
+            </div>
+            <h4 class="text-lg leading-6 text-gray-800 mb-3 pl-2">Import JS</h4>
+            <!-- code block -->
+            <div class="relative px-6 bg-slate-50 rounded-lg border mb-5">
+              <div class="tooltip absolute z-10 top-2 right-2" data-tooltip="Copy">
+                <button type="button" data-clipboard-text="import ScrollCarousel from 'scroll-carousel';" class="text-slate-500 hover:text-slate-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-7 h-7">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6" />
+                  </svg>
+                </button>
+              </div>
+    
+              <!-- code -->
+              <pre>
+                <code class="language-javascript !p-0 bg-transparent">
+                  import ScrollCarousel from 'scroll-carousel';
+                </code>
+              </pre>
+            </div>
+            <!-- /code block -->
+            <h4 class="text-lg leading-6 text-gray-800 mb-3 pl-2">Import CSS</h4>
+            <!-- code block -->
+            <div class="relative px-6 bg-slate-50 rounded-lg border mb-5">
+              <div class="tooltip absolute z-10 top-2 right-2" data-tooltip="Copy">
+                <button type="button" data-clipboard-text="@import 'node_modules/scroll-carousel/dist/scroll.carousel.css';" class="text-slate-500 hover:text-slate-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-7 h-7">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6" />
+                  </svg>
+                </button>
+              </div>
+    
+              <!-- code -->
+              <pre>
+                <code class="language-css !p-0 bg-transparent">
+                  @import 'node_modules/scroll-carousel/dist/scroll.carousel.css';
+                </code>
+              </pre>
+            </div>
+            <!-- /code block -->
+          </div>
+        </div>
+        <!-- /Package manager -->
       </div>
       <!-- /content -->
+    </div>
+
+    <!-- Demos -->
+    <div class="relative" id="demos">
+      <!-- page-header -->
+      <div class="z-10 sticky top-14 border-t border-b border-gray-100 bg-slate-50 py-3">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h3 class="text-base text-blue-500 flex gap-2 items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776" />
+            </svg>
+
+            <span> Demos </span>
+          </h3>
+        </div>
+      </div>
+      <!-- /page-header -->
+      
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <!-- Default -->
+        <div class="space-y-10">
+          <!-- Heading -->
+          <div>
+            <div class="pb-5 border-b border-gray-200">
+              <h3 class="text-2xl leading-6 text-gray-900">Basic Example</h3>
+            </div>
+          </div>
+          <!-- /Heading -->
+    
+          <!-- Slider -->
+          <div data-carousel='{"smartSpeed": "true"}'>
+            <div class="slide__item bg-gray-300/20 border-2 border-gray-300/70"></div>
+            <div class="slide__item bg-red-300/20 border-2 border-red-300/70"></div>
+            <div class="slide__item bg-yellow-200/20 border-2 border-yellow-200/70"></div>
+            <div class="slide__item bg-green-300/20 border-2 border-green-300/70"></div>
+            <div class="slide__item bg-blue-300/20 border-2 border-blue-300/70"></div>
+            <div class="slide__item bg-orange-300/20 border-2 border-orange-300/70"></div>
+            <div class="slide__item bg-lime-200/20 border-2 border-lime-200/70"></div>
+            <div class="slide__item bg-amber-300/20 border-2 border-amber-300/70"></div>
+            <div class="slide__item bg-emerald-300/20 border-2 border-emerald-300/70"></div>
+            <div class="slide__item bg-rose-300/20 border-2 border-rose-300/70"></div>
+            <div class="slide__item bg-sky-300/20 border-2 border-sky-300/70"></div>
+            <div class="slide__item bg-violet-400/20 border-2 border-violet-400/70"></div>
+          </div>
+          <!-- /Slider -->
+    
+          <!-- code -->
+          <div class="md:grid md:grid-cols-2 md:gap-5">
+            <div class="md:col-span-1 flex flex-col">
+              <h4 class="text-lg leading-6 text-gray-800 mb-3 pl-2">HTML</h4>
+              <div class="h-full md:col-span-1 relative px-6 bg-slate-50 rounded-lg border mb-5">
+                <div class="tooltip absolute z-10 top-2 right-2" data-tooltip="Copy">
+                  <button type="button" 
+                    class="text-slate-500 hover:text-slate-400"
+                    data-clipboard-text='<div class="my-carousel">
+                      <div> class="my-slide">...</div>
+                      <div> class="my-slide">...</div>
+                      <div> class="my-slide">...</div>
+                    </div>'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-7 h-7">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6" />
+                    </svg>
+                  </button>
+                </div>
+        
+                <pre>
+                  <code class="language-html !p-0 bg-transparent">
+                    &lt;div class="my-carousel"&gt;
+                      &nbsp;&nbsp;&lt;div&gt; class="my-slide"&gt;...&lt;/div&gt;
+                      &nbsp;&nbsp;&lt;div&gt; class="my-slide"&gt;...&lt;/div&gt;
+                      &nbsp;&nbsp;&lt;div&gt; class="my-slide"&gt;...&lt;/div&gt;
+                      &nbsp;&nbsp;...
+                    &lt;/div&gt;
+                  </code>
+                </pre>
+              </div>
+            </div>
+            <div class="md:col-span-1 flex flex-col">
+              <h4 class="text-lg leading-6 text-gray-800 mb-3 pl-2">Javascript</h4>
+              <div class="h-full relative px-6 bg-slate-50 rounded-lg border mb-5">
+                <div class="tooltip absolute z-10 top-2 right-2" data-tooltip="Copy">
+                  <button type="button" 
+                    class="text-slate-500 hover:text-slate-400"
+                    data-clipboard-text='new ScrollCarousel(".my-carousel")'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-7 h-7">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M16.5 8.25V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v8.25A2.25 2.25 0 006 16.5h2.25m8.25-8.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-7.5A2.25 2.25 0 018.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 00-2.25 2.25v6" />
+                    </svg>
+                  </button>
+                </div>
+        
+                <pre>
+                  <code class="language-javascript !p-0 bg-transparent hljs">
+                    new ScrollCarousel(".my-carousel");
+                  </code>
+                </pre>
+              </div>
+            </div>
+          </div>
+          <!-- /code -->
+        </div>
+        <!-- /Default -->
+      </div>
     </div>
 
     <!-- API -->
@@ -203,7 +565,7 @@
         <div>
           <dl>
             <div class="py-5 sm:grid sm:grid-cols-4 sm:gap-4 border-b">
-              <dt class="text-xl text-gray-900">items</dt>
+              <dt class="text-xl text-gray-900">speed</dt>
               <dd class="mt-5 text-sm text-gray-900 sm:col-span-3 sm:mt-0">
                 <span class="block mb-2">
                   Type:
@@ -214,18 +576,16 @@
                 <span class="block">
                   Default:
                   <code class="ml-2 whitespace-nowrap rounded bg-slate-100 py-0.5 px-2 text-xs font-mono text-slate-700">
-                    6
+                    7
                   </code>
                 </span>
-                <p class="mt-5 text-base">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto modi alias repudiandae consequatur ut maxime doloremque voluptatibus, adipisci aliquid enim nisi explicabo
-                  molestiae placeat accusamus dolores sunt aspernatur voluptates sapiente nulla blanditiis provident voluptas maiores? Quaerat, corporis maxime dolores, adipisci earum inventore
-                  tempore, in laudantium recusandae quae sequi qui natus!
+                <p class="my-5 text-base">
+                  The value given is actually how fast you want to move on scroll. It needs to be greater than 0.
                 </p>
               </dd>
             </div>
             <div class="py-5 sm:grid sm:grid-cols-4 sm:gap-4">
-              <dt class="text-xl text-gray-900">loop</dt>
+              <dt class="text-xl text-gray-900">smartSpeed</dt>
               <dd class="mt-5 text-sm text-gray-900 sm:col-span-3 sm:mt-0">
                 <span class="block mb-2">
                   Type:
@@ -236,43 +596,15 @@
                 <span class="block">
                   Default:
                   <code class="ml-2 whitespace-nowrap rounded bg-slate-100 py-0.5 px-2 text-xs font-mono text-slate-700">
-                    true
+                    false
                   </code>
                 </span>
                 <p class="mt-5 text-base">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto modi alias repudiandae consequatur ut maxime doloremque voluptatibus, adipisci aliquid enim nisi explicabo
-                  molestiae placeat accusamus dolores sunt aspernatur voluptates sapiente nulla blanditiis provident voluptas maiores? Quaerat, corporis maxime dolores, adipisci earum inventore
-                  tempore, in laudantium recusandae quae sequi qui natus!
+                  To calculate the speed more smartly on displacement and time difference.
                 </p>
               </dd>
             </div>
           </dl>
-        </div>
-      </div>
-
-      <!-- /content -->
-    </div>
-
-    <!-- Demos -->
-    <div class="relative" id="demos">
-      <!-- page-header -->
-      <div class="z-10 sticky top-14 border-t border-b border-gray-100 bg-slate-50 py-3">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h3 class="text-base text-blue-500 flex gap-2 items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round"
-                d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 00-1.883 2.542l.857 6a2.25 2.25 0 002.227 1.932H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-1.883-2.542m-16.5 0V6A2.25 2.25 0 016 3.75h3.879a1.5 1.5 0 011.06.44l2.122 2.12a1.5 1.5 0 001.06.44H18A2.25 2.25 0 0120.25 9v.776" />
-            </svg>
-
-            <span> Demos </span>
-          </h3>
-        </div>
-      </div>
-      <!-- /page-header -->
-      <!-- content -->
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
-        <div class="pb-5 border-b border-gray-200">
-          <h3 class="text-2xl leading-6 text-gray-900">Default</h3>
         </div>
       </div>
 
@@ -292,6 +624,9 @@
     </div>
   </footer>
   <!-- /footer -->
+
+  <!-- script -->
+  <script src="https://cdn.jsdelivr.net/gh/asif-jalil/scroll-carousel/dist/scroll.carousel.min.js"></script>
 </body>
 
 </html>

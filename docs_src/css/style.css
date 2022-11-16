@@ -11,7 +11,7 @@
   }
 
   pre {
-    white-space: inherit;
+    white-space: pre-line;
   }
 }
 
@@ -19,13 +19,10 @@
   .btn__default {
     @apply rounded-lg text-slate-900 font-semibold transition flex items-center gap-2 text-[0.8125rem] leading-6 py-1 px-1.5 hover:bg-slate-900/[0.03] -my-1 -mx-1.5;
   }
+  .slide__item {
+    @apply rounded-lg h-36 w-48 mr-5;
+  }
 }
-
-/* .tooltip {
-  position: relative;
-  display: inline-block;
-} */
-
 /* Tooltip text */
 .tooltip::after {
   visibility: hidden;

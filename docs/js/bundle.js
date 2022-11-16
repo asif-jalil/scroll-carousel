@@ -1,35 +1,6 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./docs_src/js/clipboard.js":
-/*!**********************************!*\
-  !*** ./docs_src/js/clipboard.js ***!
-  \**********************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var clipboard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! clipboard */ "./node_modules/clipboard/dist/clipboard.js");
-/* harmony import */ var clipboard__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(clipboard__WEBPACK_IMPORTED_MODULE_0__);
-
-var clipboardInit = function clipboardInit() {
-  var clipboardDemos = new (clipboard__WEBPACK_IMPORTED_MODULE_0___default())('[data-clipboard-demo]');
-  clipboardDemos.on('success', function (e) {
-    e.clearSelection();
-    console.info('Action:', e.action);
-    console.info('Text:', e.text);
-    console.info('Trigger:', e.trigger);
-    showTooltip(e.trigger, 'Copied!');
-  });
-  function showTooltip(elem, msg) {
-    elem.setAttribute('class', 'btn tooltipped tooltipped-s');
-    elem.setAttribute('aria-label', msg);
-  }
-};
-/* harmony default export */ __webpack_exports__["default"] = (clipboardInit);
-
-/***/ }),
-
 /***/ "./docs_src/js/highlight.js":
 /*!**********************************!*\
   !*** ./docs_src/js/highlight.js ***!
@@ -60099,8 +60070,9 @@ var __webpack_exports__ = {};
   !*** ./docs_src/js/index.js ***!
   \******************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _highlight__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./highlight */ "./docs_src/js/highlight.js");
-/* harmony import */ var _clipboard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./clipboard */ "./docs_src/js/clipboard.js");
+/* harmony import */ var clipboard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! clipboard */ "./node_modules/clipboard/dist/clipboard.js");
+/* harmony import */ var clipboard__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(clipboard__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _highlight__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./highlight */ "./docs_src/js/highlight.js");
 /* harmony import */ var _tooltip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tooltip */ "./docs_src/js/tooltip.js");
 
 
@@ -60114,9 +60086,16 @@ var docReady = function docReady(fn) {
     setTimeout(fn, 1);
   }
 };
-docReady(_highlight__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+// const scrollCarouselInit = () => new ScrollCarousel('.my-carousel', { speed: 10 });
+var clipboardInit = function clipboardInit() {
+  return new (clipboard__WEBPACK_IMPORTED_MODULE_0___default())('[data-clipboard-text]');
+};
+
+// docReady(scrollCarouselInit);
+docReady(_highlight__WEBPACK_IMPORTED_MODULE_1__["default"]);
 docReady(_tooltip__WEBPACK_IMPORTED_MODULE_2__["default"]);
-docReady(_clipboard__WEBPACK_IMPORTED_MODULE_1__["default"]);
+docReady(clipboardInit);
 }();
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 !function() {

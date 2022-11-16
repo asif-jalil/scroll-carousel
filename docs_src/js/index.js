@@ -1,5 +1,5 @@
+import Clipboard from 'clipboard';
 import highlightjsInit from './highlight';
-import clipboardInit from './clipboard';
 import tooltipInit from './tooltip';
 
 // Get Document ready
@@ -11,6 +11,10 @@ const docReady = fn => {
   }
 };
 
+// const scrollCarouselInit = () => new ScrollCarousel('.my-carousel', { speed: 10 });
+const clipboardInit = () => new Clipboard('[data-clipboard-text]');
+
+// docReady(scrollCarouselInit);
 docReady(highlightjsInit);
 docReady(tooltipInit);
 docReady(clipboardInit);
