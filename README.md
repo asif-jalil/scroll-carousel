@@ -6,7 +6,7 @@
 
 Simple content slider, works on scroll. Absolutely free for use. Thriving for precision & community growth.
 
-[Documentation](https://github.com/asif-jalil/scroll-carousel/tree/main/example) | [Demos](https://github.com/asif-jalil/scroll-carousel/tree/main/example)
+[Documentation](https://asif-jalil.github.io/scroll-carousel/) | [Demos](https://asif-jalil.github.io/scroll-carousel/#demos)
 
 **Note:** This carousel only operates in browser.
 
@@ -32,12 +32,12 @@ Simple content slider, works on scroll. Absolutely free for use. Thriving for pr
 
 - CSS
 
-  - [scroll.carousel.min.css](https://github.com/asif-jalil/scroll-carousel/blob/main/dist/scroll.carousel.min.css) minified, or
-  - [scroll.carousel.css](https://github.com/asif-jalil/scroll-carousel/blob/main/dist/scroll.carousel.css) un-minified
+  - [scroll.carousel.min.css](https://raw.githubusercontent.com/asif-jalil/scroll-carousel/main/dist/scroll.carousel.min.css) minified, or
+  - [scroll.carousel.css](https://raw.githubusercontent.com/asif-jalil/scroll-carousel/main/dist/scroll.carousel.css) un-minified
 
 - JS
-  - [scroll.carousel.min.js](https://github.com/asif-jalil/scroll-carousel/blob/main/dist/scroll.carousel.min.js) minified, or
-  - [scroll.carousel.js](https://github.com/asif-jalil/scroll-carousel/blob/main/dist/scroll.carousel.js) un-minified
+  - [scroll.carousel.min.js](https://raw.githubusercontent.com/asif-jalil/scroll-carousel/main/dist/scroll.carousel.min.js) minified, or
+  - [scroll.carousel.js](https://raw.githubusercontent.com/asif-jalil/scroll-carousel/main/dist/scroll.carousel.js) un-minified
 
 ### CDN
 

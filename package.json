@@ -1,6 +1,6 @@
 {
   "name": "scroll-carousel",
-  "version": "1.0.0",
+  "version": "0.5.0",
   "description": "Scroll carousel, a unique content slider that specially works on window scroll.",
   "main": "dist/scroll.carousel.js",
   "types": "src/js/scroll.carousel.d.ts",
@@ -15,7 +15,8 @@
     "docs:serve": "webpack serve --config webpack.docs.js",
     "docs:watch": "webpack --watch --config webpack.docs.js",
     "docs:build:debug": "webpack --config webpack.docs.js",
-    "docs:build:prod": "cross-env NODE_ENV=production webpack --config webpack.docs.js"
+    "docs:build:prod": "cross-env NODE_ENV=production webpack --config webpack.docs.js",
+    "docs:live": "gh-pages -d docs"
   },
   "keywords": [
     "scroll",
@@ -50,7 +51,7 @@
   "bugs": {
     "url": "https://github.com/asif-jalil/scroll-carousel/issues"
   },
-  "homepage": "https://github.com/asif-jalil/scroll-carousel",
+  "homepage": "https://asif-jalil.github.io/scroll-carousel",
   "devDependencies": {
     "@babel/core": "^7.19.6",
     "@babel/preset-env": "^7.19.4",
@@ -83,3 +84,5 @@
     "node-sass": "^7.0.3"
   }
 }
+
+
