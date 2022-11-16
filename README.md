@@ -1,3 +1,5 @@
+![](https://github.com/asif-jalil/scroll-carousel/tree/document/readme/carousel.gif)
+
 # Scroll Carousel
 
 Simple content slider, works on scroll. Absolutely free for use. Thriving for precision & community growth.
