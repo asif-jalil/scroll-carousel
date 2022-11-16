@@ -2,7 +2,7 @@
 
 Simple content slider, works on scroll. Absolutely free for use. Thriving for precision & community growth.
 
-[Examples](https://github.com/asif-jalil/scroll-carousel/tree/main/example)
+[Documentation](https://github.com/asif-jalil/scroll-carousel/tree/main/example) | [Demos](https://github.com/asif-jalil/scroll-carousel/tree/main/example)
 
 **Note:** This carousel only operates in browser.
 
@@ -12,6 +12,7 @@ Simple content slider, works on scroll. Absolutely free for use. Thriving for pr
 - [Install](#install)
 - [Usage](#usage)
 - [Browser Support](#browser-support)
+- [License](#license)
 
 ## Features
 
@@ -19,6 +20,7 @@ Simple content slider, works on scroll. Absolutely free for use. Thriving for pr
 - **Loop:** Scroll carousel is looped by default.
 - **Library Agnostic:** It is significantly smaller and faster because it doesn't need any JavaScript libraries like jQuery.
 - **Responsive:** It is responsive by default.
+- **Typescript support:** Scroll carousel is fully typed.
 
 ## Install
 
@@ -56,6 +58,20 @@ Then, before your closing `<body>` tag, add:
 ### Package managers
 
 npm - `npm install scroll-carousel`
+
+Using with npm needs import js and css. Let's see -
+
+Import JS in your js file
+
+```
+import ScrollCarousel from 'scroll-carousel';
+```
+
+Import CSS in your css file
+
+```
+@import 'node_modules/scroll-carousel/dist/scroll.carousel.css';
+```
 
 ## Usage
 
@@ -138,4 +154,8 @@ or,
 **Desktop:** Firefox 8+ ✓ Chrome 15+ ✓ (Should works on Chrome 4-14 as well, but I couldn't test it.) Safari 4+ ✓ Opera 12.1+ ✓ IE 8+ ✓
 
 **Mobile:** Android Browser 4.2+ ✓ Chrome Mobile 63+ ✓ Firefox Mobile 28+ ✓ Maxthon 4+ ✓
+
+## License
+
+The code and the documentation are released under the [MIT License](LICENSE).
 
