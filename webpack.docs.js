@@ -4,6 +4,7 @@ var glob = require('glob');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 const htmlFilesPaths = glob.sync('./docs_src/**/*.html');
@@ -30,6 +31,9 @@ module.exports = {
         inject: 'body',
         filename: file.split('/').slice(2).join('/')
       });
+    }),
+    new CopyPlugin({
+      patterns: [{ from: 'docs_src/assets', to: 'assets' }]
     })
   ],
   module: {

@@ -1,3 +1,69 @@
+@import '~highlight.js/styles/default.css';
+@import '~highlight.js/styles/xcode.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Kumbh Sans', sans-serif;
+    scroll-behavior: smooth;
+  }
+
+  [id]{
+    scroll-margin-top: 56px; 
+  }
+
+  pre {
+    white-space: pre-line;
+  }
+}
+
+@layer components {
+  .btn__default {
+    @apply rounded-lg text-slate-900 font-semibold transition flex items-center gap-2 text-[0.8125rem] leading-6 py-1 px-1.5 hover:bg-slate-900/[0.03] -my-1 -mx-1.5;
+  }
+  .slide__item {
+    @apply rounded-lg h-36 w-48 mr-5;
+  }
+}
+/* Tooltip text */
+.tooltip::after {
+  visibility: hidden;
+  font-size: 12px;
+  white-space: nowrap;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #eeeeee;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  content: attr(data-tooltip);
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Tooltip arrow */
+.tooltip::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 105%;
+  width: 10px;
+  height: 10px;
+  background: #eee;
+  opacity: 0;
+  transform: rotate(45deg) translateX(-50%);
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover::after,
+.tooltip:hover::before {
+  visibility: visible;
+  opacity: 1;
+}
