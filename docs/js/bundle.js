@@ -60086,13 +60086,13 @@ var docReady = function docReady(fn) {
     setTimeout(fn, 1);
   }
 };
-
-// const scrollCarouselInit = () => new ScrollCarousel('.my-carousel', { speed: 10 });
+var scrollCarouselInit = function scrollCarouselInit() {
+  return new ScrollCarousel('.basic__example-carousel');
+};
 var clipboardInit = function clipboardInit() {
   return new (clipboard__WEBPACK_IMPORTED_MODULE_0___default())('[data-clipboard-text]');
 };
-
-// docReady(scrollCarouselInit);
+docReady(scrollCarouselInit);
 docReady(_highlight__WEBPACK_IMPORTED_MODULE_1__["default"]);
 docReady(_tooltip__WEBPACK_IMPORTED_MODULE_2__["default"]);
 docReady(clipboardInit);

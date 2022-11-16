@@ -11,10 +11,10 @@ const docReady = fn => {
   }
 };
 
-// const scrollCarouselInit = () => new ScrollCarousel('.my-carousel', { speed: 10 });
+const scrollCarouselInit = () => new ScrollCarousel('.basic__example-carousel');
 const clipboardInit = () => new Clipboard('[data-clipboard-text]');
 
-// docReady(scrollCarouselInit);
+docReady(scrollCarouselInit);
 docReady(highlightjsInit);
 docReady(tooltipInit);
 docReady(clipboardInit);
