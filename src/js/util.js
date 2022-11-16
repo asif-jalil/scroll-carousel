@@ -144,7 +144,7 @@ export function duplicateElems(elems) {
  */
 export function sanitizer(options) {
   if (Number(options.speed) <= 0) options.speed = 1;
-  if (isNaN(Number(options.speed))) options.speed = 7;
+  // if (isNaN(Number(options.speed))) options.speed = 7;
   return options;
 }
 
