@@ -11,10 +11,19 @@ const docReady = fn => {
   }
 };
 
-const scrollCarouselInit = () => new ScrollCarousel('.basic__example-carousel');
+const scrollCarouselInit = () => {
+  new ScrollCarousel('.basic__example-carousel');
+
+  new ScrollCarousel('.speed__example-carousel', {
+    speed: 8,
+    smartSpeed: true
+  });
+};
 const clipboardInit = () => new Clipboard('[data-clipboard-text]');
+
 
 docReady(scrollCarouselInit);
 docReady(highlightjsInit);
 docReady(tooltipInit);
 docReady(clipboardInit);
+

@@ -10,6 +10,10 @@
     scroll-behavior: smooth;
   }
 
+  [id]{
+    scroll-margin-top: 56px; 
+  }
+
   pre {
     white-space: pre-line;
   }
