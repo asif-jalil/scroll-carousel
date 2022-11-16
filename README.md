@@ -1,4 +1,6 @@
-![](https://github.com/asif-jalil/scroll-carousel/blob/document/readme/carousel.gif)
+<p>
+  <img style="width:100%;" src="https://media.giphy.com/media/rUikQvPdRPZUBcCgs5/giphy.gif" />
+</p>
 
 # Scroll Carousel
 
