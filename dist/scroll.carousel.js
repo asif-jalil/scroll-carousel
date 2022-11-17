@@ -3,7 +3,7 @@
  * scroll-carousel - 0.5.0
  * Responsive scroll slider
  *
- * https://github.com/asif-jalil/scroll-carousel
+ * https://asif-jalil.github.io/scroll-carousel
  *
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -187,8 +187,9 @@ function duplicateElems(elems) {
  * @returns {Object} Same object of param with sanitization
  */
 function sanitizer(options) {
+  if (Object.keys(options).includes('margin') && !Number(options.margin)) options.speed = 7;
   if (Number(options.speed) <= 0) options.speed = 1;
-  // if (isNaN(Number(options.speed))) options.speed = 7;
+  if (Object.keys(options).includes('margin') && !Number(options.margin)) options.margin = 10;
   return options;
 }
 
@@ -326,7 +327,9 @@ ScrollCarousel.defaults = {
   // movement speed of the carousel
   speed: 7,
   // handle the speed according to acceleration
-  smartSpeed: false
+  smartSpeed: false,
+  // margin between two slides
+  margin: 10
 };
 var proto = ScrollCarousel.prototype;
 
@@ -409,6 +412,7 @@ proto._calcSmartSpeed = function () {
 // every node will be in sc-slide
 proto._makeSlide = function (elem) {
   var slideElem = document.createElement('div');
+  slideElem.style.marginRight = this.options.margin + 'px';
   slideElem.className = 'sc-slide';
   this.slideElem = slideElem;
   this.slideElem.append(elem);

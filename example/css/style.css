@@ -1,77 +1,75 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap');
 
 body {
-    font-family: 'Source Sans Pro',
-        sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .mt-5 {
-    margin-top: 3rem;
+  margin-top: 3rem;
 }
 
 .mx-auto {
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 
 .fs-1 {
-    font-size: 2.5rem;
+  font-size: 2.5rem;
 }
 
 .intro-peragraph {
-    font-size: 40px;
-    line-height: 1.1;
-    font-weight: 600;
+  font-size: 40px;
+  line-height: 1.1;
+  font-weight: 600;
 }
 
 .item {
-    width: 200px;
-    height: 150px;
-    background-color: #10505b;
-    border: 2px solid gray;
-    margin: 5px;
-    overflow: hidden;
-    text-align: center;
-    color: white;
+  width: 200px;
+  height: 150px;
+  background-color: #10505b;
+  border: 2px solid gray;
+  overflow: hidden;
+  text-align: center;
+  color: white;
 }
 
 #demo1 .scroll-carousel-slider {
-    align-items: center;
+  align-items: center;
 }
 
 img {
-    height: 150px;
-    margin: 5px;
+  height: 150px;
 }
 
 .item img {
-    margin: 0;
+  margin: 0;
 }
 
 .text-green {
-    color: #10505b;
+  color: #10505b;
 }
 
 .text-yellow {
-    color: #d48207;
+  color: #d48207;
 }
 
 .text-orange {
-    color: #e36942;
+  color: #e36942;
 }
 
 .text-pink {
-    color: #b72c31;
+  color: #b72c31;
 }
 
 .text-purple {
-    color: #353a71;
+  color: #353a71;
 }
 
 .text-blue {
-    color: #25476d;
+  color: #25476d;
 }
+

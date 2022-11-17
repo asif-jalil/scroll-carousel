@@ -50,7 +50,9 @@ ScrollCarousel.defaults = {
   // movement speed of the carousel
   speed: 7,
   // handle the speed according to acceleration
-  smartSpeed: false
+  smartSpeed: false,
+  // margin between two slides
+  margin: 10
 };
 
 let proto = ScrollCarousel.prototype;
@@ -135,6 +137,7 @@ proto._calcSmartSpeed = function () {
 // every node will be in sc-slide
 proto._makeSlide = function (elem) {
   let slideElem = document.createElement('div');
+  slideElem.style.marginRight = this.options.margin + 'px';
   slideElem.className = 'sc-slide';
   this.slideElem = slideElem;
   this.slideElem.append(elem);
