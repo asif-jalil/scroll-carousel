@@ -4,7 +4,15 @@
   let demo2 = document.querySelector('#demo2');
   let demo3 = document.querySelector('#demo3');
 
-  new ScrollCarousel(demo1);
+  let dm1 = new ScrollCarousel(demo1);
+  document.querySelector('#btn-1').addEventListener('click', function () {
+    if (dm1.isActive) {
+      dm1.destroy();
+    } else {
+      dm1 = new ScrollCarousel(demo1);
+    }
+  });
+
   new ScrollCarousel(demo2, {
     smartSpeed: true,
     speed: 9
