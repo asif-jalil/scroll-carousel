@@ -86,7 +86,8 @@ proto.activate = function () {
   this.isActive = true;
   this._translate = 0;
   this.displacement = 0;
-  this.prevScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+  this.isScrolling = true;
+  this.prevPosition = document.body.scrollTop || document.documentElement.scrollTop;
 
   // move initial slide elements so they can be loaded as slides
   let slideElems = this._filterFindSlideElements(this.element.children);
@@ -107,19 +108,23 @@ proto.activate = function () {
   window.addEventListener('scroll', () => this._transform());
 };
 
+// run interval for autoplay
 proto.autoplay = function () {
-  const rect = this.slider.getBoundingClientRect();
-  this.prevPosition = rect.top;
-
+  // autoplay will set an interval. in every interval,
+  // we transform the slider. the interval
+  // will be removed when destroy method fired
   this.interval = setInterval(() => {
     this._transform();
-  }, 1);
+  }, 20);
 };
 
 // transform the slider
 proto._transform = function () {
   if (!isScrolledIntoView(this.element)) return;
-  this._setIsScrolling();
+
+  if (this.options.autoplay) {
+    this._setIsScrolling();
+  }
 
   if (!this.options.smartSpeed) {
     this._calcRegularSpeed();
@@ -133,29 +138,33 @@ proto._calcRegularSpeed = function () {
   const rect = this.slider.getBoundingClientRect();
 
   this.slider.style.transform = `translateX(${this._translate}px)`;
-  this.isScrolling ? (this._translate -= this.options.speed) : (this._translate -= 0.35);
+  this.isScrolling ? (this._translate -= this.options.speed) : (this._translate -= 1.2);
   if (this._translate <= -rect.width / 2) this._translate = 0;
 };
 
 // calculate smart speed
 proto._calcSmartSpeed = function () {
-  if (this.prevScrollTop === documentScrollTop) return;
-
   const documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-  this.displacement -= Math.abs(this.prevScrollTop - documentScrollTop);
-  const translateAmount = this.isScrolling
-    ? ((this.displacement / 5.5e3) * (this.options.speed * 10)) % 50
-    : ((this.displacement / 5.5e3) * (this.options.speed * 10)) % 50;
+  const displacementAmount = this.isScrolling ? Math.abs(this.prevPosition - documentScrollTop) : 1.5;
+  this.displacement -= displacementAmount;
+
+  const translateAmount = ((this.displacement / 5.5e3) * (this.options.speed * 10)) % 50;
   this.slider.style.transform = `translateX(${translateAmount}%)`;
-  this.prevScrollTop = documentScrollTop;
+  this.prevPosition = documentScrollTop;
 };
 
+// check if the document is scrolling or not
 proto._setIsScrolling = function () {
-  const rect = this.slider.getBoundingClientRect();
+  const top = document.body.scrollTop || document.documentElement.scrollTop;
 
   this.isScrolling = true;
-  if (this.options.autoplay && this.prevPosition === rect.top) this.isScrolling = false;
-  this.prevPosition = rect.top;
+  if (this.prevPosition === top) {
+    this.isScrolling = false;
+    return;
+  }
+
+  // for smartSpeed the prevPosition will be set from _calcSmartSpeed function
+  if (!this.options.smartSpeed) this.prevPosition = top;
 };
 
 // every node will be in sc-slide

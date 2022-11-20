@@ -8,6 +8,7 @@
     autoplay: true
   });
   new ScrollCarousel(demo2, {
+    autoplay: true,
     smartSpeed: true,
     speed: 9
   });
