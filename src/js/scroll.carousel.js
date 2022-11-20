@@ -50,7 +50,9 @@ ScrollCarousel.defaults = {
   // movement speed of the carousel
   speed: 7,
   // handle the speed according to acceleration
-  smartSpeed: false
+  smartSpeed: false,
+  // slide will play auto
+  autoplay: false
 };
 
 let proto = ScrollCarousel.prototype;
@@ -97,13 +99,27 @@ proto.activate = function () {
   this.viewport.append(this.slider);
   this.element.append(this.viewport);
 
+  if (this.options.autoplay) {
+    this.autoplay();
+  }
+
   // transform function call on scroll
   window.addEventListener('scroll', () => this._transform());
+};
+
+proto.autoplay = function () {
+  const rect = this.slider.getBoundingClientRect();
+  this.prevPosition = rect.top;
+
+  this.interval = setInterval(() => {
+    this._transform();
+  }, 1);
 };
 
 // transform the slider
 proto._transform = function () {
   if (!isScrolledIntoView(this.element)) return;
+  this._setIsScrolling();
 
   if (!this.options.smartSpeed) {
     this._calcRegularSpeed();
@@ -117,7 +133,7 @@ proto._calcRegularSpeed = function () {
   const rect = this.slider.getBoundingClientRect();
 
   this.slider.style.transform = `translateX(${this._translate}px)`;
-  this._translate -= this.options.speed;
+  this.isScrolling ? (this._translate -= this.options.speed) : (this._translate -= 0.35);
   if (this._translate <= -rect.width / 2) this._translate = 0;
 };
 
@@ -127,9 +143,19 @@ proto._calcSmartSpeed = function () {
 
   const documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
   this.displacement -= Math.abs(this.prevScrollTop - documentScrollTop);
-  const translateAmount = ((this.displacement / 5.5e3) * (this.options.speed * 10)) % 50;
+  const translateAmount = this.isScrolling
+    ? ((this.displacement / 5.5e3) * (this.options.speed * 10)) % 50
+    : ((this.displacement / 5.5e3) * (this.options.speed * 10)) % 50;
   this.slider.style.transform = `translateX(${translateAmount}%)`;
   this.prevScrollTop = documentScrollTop;
+};
+
+proto._setIsScrolling = function () {
+  const rect = this.slider.getBoundingClientRect();
+
+  this.isScrolling = true;
+  if (this.options.autoplay && this.prevPosition === rect.top) this.isScrolling = false;
+  this.prevPosition = rect.top;
 };
 
 // every node will be in sc-slide
