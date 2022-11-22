@@ -3,7 +3,7 @@
  * scroll-carousel - 0.5.0
  * Responsive scroll slider
  *
- * https://github.com/asif-jalil/scroll-carousel
+ * https://asif-jalil.github.io/scroll-carousel
  *
  */
 (function webpackUniversalModuleDefinition(root, factory) {
