@@ -3,7 +3,7 @@
  * scroll-carousel - 0.5.0
  * Responsive scroll slider
  *
- * https://github.com/asif-jalil/scroll-carousel
+ * https://asif-jalil.github.io/scroll-carousel
  *
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -326,7 +326,10 @@ ScrollCarousel.defaults = {
   // movement speed of the carousel
   speed: 7,
   // handle the speed according to acceleration
-  smartSpeed: false
+  smartSpeed: false,
+  // select slide with class name which you want to select for carousel.
+  // other element will behave as simple
+  slideSelector: null
 };
 var proto = ScrollCarousel.prototype;
 
