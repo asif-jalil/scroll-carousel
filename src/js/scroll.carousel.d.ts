@@ -6,6 +6,7 @@ declare namespace ScrollCarousel {
   interface Options {
     speed?: number;
     smartSpeed?: boolean;
+    slideSelector?: string;
   }
 }
 
