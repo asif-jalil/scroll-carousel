@@ -5,6 +5,7 @@ import {
   getQueryElement,
   htmlInit,
   isScrolledIntoView,
+  makeArray,
   sanitizer
 } from './util';
 
@@ -34,6 +35,8 @@ function ScrollCarousel(element, options = {}) {
     return instance;
   }
 
+  // baseOption will be used for destroy method
+  this.baseOption = options;
   // options
   this.options = { ...this.constructor.defaults };
   // validated options
@@ -52,7 +55,12 @@ ScrollCarousel.defaults = {
   // handle the speed according to acceleration
   smartSpeed: false,
   // margin between two slides
-  margin: 10
+  margin: 10,
+  // slide will play auto
+  autoplay: false,
+  // select slide with class name which you want to select for carousel.
+  // other element will behave as simple
+  slideSelector: null
 };
 
 let proto = ScrollCarousel.prototype;
@@ -86,7 +94,11 @@ proto.activate = function () {
   this.isActive = true;
   this._translate = 0;
   this.displacement = 0;
-  this.prevScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+  this.isScrolling = true;
+  this.prevPosition = document.body.scrollTop || document.documentElement.scrollTop;
+
+  // baseElems will be used for destroy method
+  this.baseElems = makeArray(this.element.children);
 
   // move initial slide elements so they can be loaded as slides
   let slideElems = this._filterFindSlideElements(this.element.children);
@@ -99,13 +111,31 @@ proto.activate = function () {
   this.viewport.append(this.slider);
   this.element.append(this.viewport);
 
+  if (this.options.autoplay) {
+    this.autoplay();
+  }
+
   // transform function call on scroll
   window.addEventListener('scroll', () => this._transform());
+};
+
+// run interval for autoplay
+proto.autoplay = function () {
+  // autoplay will set an interval. in every interval,
+  // we transform the slider. the interval
+  // will be removed when destroy method fired
+  this.interval = setInterval(() => {
+    this._transform();
+  }, 20);
 };
 
 // transform the slider
 proto._transform = function () {
   if (!isScrolledIntoView(this.element)) return;
+
+  if (this.options.autoplay) {
+    this._setIsScrolling();
+  }
 
   if (!this.options.smartSpeed) {
     this._calcRegularSpeed();
@@ -119,19 +149,33 @@ proto._calcRegularSpeed = function () {
   const rect = this.slider.getBoundingClientRect();
 
   this.slider.style.transform = `translateX(${this._translate}px)`;
-  this._translate -= this.options.speed;
+  this.isScrolling ? (this._translate -= this.options.speed) : (this._translate -= 1.2);
   if (this._translate <= -rect.width / 2) this._translate = 0;
 };
 
 // calculate smart speed
 proto._calcSmartSpeed = function () {
-  if (this.prevScrollTop === documentScrollTop) return;
-
   const documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-  this.displacement -= Math.abs(this.prevScrollTop - documentScrollTop);
+  const displacementAmount = this.isScrolling ? Math.abs(this.prevPosition - documentScrollTop) : 1.5;
+  this.displacement -= displacementAmount;
+
   const translateAmount = ((this.displacement / 5.5e3) * (this.options.speed * 10)) % 50;
   this.slider.style.transform = `translateX(${translateAmount}%)`;
-  this.prevScrollTop = documentScrollTop;
+  this.prevPosition = documentScrollTop;
+};
+
+// check if the document is scrolling or not
+proto._setIsScrolling = function () {
+  const top = document.body.scrollTop || document.documentElement.scrollTop;
+
+  this.isScrolling = true;
+  if (this.prevPosition === top) {
+    this.isScrolling = false;
+    return;
+  }
+
+  // for smartSpeed the prevPosition will be set from _calcSmartSpeed function
+  if (!this.options.smartSpeed) this.prevPosition = top;
 };
 
 // every node will be in sc-slide
@@ -166,6 +210,22 @@ proto._createViewport = function () {
 // filtering elements if the element child structure is too much complex (specially for slideSelector option)
 proto._filterFindSlideElements = function (elems) {
   return filterFindElements(elems, this.options.slideSelector);
+};
+
+proto.destroy = function () {
+  if (!this.isActive) return;
+
+  this.viewport.remove();
+  this.element.append(...this.baseElems);
+
+  // set flags
+  this.isActive = false;
+  // clear the interval
+  clearInterval(this.interval);
+
+  window.removeEventListener('scroll', this);
+  delete this.element.scrollCarouselGUID;
+  delete instances[this.guid];
 };
 
 /**

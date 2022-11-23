@@ -7,6 +7,8 @@ declare namespace ScrollCarousel {
     speed?: number;
     smartSpeed?: boolean;
     margin?: number;
+    autoplay?: boolean;
+    slideSelector?: string;
   }
 }
 

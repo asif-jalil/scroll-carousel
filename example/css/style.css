@@ -32,6 +32,7 @@ body {
   height: 150px;
   background-color: #10505b;
   border: 2px solid gray;
+  margin: 5px;
   overflow: hidden;
   text-align: center;
   color: white;
@@ -43,6 +44,7 @@ body {
 
 img {
   height: 150px;
+  margin: 5px;
 }
 
 .item img {
@@ -71,5 +73,17 @@ img {
 
 .text-blue {
   color: #25476d;
+}
+
+.transparent-box {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  background-color: #f54242;
+  font-size: 20px;
+  color: #fff;
+  width: 150px;
+  height: 40px;
+  z-index: 1;
 }
 
