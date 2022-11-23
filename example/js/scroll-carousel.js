@@ -7,7 +7,8 @@
   new ScrollCarousel(demo1);
   new ScrollCarousel(demo2, {
     smartSpeed: true,
-    speed: 9
+    speed: 9,
+    margin: 5
   });
 
   new ScrollCarousel(demo3);
