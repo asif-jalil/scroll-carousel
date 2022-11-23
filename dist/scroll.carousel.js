@@ -327,6 +327,8 @@ ScrollCarousel.defaults = {
   speed: 7,
   // handle the speed according to acceleration
   smartSpeed: false,
+  // slide will play auto
+  autoplay: false,
   // select slide with class name which you want to select for carousel.
   // other element will behave as simple
   slideSelector: null
@@ -363,7 +365,8 @@ proto.activate = function () {
   this.isActive = true;
   this._translate = 0;
   this.displacement = 0;
-  this.prevScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+  this.isScrolling = true;
+  this.prevPosition = document.body.scrollTop || document.documentElement.scrollTop;
 
   // move initial slide elements so they can be loaded as slides
   var slideElems = this._filterFindSlideElements(this.element.children);
@@ -374,6 +377,9 @@ proto.activate = function () {
   (_this$slider = this.slider).append.apply(_this$slider, _toConsumableArray(this.slideElems).concat(_toConsumableArray(duplicateSlideElems)));
   this.viewport.append(this.slider);
   this.element.append(this.viewport);
+  if (this.options.autoplay) {
+    this.autoplay();
+  }
 
   // transform function call on scroll
   window.addEventListener('scroll', function () {
@@ -381,9 +387,23 @@ proto.activate = function () {
   });
 };
 
+// run interval for autoplay
+proto.autoplay = function () {
+  var _this2 = this;
+  // autoplay will set an interval. in every interval,
+  // we transform the slider. the interval
+  // will be removed when destroy method fired
+  this.interval = setInterval(function () {
+    _this2._transform();
+  }, 20);
+};
+
 // transform the slider
 proto._transform = function () {
   if (!(0,_util__WEBPACK_IMPORTED_MODULE_1__.isScrolledIntoView)(this.element)) return;
+  if (this.options.autoplay) {
+    this._setIsScrolling();
+  }
   if (!this.options.smartSpeed) {
     this._calcRegularSpeed();
   } else {
@@ -395,18 +415,31 @@ proto._transform = function () {
 proto._calcRegularSpeed = function () {
   var rect = this.slider.getBoundingClientRect();
   this.slider.style.transform = "translateX(".concat(this._translate, "px)");
-  this._translate -= this.options.speed;
+  this.isScrolling ? this._translate -= this.options.speed : this._translate -= 1.2;
   if (this._translate <= -rect.width / 2) this._translate = 0;
 };
 
 // calculate smart speed
 proto._calcSmartSpeed = function () {
-  if (this.prevScrollTop === documentScrollTop) return;
   var documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-  this.displacement -= Math.abs(this.prevScrollTop - documentScrollTop);
+  var displacementAmount = this.isScrolling ? Math.abs(this.prevPosition - documentScrollTop) : 1.5;
+  this.displacement -= displacementAmount;
   var translateAmount = this.displacement / 5.5e3 * (this.options.speed * 10) % 50;
   this.slider.style.transform = "translateX(".concat(translateAmount, "%)");
-  this.prevScrollTop = documentScrollTop;
+  this.prevPosition = documentScrollTop;
+};
+
+// check if the document is scrolling or not
+proto._setIsScrolling = function () {
+  var top = document.body.scrollTop || document.documentElement.scrollTop;
+  this.isScrolling = true;
+  if (this.prevPosition === top) {
+    this.isScrolling = false;
+    return;
+  }
+
+  // for smartSpeed the prevPosition will be set from _calcSmartSpeed function
+  if (!this.options.smartSpeed) this.prevPosition = top;
 };
 
 // every node will be in sc-slide
@@ -420,9 +453,9 @@ proto._makeSlide = function (elem) {
 
 // full array of node
 proto._makeSlides = function (elems) {
-  var _this2 = this;
+  var _this3 = this;
   return elems.map(function (elem) {
-    return _this2._makeSlide(elem);
+    return _this3._makeSlide(elem);
   });
 };
 

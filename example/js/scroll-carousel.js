@@ -11,6 +11,7 @@
 
   new ScrollCarousel(demo1);
   new ScrollCarousel(demo2, {
+    autoplay: true,
     smartSpeed: true,
     speed: 9
   });
