@@ -54,6 +54,8 @@ ScrollCarousel.defaults = {
   speed: 7,
   // handle the speed according to acceleration
   smartSpeed: false,
+  // margin between two slides
+  margin: 10,
   // slide will play auto
   autoplay: false,
   // select slide with class name which you want to select for carousel.
@@ -179,6 +181,7 @@ proto._setIsScrolling = function () {
 // every node will be in sc-slide
 proto._makeSlide = function (elem) {
   let slideElem = document.createElement('div');
+  slideElem.style.marginRight = this.options.margin + 'px';
   slideElem.className = 'sc-slide';
   this.slideElem = slideElem;
   this.slideElem.append(elem);

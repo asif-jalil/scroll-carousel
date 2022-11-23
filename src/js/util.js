@@ -143,8 +143,11 @@ export function duplicateElems(elems) {
  * @returns {Object} Same object of param with sanitization
  */
 export function sanitizer(options) {
+  if (Object.keys(options).includes('speed') && !Number(options.speed)) options.speed = 7;
   if (Number(options.speed) <= 0) options.speed = 1;
-  // if (isNaN(Number(options.speed))) options.speed = 7;
+  if (Object.keys(options).includes('margin') && !Number(options.margin) && Number(options.margin) !== 0)
+    options.margin = 10;
+
   return options;
 }
 
