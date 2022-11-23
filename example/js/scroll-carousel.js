@@ -4,9 +4,12 @@
   let demo2 = document.querySelector('#demo2');
   let demo3 = document.querySelector('#demo3');
 
-  new ScrollCarousel(demo1, {
-    autoplay: true
+  new ScrollCarousel('#demo5', {
+    slideSelector: '.item',
+    smartSpeed: true
   });
+
+  new ScrollCarousel(demo1);
   new ScrollCarousel(demo2, {
     autoplay: true,
     smartSpeed: true,

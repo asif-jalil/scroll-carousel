@@ -328,7 +328,10 @@ ScrollCarousel.defaults = {
   // handle the speed according to acceleration
   smartSpeed: false,
   // slide will play auto
-  autoplay: false
+  autoplay: false,
+  // select slide with class name which you want to select for carousel.
+  // other element will behave as simple
+  slideSelector: null
 };
 var proto = ScrollCarousel.prototype;
 
