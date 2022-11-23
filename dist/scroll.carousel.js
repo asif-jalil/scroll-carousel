@@ -310,6 +310,8 @@ function ScrollCarousel(element) {
     return instance;
   }
 
+  // baseOption will be used for destroy method
+  this.baseOption = options;
   // options
   this.options = _objectSpread({}, this.constructor.defaults);
   // validated options
@@ -367,6 +369,9 @@ proto.activate = function () {
   this.displacement = 0;
   this.isScrolling = true;
   this.prevPosition = document.body.scrollTop || document.documentElement.scrollTop;
+
+  // baseElems will be used for destroy method
+  this.baseElems = (0,_util__WEBPACK_IMPORTED_MODULE_1__.makeArray)(this.element.children);
 
   // move initial slide elements so they can be loaded as slides
   var slideElems = this._filterFindSlideElements(this.element.children);
@@ -476,6 +481,20 @@ proto._createViewport = function () {
 // filtering elements if the element child structure is too much complex (specially for slideSelector option)
 proto._filterFindSlideElements = function (elems) {
   return (0,_util__WEBPACK_IMPORTED_MODULE_1__.filterFindElements)(elems, this.options.slideSelector);
+};
+proto.destroy = function () {
+  var _this$element;
+  if (!this.isActive) return;
+  this.viewport.remove();
+  (_this$element = this.element).append.apply(_this$element, _toConsumableArray(this.baseElems));
+
+  // set flags
+  this.isActive = false;
+  // clear the interval
+  clearInterval(this.interval);
+  window.removeEventListener('scroll', this);
+  delete this.element.scrollCarouselGUID;
+  delete instances[this.guid];
 };
 
 /**
