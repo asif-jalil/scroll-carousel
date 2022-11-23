@@ -217,6 +217,8 @@ proto.destroy = function () {
 
   // set flags
   this.isActive = false;
+  // clear the interval
+  clearInterval(this.interval);
 
   window.removeEventListener('scroll', this);
   delete this.element.scrollCarouselGUID;
