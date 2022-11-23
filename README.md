@@ -21,7 +21,7 @@ Simple content slider, works on scroll. Absolutely free for use. Thriving for pr
 ## Features
 
 - **Mobile friendly:** It is meant to be utilized in mobile web apps and mobile websites.
-- **Loop:** Scroll carousel is looped by default.
+- **Autoplay:** Scroll carousel supports autoplay.
 - **Library Agnostic:** It is significantly smaller and faster because it doesn't need any JavaScript libraries like jQuery.
 - **Responsive:** It is responsive by default.
 - **Typescript support:** Scroll carousel is fully typed.
@@ -33,11 +33,11 @@ Simple content slider, works on scroll. Absolutely free for use. Thriving for pr
 - CSS
 
   - [scroll.carousel.min.css](https://raw.githubusercontent.com/asif-jalil/scroll-carousel/main/dist/scroll.carousel.min.css) minified, or
-  - [scroll.carousel.css](https://raw.githubusercontent.com/asif-jalil/scroll-carousel/main/dist/scroll.carousel.css) un-minified
+  - [scroll.carousel.css](https://raw.githubusercontent.com/asif-jalil/scroll-carousel/main/dist/scroll.carousel.css) not minified
 
 - JS
   - [scroll.carousel.min.js](https://raw.githubusercontent.com/asif-jalil/scroll-carousel/main/dist/scroll.carousel.min.js) minified, or
-  - [scroll.carousel.js](https://raw.githubusercontent.com/asif-jalil/scroll-carousel/main/dist/scroll.carousel.js) un-minified
+  - [scroll.carousel.js](https://raw.githubusercontent.com/asif-jalil/scroll-carousel/main/dist/scroll.carousel.js) not minified
 
 ### CDN
 
@@ -61,7 +61,11 @@ Then, before your closing `<body>` tag, add:
 
 ### Package managers
 
-npm - `npm install scroll-carousel`
+##### npm
+
+```
+npm install scroll-carousel
+```
 
 Using with npm needs import js and css. Let's see -
 
@@ -127,28 +131,55 @@ You can initialize **Scroll Carousel** in HTML, without writing any JavaScript. 
 
 ### Options
 
-| Option     | Type    | Default | Description                                                                                     |
-| ---------- | ------- | ------- | ----------------------------------------------------------------------------------------------- |
-| speed      | number  | 7       | The value given is actually how fast you want to move on scroll. It needs to be greater than 0. |
-| smartSpeed | boolean | false   | To calculate the speed more smartly on displacement and time difference.                        |
+| Option        | Type    | Default | Description                                                                                             |
+| ------------- | ------- | ------- | ------------------------------------------------------------------------------------------------------- |
+| speed         | number  | 7       | The value given is actually how fast you want to move on scroll. It needs to be greater than 0.         |
+| smartSpeed    | boolean | false   | To calculate the speed more smartly on displacement and time difference.                                |
+| margin        | number  | 10      | To make gap between two slide                                                                           |
+| slideSelector | string  | null    | Select slide with class name which you want to select for carousel. Other element will behave as simple |
+| autoplay      | boolean | false   | To play the slider automatically                                                                        |
 
-##### Example for speed
+##### Example with options
 
 ```
 new ScrollCarousel(".my-carousel", {
-  speed: 15
+  speed: 15,
+  autoplay: true,
+  smartSpeed: true,
+  slideSelector: ".my-slide"
 })
 ```
 
 or,
 
 ```
-<div class="my-carousel" data-carousel='{"speed": 15}'>
+<div class="my-carousel" data-carousel='{"speed": 15, "autoplay": true, "smartSpeed": true, "slideSelector": ".my-slide"}'>
   <div class="my-slide">...</div>
   <div class="my-slide">...</div>
   <div class="my-slide">...</div>
   ...
 </div>
+```
+
+### Methods
+
+| Method    | Description                                                                                                          |
+| --------- | -------------------------------------------------------------------------------------------------------------------- |
+| destroy() | Remove ScrollCarousel functionality completely. `destroy` will return the element back to its pre-initialized state. |
+
+##### Example of methods
+
+```
+const scrollCarousel = new ScrollCarousel(".my-carousel", {
+  speed: 15,
+  autoplay: true,
+  smartSpeed: true,
+  slideSelector: ".my-slide"
+})
+
+document.querySelector('#button').addEventListener('click', function () {
+  scrollCarousel.destroy();
+});
 ```
 
 > :warning: Options set in HTML must be valid JSON. Keys need to be quoted, for example "speed":. Note that the attribute value uses single quotes ', but the JSON entities use double-quotes ".
