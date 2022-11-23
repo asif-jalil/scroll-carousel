@@ -13,7 +13,7 @@
 
 Simple content slider, works on scroll. Absolutely free for use. Thriving for precision & community growth.
 
-[Documentation](https://asif-jalil.github.io/scroll-carousel/) | [Demos](https://asif-jalil.github.io/scroll-carousel/#demos)
+[Documentation](https://asif-jalil.github.io/scroll-carousel-website) | [Demos](https://asif-jalil.github.io/scroll-carousel-website/#demos)
 
 **Note:** This carousel only operates in browser.
 
