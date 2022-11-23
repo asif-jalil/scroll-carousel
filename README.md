@@ -1,5 +1,12 @@
 <p align="center">
-  <img style="width:100%;" src="https://media.giphy.com/media/rUikQvPdRPZUBcCgs5/giphy.gif" />
+  <img style="width:100%;" src="https://i.ibb.co/GTx0QgX/carousel.gif" />
+</p>
+
+<p align="center">
+  <img alt="top language" src="https://img.shields.io/github/languages/top/asif-jalil/scroll-carousel" />
+  <img alt="npm bundle size" src="https://img.shields.io/bundlephobia/minzip/scroll-carousel">
+  <img alt="npm" src="https://img.shields.io/npm/dw/scroll-carousel">
+  <img alt="GitHub" src="https://img.shields.io/github/license/asif-jalil/scroll-carousel">
 </p>
 
 # Scroll Carousel
@@ -17,6 +24,7 @@ Simple content slider, works on scroll. Absolutely free for use. Thriving for pr
 - [Usage](#usage)
 - [Browser Support](#browser-support)
 - [License](#license)
+- [Contributors](#contributors)
 
 ## Features
 
@@ -193,4 +201,14 @@ document.querySelector('#button').addEventListener('click', function () {
 ## License
 
 The code and the documentation are released under the [MIT License](LICENSE).
+
+## Contributors
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/asif-jalil"><img src="https://avatars.githubusercontent.com/u/62372647?v=4?s=100" width="100px;" alt="Asif Jalil"/><br /><sub><b>Asif Jalil</b></sub></a></td>
+    <td align="center"><a href="https://github.com/md-emran-hossain"><img src="https://avatars.githubusercontent.com/u/69568149?v=4?s=100" width="100px;" alt="Md Emran Hossain"/><br /><sub><b>Md Emran Hossain</b></sub></a></td>
+    <td align="center"><a href="https://github.com/MostofaNobiTanveer"><img src="https://avatars.githubusercontent.com/u/86819747?v=4?s=100" width="100px;" alt="Mostofa Nobi"/><br /><sub><b>Mostofa Nobi</b></sub></a></td>
+  </tr>
+</table>
 
