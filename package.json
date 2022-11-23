@@ -10,13 +10,7 @@
     "start:serve": "webpack serve --config webpack.config.js",
     "start:watch": "webpack --watch --config webpack.config.js",
     "build:debug": "webpack --config webpack.config.js",
-    "build:prod": "cross-env NODE_ENV=production webpack --config webpack.config.js",
-    "docs": "npm run docs:watch & npm run docs:serve",
-    "docs:serve": "webpack serve --config webpack.docs.js",
-    "docs:watch": "webpack --watch --config webpack.docs.js",
-    "docs:build:debug": "webpack --config webpack.docs.js",
-    "docs:build:prod": "cross-env NODE_ENV=production webpack --config webpack.docs.js",
-    "docs:live": "gh-pages -d docs"
+    "build:prod": "cross-env NODE_ENV=production webpack --config webpack.config.js"
   },
   "keywords": [
     "scroll",
@@ -84,5 +78,4 @@
     "node-sass": "^7.0.3"
   }
 }
-
 
