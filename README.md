@@ -1,5 +1,5 @@
 <p align="center">
-  <img style="width:100%;" src="https://i.ibb.co/GTx0QgX/carousel.gif" />
+  <img style="width:100%;" src="https://i.ibb.co/x1zSdtp/carousel2.gif" />
 </p>
 
 <p align="center">
