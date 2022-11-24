@@ -1,6 +1,6 @@
 {
   "name": "scroll-carousel",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "description": "Scroll carousel, a unique content slider that specially works on window scroll.",
   "main": "dist/scroll.carousel.js",
   "types": "src/js/scroll.carousel.d.ts",
@@ -28,18 +28,6 @@
     "mobile",
     "practice",
     "pages"
-  ],
-  "files": [
-    "/.github",
-    "/dist",
-    "/src",
-    "package.json",
-    "LICENSE",
-    ".gitignore",
-    ".babelrc",
-    ".prettierrc",
-    "README.md",
-    "webpack.config.js"
   ],
   "contributors": [
     {
