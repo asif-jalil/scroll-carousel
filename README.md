@@ -204,7 +204,8 @@ The code and the documentation are released under the [MIT License](LICENSE).
 
 ## Contributors
 
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+This project exists thanks to all the people who contribute. [[Contribute](CODE_CONTRIBUTORS.md)].
+
 <a href="CODE_CONTRIBUTORS.md">
 <img src="https://contrib.rocks/image?repo=asif-jalil/scroll-carousel"/>
 </a>
