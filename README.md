@@ -3,10 +3,21 @@
 </p>
 
 <p align="center">
-  <img alt="top language" src="https://img.shields.io/github/languages/top/asif-jalil/scroll-carousel" />
-  <img alt="npm bundle size" src="https://img.shields.io/bundlephobia/minzip/scroll-carousel">
-  <img alt="npm" src="https://img.shields.io/npm/dw/scroll-carousel">
-  <img alt="GitHub" src="https://img.shields.io/github/license/asif-jalil/scroll-carousel">
+  <a href="https://www.npmjs.com/package/scroll-carousel">
+    <img alt="top language" src="https://img.shields.io/github/languages/top/asif-jalil/scroll-carousel" />
+  </a>
+  <a href="https://www.npmjs.com/package/scroll-carousel">
+    <img alt="npm bundle size" src="https://img.shields.io/bundlephobia/minzip/scroll-carousel">
+  </a>
+  <a href="https://www.npmjs.com/package/scroll-carousel">
+    <img alt="npm" src="https://img.shields.io/npm/dw/scroll-carousel">
+  </a>
+  <a href="https://www.jsdelivr.com/package/npm/scroll-carousel">
+    <img alt="npm" src="https://data.jsdelivr.com/v1/package/npm/scroll-carousel/badge?style=rounded">
+  </a>
+  <a href="LICENSE">
+    <img alt="GitHub" src="https://img.shields.io/github/license/asif-jalil/scroll-carousel">
+  </a>
 </p>
 
 # Scroll Carousel
