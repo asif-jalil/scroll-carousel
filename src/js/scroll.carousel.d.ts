@@ -30,6 +30,10 @@ declare namespace ScrollCarousel {
      *  other element will behave as simple
      */
     slideSelector?: string;
+    /**
+     * moving direction of the slides
+     */
+    direction?: 'rtl' | 'ltr';
   }
 }
 

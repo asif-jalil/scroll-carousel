@@ -1,4 +1,5 @@
 import '../scss/main.scss';
+import { LTR, RTL } from './scroll.carousel.const';
 import {
   duplicateElems,
   filterFindElements,
@@ -60,7 +61,9 @@ ScrollCarousel.defaults = {
   autoplay: false,
   // select slide with class name which you want to select for carousel.
   // other element will behave as simple
-  slideSelector: null
+  slideSelector: null,
+  // moving direction of the slides
+  direction: RTL
 };
 
 let proto = ScrollCarousel.prototype;
@@ -92,7 +95,7 @@ proto.activate = function () {
   if (this.isActive) return;
 
   this.isActive = true;
-  this._translate = 0;
+  this.translate = 0;
   this.displacement = 0;
   this.isScrolling = true;
   this.prevPosition = document.body.scrollTop || document.documentElement.scrollTop;
@@ -111,8 +114,12 @@ proto.activate = function () {
   this.viewport.append(this.slider);
   this.element.append(this.viewport);
 
+  if (this.options.direction === LTR) {
+    this._supportLtr();
+  }
+
   if (this.options.autoplay) {
-    this.autoplay();
+    this._autoplay();
   }
 
   // transform function call on scroll
@@ -120,7 +127,7 @@ proto.activate = function () {
 };
 
 // run interval for autoplay
-proto.autoplay = function () {
+proto._autoplay = function () {
   // autoplay will set an interval. in every interval,
   // we transform the slider. the interval
   // will be removed when destroy method fired
@@ -147,21 +154,40 @@ proto._transform = function () {
 // calculate speed without smart speed
 proto._calcRegularSpeed = function () {
   const rect = this.slider.getBoundingClientRect();
+  this.slider.style.transform = `translateX(${this.translate}px)`;
+  const speed = this.isScrolling ? this.options.speed : 1.2;
 
-  this.slider.style.transform = `translateX(${this._translate}px)`;
-  this.isScrolling ? (this._translate -= this.options.speed) : (this._translate -= 1.2);
-  if (this._translate <= -rect.width / 2) this._translate = 0;
+  if (this.options.direction === RTL) this.translate -= speed;
+  if (this.options.direction === LTR) this.translate += speed;
+
+  if (this.options.direction === RTL && this.translate <= -rect.width / 2) this.translate = 0;
+  if (this.options.direction === LTR && this.translate >= 0) this.translate = -rect.width / 2;
 };
 
 // calculate smart speed
 proto._calcSmartSpeed = function () {
   const documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-  const displacementAmount = this.isScrolling ? Math.abs(this.prevPosition - documentScrollTop) : 1.5;
-  this.displacement -= displacementAmount;
 
-  const translateAmount = ((this.displacement / 5.5e3) * (this.options.speed * 10)) % 50;
-  this.slider.style.transform = `translateX(${translateAmount}%)`;
+  this.displacement -= this.isScrolling ? Math.abs(this.prevPosition - documentScrollTop) : 1.2;
+  const translateBasic = ((this.displacement / 5.5e3) * (this.options.speed * 10)) % 50;
+
+  let translate;
+  if (this.options.direction === RTL) translate = translateBasic;
+  if (this.options.direction === LTR) translate = -translateBasic;
+
+  this.slider.style.transform = `translateX(${translate}%)`;
   this.prevPosition = documentScrollTop;
+};
+
+// translate enough and reset variable enough for LTR direction
+proto._supportLtr = function () {
+  const rect = this.slider.getBoundingClientRect();
+
+  this.translate = -rect.width / 2;
+  this.displacement = 50 / ((this.options.speed / 5.5e3) % 50);
+
+  this.options.direction === RTL && (this.slider.style.transform = `translateX(${this.translate}px)`);
+  this.options.direction === LTR && (this.slider.style.transform = `translateX(${-50}%)`);
 };
 
 // check if the document is scrolling or not
@@ -212,6 +238,8 @@ proto._filterFindSlideElements = function (elems) {
   return filterFindElements(elems, this.options.slideSelector);
 };
 
+// ============================== METHOD ==============================
+
 proto.destroy = function () {
   if (!this.isActive) return;
 
@@ -227,6 +255,8 @@ proto.destroy = function () {
   delete this.element.scrollCarouselGUID;
   delete instances[this.guid];
 };
+
+// ============================== DATA ATTRIBUTE ==============================
 
 /**
  * get Scroll Carousel instance from element
