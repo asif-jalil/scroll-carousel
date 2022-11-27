@@ -1,9 +1,9 @@
 /*!
  * 
- * scroll-carousel - 0.5.0
+ * scroll-carousel - 1.0.0
  * Responsive scroll slider
  *
- * https://asif-jalil.github.io/scroll-carousel
+ * https://asif-jalil.github.io/scroll-carousel-website
  *
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -311,7 +311,7 @@ function ScrollCarousel(element) {
     return instance;
   }
 
-  // baseOption will be used for destroy method
+  // baseOption will be used for destroy method and reinit method
   this.baseOption = options;
   // options
   this.options = _objectSpread({}, this.constructor.defaults);
@@ -499,6 +499,11 @@ proto.destroy = function () {
   window.removeEventListener('scroll', this);
   delete this.element.scrollCarouselGUID;
   delete instances[this.guid];
+};
+
+// Re initialize the carousel after destroy
+proto.reinit = function () {
+  return new ScrollCarousel(this.element, this.baseOption);
 };
 
 /**

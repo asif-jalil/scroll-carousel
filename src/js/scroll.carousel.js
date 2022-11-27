@@ -35,7 +35,7 @@ function ScrollCarousel(element, options = {}) {
     return instance;
   }
 
-  // baseOption will be used for destroy method
+  // baseOption will be used for destroy method and reinit method
   this.baseOption = options;
   // options
   this.options = { ...this.constructor.defaults };
@@ -226,6 +226,11 @@ proto.destroy = function () {
   window.removeEventListener('scroll', this);
   delete this.element.scrollCarouselGUID;
   delete instances[this.guid];
+};
+
+// Re initialize the carousel after destroy
+proto.reinit = function () {
+  return new ScrollCarousel(this.element, this.baseOption);
 };
 
 /**

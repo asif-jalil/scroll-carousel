@@ -5,6 +5,10 @@ declare class ScrollCarousel {
    * Clears all bindings.
    */
   destroy(): void;
+  /**
+   * Re initialize the carousel after destroy
+   */
+  reinit(): this;
 }
 
 declare namespace ScrollCarousel {
