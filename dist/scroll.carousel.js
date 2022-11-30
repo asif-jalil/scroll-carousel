@@ -1,9 +1,9 @@
 /*!
  * 
- * scroll-carousel - 0.5.0
+ * scroll-carousel - 1.0.0
  * Responsive scroll slider
  *
- * https://asif-jalil.github.io/scroll-carousel
+ * https://asif-jalil.github.io/scroll-carousel-website
  *
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -500,7 +500,23 @@ proto.destroy = function () {
   delete this.element.scrollCarouselGUID;
   delete instances[this.guid];
 };
+proto.append = function (elms, index) {
+  var _this$slider2;
+  // move initial slide elements so they can be loaded as slides
+  var filteredElms = this._filterFindSlideElements(elms);
+  var slides = this._makeSlides(filteredElms);
+  if (!slides || !slides.length) return;
+  var len = this.slideElems.length;
+  console.log(len);
 
+  // duplicate the slide array
+  var duplicateSlideElms = (0,_util__WEBPACK_IMPORTED_MODULE_1__.duplicateElems)(slides);
+  var slideElmsArr = (0,_util__WEBPACK_IMPORTED_MODULE_1__.makeArray)(this.slider.children);
+  var realElms = slideElmsArr.slice(0, slideElmsArr.length / 2);
+  var clonedElms = slideElmsArr.slice(slideElmsArr.length / 2);
+  this.slider.innerHTML = '';
+  (_this$slider2 = this.slider).append.apply(_this$slider2, _toConsumableArray(realElms).concat(_toConsumableArray(slides), _toConsumableArray(clonedElms), _toConsumableArray(duplicateSlideElms)));
+};
 /**
  * get Scroll Carousel instance from element
  * @param {[Node, Element, String]} elem - element or selector string
