@@ -228,6 +228,26 @@ proto.destroy = function () {
   delete instances[this.guid];
 };
 
+proto.append = function (elms, index) {
+  // move initial slide elements so they can be loaded as slides
+  const filteredElms = this._filterFindSlideElements(elms);
+  const slides = this._makeSlides(filteredElms);
+
+  if (!slides || !slides.length) return;
+
+  let len = this.slideElems.length;
+  console.log(len);
+
+  // duplicate the slide array
+  let duplicateSlideElms = duplicateElems(slides);
+
+  const slideElmsArr = makeArray(this.slider.children);
+  const realElms = slideElmsArr.slice(0, slideElmsArr.length / 2);
+  const clonedElms = slideElmsArr.slice(slideElmsArr.length / 2);
+
+  this.slider.innerHTML = '';
+  this.slider.append(...realElms, ...slides, ...clonedElms, ...duplicateSlideElms);
+};
 /**
  * get Scroll Carousel instance from element
  * @param {[Node, Element, String]} elem - element or selector string

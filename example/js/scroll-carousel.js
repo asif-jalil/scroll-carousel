@@ -1,8 +1,6 @@
 // import { ScrollCarousel } from './dist/scroll.carousel';
 (function () {
   let demo1 = document.querySelector('#demo1');
-  let demo2 = document.querySelector('#demo2');
-  let demo3 = document.querySelector('#demo3');
 
   let dm1 = new ScrollCarousel(demo1);
   document.querySelector('#btn-1').addEventListener('click', function () {
@@ -13,19 +11,16 @@
     }
   });
 
-  new ScrollCarousel('#demo5', {
-    slideSelector: '.item',
-    smartSpeed: true
-  });
+  function makeCell() {
+    let n = 4;
+    let cell = document.createElement('div');
+    cell.className = 'item';
+    cell.textContent = ++n;
+    return cell;
+  }
 
-  new ScrollCarousel(demo1);
-  new ScrollCarousel(demo2, {
-    autoplay: true,
-    smartSpeed: true,
-    speed: 9,
-    margin: 5
+  document.querySelector('#btn-2').addEventListener('click', function () {
+    dm1.append(makeCell());
   });
-
-  new ScrollCarousel(demo3);
 })();
 

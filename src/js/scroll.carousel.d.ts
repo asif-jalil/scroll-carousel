@@ -5,6 +5,10 @@ declare class ScrollCarousel {
    * Clears all bindings.
    */
   destroy(): void;
+  /**
+   * Add a slide at the end the slider
+   */
+  append(): void;
 }
 
 declare namespace ScrollCarousel {
