@@ -26,6 +26,10 @@ declare namespace ScrollCarousel {
      */
     autoplay?: boolean;
     /**
+     * Speed control for autoplay
+     */
+    autoplaySpeed?: number;
+    /**
      * select slide with class name which you want to select for carousel.
      *  other element will behave as simple
      */
