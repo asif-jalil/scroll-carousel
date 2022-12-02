@@ -22,6 +22,7 @@
   new ScrollCarousel(demo2, {
     autoplay: true,
     smartSpeed: true,
+    direction: 'ltr',
     speed: 9,
     margin: 5
   });

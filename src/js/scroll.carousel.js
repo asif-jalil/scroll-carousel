@@ -107,6 +107,11 @@ proto.activate = function () {
   let slideElems = this._filterFindSlideElements(this.element.children);
   this.slideElems = this._makeSlides(slideElems);
 
+  // for ltr direction reverse the elements like rtl mode
+  if (this.options.direction === LTR) {
+    this.slideElems = this.slideElems.reverse();
+  }
+
   // duplicate the slide array
   let duplicateSlideElems = duplicateElems(this.slideElems);
 
@@ -114,6 +119,7 @@ proto.activate = function () {
   this.viewport.append(this.slider);
   this.element.append(this.viewport);
 
+  // kick for ltr support
   if (this.options.direction === LTR) {
     this._supportLtr();
   }
@@ -167,8 +173,12 @@ proto._calcRegularSpeed = function () {
 // calculate smart speed
 proto._calcSmartSpeed = function () {
   const documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-
   this.displacement -= this.isScrolling ? Math.abs(this.prevPosition - documentScrollTop) : 1.2;
+
+  if (this.options.direction === LTR && this.displacement < 0) {
+    this.displacement = 50 / (((this.options.speed * 10) / 5.5e3) % 50);
+  }
+
   const translateBasic = ((this.displacement / 5.5e3) * (this.options.speed * 10)) % 50;
 
   let translate;
@@ -179,15 +189,22 @@ proto._calcSmartSpeed = function () {
   this.prevPosition = documentScrollTop;
 };
 
-// translate enough and reset variable enough for LTR direction
+// initial kick for ltr direction
 proto._supportLtr = function () {
   const rect = this.slider.getBoundingClientRect();
 
-  this.translate = -rect.width / 2;
-  this.displacement = 50 / ((this.options.speed / 5.5e3) % 50);
+  // calculate initial translate for regular speed
+  this.translate = -rect.width + Math.min(document.documentElement.clientWidth, window.innerWidth);
 
-  this.options.direction === RTL && (this.slider.style.transform = `translateX(${this.translate}px)`);
-  this.options.direction === LTR && (this.slider.style.transform = `translateX(${-50}%)`);
+  // calculate initial displacement for smartSpeed
+  let translateInPercent = (100 * this.translate) / rect.width;
+  this.displacement = -translateInPercent / (((this.options.speed * 10) / 5.5e3) % 50);
+
+  if (this.options.smartSpeed) {
+    this.slider.style.transform = `translateX(${translateInPercent}%)`;
+  } else {
+    this.slider.style.transform = `translateX(${this.translate}px)`;
+  }
 };
 
 // check if the document is scrolling or not

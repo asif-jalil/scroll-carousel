@@ -405,11 +405,18 @@ proto.activate = function () {
   var slideElems = this._filterFindSlideElements(this.element.children);
   this.slideElems = this._makeSlides(slideElems);
 
+  // for ltr direction reverse the elements like rtl mode
+  if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.LTR) {
+    this.slideElems = this.slideElems.reverse();
+  }
+
   // duplicate the slide array
   var duplicateSlideElems = (0,_util__WEBPACK_IMPORTED_MODULE_2__.duplicateElems)(this.slideElems);
   (_this$slider = this.slider).append.apply(_this$slider, _toConsumableArray(this.slideElems).concat(_toConsumableArray(duplicateSlideElems)));
   this.viewport.append(this.slider);
   this.element.append(this.viewport);
+
+  // kick for ltr support
   if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.LTR) {
     this._supportLtr();
   }
@@ -462,6 +469,9 @@ proto._calcRegularSpeed = function () {
 proto._calcSmartSpeed = function () {
   var documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
   this.displacement -= this.isScrolling ? Math.abs(this.prevPosition - documentScrollTop) : 1.2;
+  if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.LTR && this.displacement < 0) {
+    this.displacement = 50 / (this.options.speed * 10 / 5.5e3 % 50);
+  }
   var translateBasic = this.displacement / 5.5e3 * (this.options.speed * 10) % 50;
   var translate;
   if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.RTL) translate = translateBasic;
@@ -470,13 +480,21 @@ proto._calcSmartSpeed = function () {
   this.prevPosition = documentScrollTop;
 };
 
-// translate enough and reset variable enough for LTR direction
+// initial kick for ltr direction
 proto._supportLtr = function () {
   var rect = this.slider.getBoundingClientRect();
-  this.translate = -rect.width / 2;
-  this.displacement = 50 / (this.options.speed / 5.5e3 % 50);
-  this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.RTL && (this.slider.style.transform = "translateX(".concat(this.translate, "px)"));
-  this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.LTR && (this.slider.style.transform = "translateX(".concat(-50, "%)"));
+
+  // calculate initial translate for regular speed
+  this.translate = -rect.width + Math.min(document.documentElement.clientWidth, window.innerWidth);
+
+  // calculate initial displacement for smartSpeed
+  var translateInPercent = 100 * this.translate / rect.width;
+  this.displacement = -translateInPercent / (this.options.speed * 10 / 5.5e3 % 50);
+  if (this.options.smartSpeed) {
+    this.slider.style.transform = "translateX(".concat(translateInPercent, "%)");
+  } else {
+    this.slider.style.transform = "translateX(".concat(this.translate, "px)");
+  }
 };
 
 // check if the document is scrolling or not
