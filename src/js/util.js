@@ -1,3 +1,5 @@
+import { LTR, RTL } from './scroll.carousel.const';
+
 /**
  * check an element, node, array, object is into view or not
  *
@@ -145,8 +147,16 @@ export function duplicateElems(elems) {
 export function sanitizer(options) {
   if (Object.keys(options).includes('speed') && !Number(options.speed)) options.speed = 7;
   if (Number(options.speed) <= 0) options.speed = 1;
+
   if (Object.keys(options).includes('margin') && !Number(options.margin) && Number(options.margin) !== 0)
     options.margin = 10;
+  if (Object.keys(options).includes('direction')) options.direction = options.direction.toLowerCase();
+  if (Object.keys(options).includes('direction') && options.direction !== RTL && options.direction !== LTR)
+    options.direction = RTL;
+
+  if (Object.keys(options).includes('autoplaySpeed') && !Number(options.autoplaySpeed))
+    options.autoplaySpeed = 5;
+  if (Number(options.autoplaySpeed) <= 0) options.autoplaySpeed = 1;
 
   return options;
 }

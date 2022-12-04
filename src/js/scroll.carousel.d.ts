@@ -5,6 +5,10 @@ declare class ScrollCarousel {
    * Clears all bindings.
    */
   destroy(): void;
+  /**
+   * Re initialize the carousel after destroy
+   */
+  reinit(): this;
 }
 
 declare namespace ScrollCarousel {
@@ -26,10 +30,18 @@ declare namespace ScrollCarousel {
      */
     autoplay?: boolean;
     /**
+     * Speed control for autoplay
+     */
+    autoplaySpeed?: number;
+    /**
      * select slide with class name which you want to select for carousel.
      *  other element will behave as simple
      */
     slideSelector?: string;
+    /**
+     * moving direction of the slides
+     */
+    direction?: 'rtl' | 'ltr';
   }
 }
 
