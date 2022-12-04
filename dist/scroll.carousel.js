@@ -1,9 +1,9 @@
 /*!
  * 
- * scroll-carousel - 0.5.0
+ * scroll-carousel - 1.0.0
  * Responsive scroll slider
  *
- * https://asif-jalil.github.io/scroll-carousel
+ * https://asif-jalil.github.io/scroll-carousel-website
  *
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -190,6 +190,8 @@ function sanitizer(options) {
   if (Object.keys(options).includes('speed') && !Number(options.speed)) options.speed = 7;
   if (Number(options.speed) <= 0) options.speed = 1;
   if (Object.keys(options).includes('margin') && !Number(options.margin) && Number(options.margin) !== 0) options.margin = 10;
+  if (Object.keys(options).includes('autoplaySpeed') && !Number(options.autoplaySpeed)) options.autoplaySpeed = 5;
+  if (Number(options.autoplaySpeed) <= 0) options.autoplaySpeed = 1;
   return options;
 }
 
@@ -334,6 +336,8 @@ ScrollCarousel.defaults = {
   margin: 10,
   // slide will play auto
   autoplay: false,
+  // speed control for autoplay
+  autoplaySpeed: 5,
   // select slide with class name which you want to select for carousel.
   // other element will behave as simple
   slideSelector: null
@@ -403,7 +407,7 @@ proto.autoplay = function () {
   // will be removed when destroy method fired
   this.interval = setInterval(function () {
     _this2._transform();
-  }, 20);
+  }, 10);
 };
 
 // transform the slider
@@ -423,14 +427,18 @@ proto._transform = function () {
 proto._calcRegularSpeed = function () {
   var rect = this.slider.getBoundingClientRect();
   this.slider.style.transform = "translateX(".concat(this._translate, "px)");
-  this.isScrolling ? this._translate -= this.options.speed : this._translate -= 1.2;
+  if (this.isScrolling) {
+    this._translate -= this.options.speed;
+  } else {
+    this._translate -= this.options.autoplaySpeed / 10;
+  }
   if (this._translate <= -rect.width / 2) this._translate = 0;
 };
 
 // calculate smart speed
 proto._calcSmartSpeed = function () {
   var documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-  var displacementAmount = this.isScrolling ? Math.abs(this.prevPosition - documentScrollTop) : 1.5;
+  var displacementAmount = this.isScrolling ? Math.abs(this.prevPosition - documentScrollTop) : this.options.autoplaySpeed / 10;
   this.displacement -= displacementAmount;
   var translateAmount = this.displacement / 5.5e3 * (this.options.speed * 10) % 50;
   this.slider.style.transform = "translateX(".concat(translateAmount, "%)");
