@@ -58,6 +58,8 @@ ScrollCarousel.defaults = {
   margin: 10,
   // slide will play auto
   autoplay: false,
+  // speed control for autoplay
+  autoplaySpeed: 5,
   // select slide with class name which you want to select for carousel.
   // other element will behave as simple
   slideSelector: null
@@ -126,7 +128,7 @@ proto.autoplay = function () {
   // will be removed when destroy method fired
   this.interval = setInterval(() => {
     this._transform();
-  }, 20);
+  }, 10);
 };
 
 // transform the slider
@@ -147,16 +149,23 @@ proto._transform = function () {
 // calculate speed without smart speed
 proto._calcRegularSpeed = function () {
   const rect = this.slider.getBoundingClientRect();
-
   this.slider.style.transform = `translateX(${this._translate}px)`;
-  this.isScrolling ? (this._translate -= this.options.speed) : (this._translate -= 1.2);
+
+  if (this.isScrolling) {
+    this._translate -= this.options.speed;
+  } else {
+    this._translate -= this.options.autoplaySpeed / 10;
+  }
+
   if (this._translate <= -rect.width / 2) this._translate = 0;
 };
 
 // calculate smart speed
 proto._calcSmartSpeed = function () {
   const documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-  const displacementAmount = this.isScrolling ? Math.abs(this.prevPosition - documentScrollTop) : 1.5;
+  const displacementAmount = this.isScrolling
+    ? Math.abs(this.prevPosition - documentScrollTop)
+    : this.options.autoplaySpeed / 10;
   this.displacement -= displacementAmount;
 
   const translateAmount = ((this.displacement / 5.5e3) * (this.options.speed * 10)) % 50;
