@@ -150,15 +150,15 @@ You can initialize **Scroll Carousel** in HTML, without writing any JavaScript. 
 
 ### Options
 
-| Option        | Type          | Default | Description                                                                                             |
-| ------------- | ------------- | ------- | ------------------------------------------------------------------------------------------------------- |
-| speed         | `number`      | 7       | The value given is actually how fast you want to move on scroll. It needs to be greater than 0.         |
-| smartSpeed    | `boolean`     | false   | To calculate the speed more smartly on displacement and time difference.                                |
-| margin        | `number`      | 10      | To make gap between two slide                                                                           |
-| slideSelector | `string`      | null    | Select slide with class name which you want to select for carousel. Other element will behave as simple |
-| autoplay      | `boolean`     | false   | To play the slider automatically                                                                        |
-| autoplaySpeed | `number`      | 5       | Control autoplay speed. It needs to be greater than 0                                                   |
-| direction     | `'rtl'|'ltr'` | 'rtl'   | Control direction left to right or right to left                                                        |
+| Option        | Type      | Default | Description                                                                                             |
+| ------------- | --------- | ------- | ------------------------------------------------------------------------------------------------------- |
+| speed         | `number`  | 7       | The value given is actually how fast you want to move on scroll. It needs to be greater than 0.         |
+| smartSpeed    | `boolean` | false   | To calculate the speed more smartly on displacement and time difference.                                |
+| margin        | `number`  | 10      | To make gap between two slide                                                                           |
+| slideSelector | `string`  | null    | Select slide with class name which you want to select for carousel. Other element will behave as simple |
+| autoplay      | `boolean` | false   | To play the slider automatically                                                                        |
+| autoplaySpeed | `number`  | 5       | Control autoplay speed. It needs to be greater than 0                                                   |
+| direction     | `string`  | 'rtl'   | Control direction left to right or right to left. Two possible option - `ltr` or `rtl`                  |
 
 ##### Example with options
 
