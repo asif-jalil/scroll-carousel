@@ -1,3 +1,5 @@
+import { LTR, RTL } from './scroll.carousel.const';
+
 /**
  * check an element, node, array, object is into view or not
  *
@@ -148,6 +150,9 @@ export function sanitizer(options) {
 
   if (Object.keys(options).includes('margin') && !Number(options.margin) && Number(options.margin) !== 0)
     options.margin = 10;
+  if (Object.keys(options).includes('direction')) options.direction = options.direction.toLowerCase();
+  if (Object.keys(options).includes('direction') && options.direction !== RTL && options.direction !== LTR)
+    options.direction = RTL;
 
   if (Object.keys(options).includes('autoplaySpeed') && !Number(options.autoplaySpeed))
     options.autoplaySpeed = 5;
