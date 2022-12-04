@@ -211,6 +211,8 @@ function sanitizer(options) {
   if (Object.keys(options).includes('margin') && !Number(options.margin) && Number(options.margin) !== 0) options.margin = 10;
   if (Object.keys(options).includes('direction')) options.direction = options.direction.toLowerCase();
   if (Object.keys(options).includes('direction') && options.direction !== _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_0__.RTL && options.direction !== _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_0__.LTR) options.direction = _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_0__.RTL;
+  if (Object.keys(options).includes('autoplaySpeed') && !Number(options.autoplaySpeed)) options.autoplaySpeed = 5;
+  if (Number(options.autoplaySpeed) <= 0) options.autoplaySpeed = 1;
   return options;
 }
 
@@ -334,7 +336,7 @@ function ScrollCarousel(element) {
     return instance;
   }
 
-  // baseOption will be used for destroy method
+  // baseOption will be used for destroy method and reinit method
   this.baseOption = options;
   // options
   this.options = _objectSpread({}, this.constructor.defaults);
@@ -357,6 +359,8 @@ ScrollCarousel.defaults = {
   margin: 10,
   // slide will play auto
   autoplay: false,
+  // speed control for autoplay
+  autoplaySpeed: 5,
   // select slide with class name which you want to select for carousel.
   // other element will behave as simple
   slideSelector: null,
@@ -438,7 +442,7 @@ proto._autoplay = function () {
   // will be removed when destroy method fired
   this.interval = setInterval(function () {
     _this2._transform();
-  }, 20);
+  }, 10);
 };
 
 // transform the slider
@@ -562,6 +566,11 @@ proto.destroy = function () {
   window.removeEventListener('scroll', this);
   delete this.element.scrollCarouselGUID;
   delete instances[this.guid];
+};
+
+// Re initialize the carousel after destroy
+proto.reinit = function () {
+  return new ScrollCarousel(this.element, this.baseOption);
 };
 
 // ============================== DATA ATTRIBUTE ==============================

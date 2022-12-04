@@ -36,7 +36,7 @@ function ScrollCarousel(element, options = {}) {
     return instance;
   }
 
-  // baseOption will be used for destroy method
+  // baseOption will be used for destroy method and reinit method
   this.baseOption = options;
   // options
   this.options = { ...this.constructor.defaults };
@@ -59,6 +59,8 @@ ScrollCarousel.defaults = {
   margin: 10,
   // slide will play auto
   autoplay: false,
+  // speed control for autoplay
+  autoplaySpeed: 5,
   // select slide with class name which you want to select for carousel.
   // other element will behave as simple
   slideSelector: null,
@@ -139,7 +141,7 @@ proto._autoplay = function () {
   // will be removed when destroy method fired
   this.interval = setInterval(() => {
     this._transform();
-  }, 20);
+  }, 10);
 };
 
 // transform the slider
@@ -273,6 +275,11 @@ proto.destroy = function () {
   delete instances[this.guid];
 };
 
+// Re initialize the carousel after destroy
+proto.reinit = function () {
+  return new ScrollCarousel(this.element, this.baseOption);
+};
+
 // ============================== DATA ATTRIBUTE ==============================
 
 /**
@@ -289,4 +296,5 @@ ScrollCarousel.data = function (elem) {
 htmlInit(ScrollCarousel, 'carousel');
 
 export default ScrollCarousel;
+
 
