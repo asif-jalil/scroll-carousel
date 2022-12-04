@@ -8,6 +8,7 @@ import {
   makeArray,
   sanitizer
 } from './util';
+import EvEmitter from './EvEmitter';
 
 // globally unique identifiers
 let GUID = 0;
@@ -64,6 +65,8 @@ ScrollCarousel.defaults = {
 };
 
 let proto = ScrollCarousel.prototype;
+// inherit EventEmitter
+Object.assign(proto, EvEmitter.prototype);
 
 // start creating the carousel
 proto._create = function () {
@@ -77,6 +80,12 @@ proto._create = function () {
 
   // create slider
   this._createSlider();
+
+  // add listeners from on option
+  for (let eventName in this.options.on) {
+    let listener = this.options.on[eventName];
+    this.on(eventName, listener);
+  }
 
   // add listeners from on option
   this.activate();
@@ -115,6 +124,8 @@ proto.activate = function () {
     this.autoplay();
   }
 
+  this.emitEvent('ready');
+
   // transform function call on scroll
   window.addEventListener('scroll', () => this._transform());
 };
@@ -142,6 +153,8 @@ proto._transform = function () {
   } else {
     this._calcSmartSpeed();
   }
+
+  this.emitEvent('scroll', [this.progress]);
 };
 
 // calculate speed without smart speed
@@ -149,6 +162,8 @@ proto._calcRegularSpeed = function () {
   const rect = this.slider.getBoundingClientRect();
 
   this.slider.style.transform = `translateX(${this._translate}px)`;
+  // progress is in percent. used to scroll event emit
+  this.progress = ((100 * -this._translate) / rect.width) * 2;
   this.isScrolling ? (this._translate -= this.options.speed) : (this._translate -= 1.2);
   if (this._translate <= -rect.width / 2) this._translate = 0;
 };
@@ -160,6 +175,8 @@ proto._calcSmartSpeed = function () {
   this.displacement -= displacementAmount;
 
   const translateAmount = ((this.displacement / 5.5e3) * (this.options.speed * 10)) % 50;
+  // progress is in percent. used to scroll event emit
+  this.progress = -translateAmount * 2;
   this.slider.style.transform = `translateX(${translateAmount}%)`;
   this.prevPosition = documentScrollTop;
 };
@@ -224,6 +241,8 @@ proto.destroy = function () {
   clearInterval(this.interval);
 
   window.removeEventListener('scroll', this);
+  this.emitEvent('destroy');
+  this.allOff();
   delete this.element.scrollCarouselGUID;
   delete instances[this.guid];
 };

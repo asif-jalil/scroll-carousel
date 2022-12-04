@@ -1,9 +1,9 @@
 /*!
  * 
- * scroll-carousel - 0.5.0
+ * scroll-carousel - 1.0.0
  * Responsive scroll slider
  *
- * https://asif-jalil.github.io/scroll-carousel
+ * https://asif-jalil.github.io/scroll-carousel-website
  *
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -19,6 +19,97 @@
 return /******/ (function() { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/js/EvEmitter.js":
+/*!*****************************!*\
+  !*** ./src/js/EvEmitter.js ***!
+  \*****************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ EvEmitter; }
+/* harmony export */ });
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function EvEmitter() {}
+var proto = EvEmitter.prototype;
+proto.on = function (eventName, listener) {
+  if (!eventName || !listener) return this;
+
+  // set events hash
+  var events = this._events = this._events || {};
+  // set listeners array
+  var listeners = events[eventName] = events[eventName] || [];
+  // only add once
+  if (!listeners.includes(listener)) {
+    listeners.push(listener);
+  }
+  return this;
+};
+proto.once = function (eventName, listener) {
+  if (!eventName || !listener) return this;
+
+  // add event
+  this.on(eventName, listener);
+  // set once flag
+  // set onceEvents hash
+  var onceEvents = this._onceEvents = this._onceEvents || {};
+  // set onceListeners object
+  var onceListeners = onceEvents[eventName] = onceEvents[eventName] || {};
+  // set flag
+  onceListeners[listener] = true;
+  return this;
+};
+proto.off = function (eventName, listener) {
+  var listeners = this._events && this._events[eventName];
+  if (!listeners || !listeners.length) return this;
+  var index = listeners.indexOf(listener);
+  if (index != -1) {
+    listeners.splice(index, 1);
+  }
+  return this;
+};
+proto.emitEvent = function (eventName, args) {
+  var listeners = this._events && this._events[eventName];
+  if (!listeners || !listeners.length) return this;
+
+  // copy over to avoid interference if .off() in listener
+  listeners = listeners.slice(0);
+  args = args || [];
+  // once stuff
+  var onceListeners = this._onceEvents && this._onceEvents[eventName];
+  var _iterator = _createForOfIteratorHelper(listeners),
+    _step;
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var listener = _step.value;
+      var isOnce = onceListeners && onceListeners[listener];
+      if (isOnce) {
+        // remove listener
+        // remove before trigger to prevent recursion
+        this.off(eventName, listener);
+        // unset once flag
+        delete onceListeners[listener];
+      }
+      // trigger listener
+      listener.apply(this, args);
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+  return this;
+};
+proto.allOff = function () {
+  delete this._events;
+  delete this._onceEvents;
+  return this;
+};
+
+/***/ }),
 
 /***/ "./src/js/util.js":
 /*!************************!*\
@@ -272,6 +363,7 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/main.scss */ "./src/scss/main.scss");
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util */ "./src/js/util.js");
+/* harmony import */ var _EvEmitter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./EvEmitter */ "./src/js/EvEmitter.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -281,6 +373,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -339,6 +432,8 @@ ScrollCarousel.defaults = {
   slideSelector: null
 };
 var proto = ScrollCarousel.prototype;
+// inherit EventEmitter
+Object.assign(proto, _EvEmitter__WEBPACK_IMPORTED_MODULE_2__["default"].prototype);
 
 // start creating the carousel
 proto._create = function () {
@@ -352,6 +447,12 @@ proto._create = function () {
 
   // create slider
   this._createSlider();
+
+  // add listeners from on option
+  for (var eventName in this.options.on) {
+    var listener = this.options.on[eventName];
+    this.on(eventName, listener);
+  }
 
   // add listeners from on option
   this.activate();
@@ -388,6 +489,7 @@ proto.activate = function () {
   if (this.options.autoplay) {
     this.autoplay();
   }
+  this.emitEvent('ready');
 
   // transform function call on scroll
   window.addEventListener('scroll', function () {
@@ -417,12 +519,15 @@ proto._transform = function () {
   } else {
     this._calcSmartSpeed();
   }
+  this.emitEvent('scroll', [this.progress]);
 };
 
 // calculate speed without smart speed
 proto._calcRegularSpeed = function () {
   var rect = this.slider.getBoundingClientRect();
   this.slider.style.transform = "translateX(".concat(this._translate, "px)");
+  // progress is in percent. used to scroll event emit
+  this.progress = 100 * -this._translate / rect.width * 2;
   this.isScrolling ? this._translate -= this.options.speed : this._translate -= 1.2;
   if (this._translate <= -rect.width / 2) this._translate = 0;
 };
@@ -433,6 +538,8 @@ proto._calcSmartSpeed = function () {
   var displacementAmount = this.isScrolling ? Math.abs(this.prevPosition - documentScrollTop) : 1.5;
   this.displacement -= displacementAmount;
   var translateAmount = this.displacement / 5.5e3 * (this.options.speed * 10) % 50;
+  // progress is in percent. used to scroll event emit
+  this.progress = -translateAmount * 2;
   this.slider.style.transform = "translateX(".concat(translateAmount, "%)");
   this.prevPosition = documentScrollTop;
 };
@@ -497,6 +604,8 @@ proto.destroy = function () {
   // clear the interval
   clearInterval(this.interval);
   window.removeEventListener('scroll', this);
+  this.emitEvent('destroy');
+  this.allOff();
   delete this.element.scrollCarouselGUID;
   delete instances[this.guid];
 };
