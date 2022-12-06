@@ -1,6 +1,6 @@
 /*!
  * 
- * scroll-carousel - 1.0.0
+ * scroll-carousel - 1.1.0
  * Responsive scroll slider
  *
  * https://asif-jalil.github.io/scroll-carousel-website
@@ -24,6 +24,10 @@ return /******/ (function() { // webpackBootstrap
 /*!*****************************!*\
   !*** ./src/js/EvEmitter.js ***!
   \*****************************/
+/***/ "./src/js/scroll.carousel.const.js":
+/*!*****************************************!*\
+  !*** ./src/js/scroll.carousel.const.js ***!
+  \*****************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -108,6 +112,11 @@ proto.allOff = function () {
   delete this._onceEvents;
   return this;
 };
+/* harmony export */   "LTR": function() { return /* binding */ LTR; },
+/* harmony export */   "RTL": function() { return /* binding */ RTL; }
+/* harmony export */ });
+var RTL = 'rtl';
+var LTR = 'ltr';
 
 /***/ }),
 
@@ -129,6 +138,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "sanitizer": function() { return /* binding */ sanitizer; },
 /* harmony export */   "toDashed": function() { return /* binding */ toDashed; }
 /* harmony export */ });
+/* harmony import */ var _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./scroll.carousel.const */ "./src/js/scroll.carousel.const.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -136,6 +146,8 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
 /**
  * check an element, node, array, object is into view or not
  *
@@ -281,6 +293,10 @@ function sanitizer(options) {
   if (Object.keys(options).includes('speed') && !Number(options.speed)) options.speed = 7;
   if (Number(options.speed) <= 0) options.speed = 1;
   if (Object.keys(options).includes('margin') && !Number(options.margin) && Number(options.margin) !== 0) options.margin = 10;
+  if (Object.keys(options).includes('direction')) options.direction = options.direction.toLowerCase();
+  if (Object.keys(options).includes('direction') && options.direction !== _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_0__.RTL && options.direction !== _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_0__.LTR) options.direction = _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_0__.RTL;
+  if (Object.keys(options).includes('autoplaySpeed') && !Number(options.autoplaySpeed)) options.autoplaySpeed = 5;
+  if (Number(options.autoplaySpeed) <= 0) options.autoplaySpeed = 1;
   return options;
 }
 
@@ -364,6 +380,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/main.scss */ "./src/scss/main.scss");
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util */ "./src/js/util.js");
 /* harmony import */ var _EvEmitter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./EvEmitter */ "./src/js/EvEmitter.js");
+/* harmony import */ var _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./scroll.carousel.const */ "./src/js/scroll.carousel.const.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./util */ "./src/js/util.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -390,7 +408,7 @@ var instances = {};
  */
 function ScrollCarousel(element) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var queryElement = (0,_util__WEBPACK_IMPORTED_MODULE_1__.getQueryElement)(element);
+  var queryElement = (0,_util__WEBPACK_IMPORTED_MODULE_2__.getQueryElement)(element);
   if (!queryElement) {
     if (console) console.error("Bad element for Scroll Carousel: ".concat(queryElement || element));
     return;
@@ -404,12 +422,12 @@ function ScrollCarousel(element) {
     return instance;
   }
 
-  // baseOption will be used for destroy method
+  // baseOption will be used for destroy method and reinit method
   this.baseOption = options;
   // options
   this.options = _objectSpread({}, this.constructor.defaults);
   // validated options
-  var sanitizedOptions = (0,_util__WEBPACK_IMPORTED_MODULE_1__.sanitizer)(options);
+  var sanitizedOptions = (0,_util__WEBPACK_IMPORTED_MODULE_2__.sanitizer)(options);
   // merge options with prototype
   this.option(sanitizedOptions);
 
@@ -427,9 +445,13 @@ ScrollCarousel.defaults = {
   margin: 10,
   // slide will play auto
   autoplay: false,
+  // speed control for autoplay
+  autoplaySpeed: 5,
   // select slide with class name which you want to select for carousel.
   // other element will behave as simple
-  slideSelector: null
+  slideSelector: null,
+  // moving direction of the slides
+  direction: _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.RTL
 };
 var proto = ScrollCarousel.prototype;
 // inherit EventEmitter
@@ -469,25 +491,35 @@ proto.activate = function () {
     _this = this;
   if (this.isActive) return;
   this.isActive = true;
-  this._translate = 0;
+  this.translate = 0;
   this.displacement = 0;
   this.isScrolling = true;
   this.prevPosition = document.body.scrollTop || document.documentElement.scrollTop;
 
   // baseElems will be used for destroy method
-  this.baseElems = (0,_util__WEBPACK_IMPORTED_MODULE_1__.makeArray)(this.element.children);
+  this.baseElems = (0,_util__WEBPACK_IMPORTED_MODULE_2__.makeArray)(this.element.children);
 
   // move initial slide elements so they can be loaded as slides
   var slideElems = this._filterFindSlideElements(this.element.children);
   this.slideElems = this._makeSlides(slideElems);
 
+  // for ltr direction reverse the elements like rtl mode
+  if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.LTR) {
+    this.slideElems = this.slideElems.reverse();
+  }
+
   // duplicate the slide array
-  var duplicateSlideElems = (0,_util__WEBPACK_IMPORTED_MODULE_1__.duplicateElems)(this.slideElems);
+  var duplicateSlideElems = (0,_util__WEBPACK_IMPORTED_MODULE_2__.duplicateElems)(this.slideElems);
   (_this$slider = this.slider).append.apply(_this$slider, _toConsumableArray(this.slideElems).concat(_toConsumableArray(duplicateSlideElems)));
   this.viewport.append(this.slider);
   this.element.append(this.viewport);
+
+  // kick for ltr support
+  if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.LTR) {
+    this._supportLtr();
+  }
   if (this.options.autoplay) {
-    this.autoplay();
+    this._autoplay();
   }
   this.emitEvent('ready');
 
@@ -498,19 +530,19 @@ proto.activate = function () {
 };
 
 // run interval for autoplay
-proto.autoplay = function () {
+proto._autoplay = function () {
   var _this2 = this;
   // autoplay will set an interval. in every interval,
   // we transform the slider. the interval
   // will be removed when destroy method fired
   this.interval = setInterval(function () {
     _this2._transform();
-  }, 20);
+  }, 10);
 };
 
 // transform the slider
 proto._transform = function () {
-  if (!(0,_util__WEBPACK_IMPORTED_MODULE_1__.isScrolledIntoView)(this.element)) return;
+  if (!(0,_util__WEBPACK_IMPORTED_MODULE_2__.isScrolledIntoView)(this.element)) return;
   if (this.options.autoplay) {
     this._setIsScrolling();
   }
@@ -530,6 +562,12 @@ proto._calcRegularSpeed = function () {
   this.progress = 100 * -this._translate / rect.width * 2;
   this.isScrolling ? this._translate -= this.options.speed : this._translate -= 1.2;
   if (this._translate <= -rect.width / 2) this._translate = 0;
+  this.slider.style.transform = "translateX(".concat(this.translate, "px)");
+  var speed = this.isScrolling ? this.options.speed : 1.2;
+  if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.RTL) this.translate -= speed;
+  if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.LTR) this.translate += speed;
+  if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.RTL && this.translate <= -rect.width / 2) this.translate = 0;
+  if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.LTR && this.translate >= 0) this.translate = -rect.width / 2;
 };
 
 // calculate smart speed
@@ -541,7 +579,33 @@ proto._calcSmartSpeed = function () {
   // progress is in percent. used to scroll event emit
   this.progress = -translateAmount * 2;
   this.slider.style.transform = "translateX(".concat(translateAmount, "%)");
+  this.displacement -= this.isScrolling ? Math.abs(this.prevPosition - documentScrollTop) : 1.2;
+  if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.LTR && this.displacement < 0) {
+    this.displacement = 50 / (this.options.speed * 10 / 5.5e3 % 50);
+  }
+  var translateBasic = this.displacement / 5.5e3 * (this.options.speed * 10) % 50;
+  var translate;
+  if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.RTL) translate = translateBasic;
+  if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.LTR) translate = -translateBasic;
+  this.slider.style.transform = "translateX(".concat(translate, "%)");
   this.prevPosition = documentScrollTop;
+};
+
+// initial kick for ltr direction
+proto._supportLtr = function () {
+  var rect = this.slider.getBoundingClientRect();
+
+  // calculate initial translate for regular speed
+  this.translate = -rect.width + Math.min(document.documentElement.clientWidth, window.innerWidth);
+
+  // calculate initial displacement for smartSpeed
+  var translateInPercent = 100 * this.translate / rect.width;
+  this.displacement = -translateInPercent / (this.options.speed * 10 / 5.5e3 % 50);
+  if (this.options.smartSpeed) {
+    this.slider.style.transform = "translateX(".concat(translateInPercent, "%)");
+  } else {
+    this.slider.style.transform = "translateX(".concat(this.translate, "px)");
+  }
 };
 
 // check if the document is scrolling or not
@@ -591,8 +655,11 @@ proto._createViewport = function () {
 
 // filtering elements if the element child structure is too much complex (specially for slideSelector option)
 proto._filterFindSlideElements = function (elems) {
-  return (0,_util__WEBPACK_IMPORTED_MODULE_1__.filterFindElements)(elems, this.options.slideSelector);
+  return (0,_util__WEBPACK_IMPORTED_MODULE_2__.filterFindElements)(elems, this.options.slideSelector);
 };
+
+// ============================== METHOD ==============================
+
 proto.destroy = function () {
   var _this$element;
   if (!this.isActive) return;
@@ -610,18 +677,25 @@ proto.destroy = function () {
   delete instances[this.guid];
 };
 
+// Re initialize the carousel after destroy
+proto.reinit = function () {
+  return new ScrollCarousel(this.element, this.baseOption);
+};
+
+// ============================== DATA ATTRIBUTE ==============================
+
 /**
  * get Scroll Carousel instance from element
  * @param {[Node, Element, String]} elem - element or selector string
  * @returns {ScrollCarousel} - Scroll Carousel instance
  */
 ScrollCarousel.data = function (elem) {
-  elem = (0,_util__WEBPACK_IMPORTED_MODULE_1__.getQueryElement)(elem);
+  elem = (0,_util__WEBPACK_IMPORTED_MODULE_2__.getQueryElement)(elem);
   if (elem) return instances[elem.scrollCarouselGUID];
 };
 
 // initialize with data attribute from here
-(0,_util__WEBPACK_IMPORTED_MODULE_1__.htmlInit)(ScrollCarousel, 'carousel');
+(0,_util__WEBPACK_IMPORTED_MODULE_2__.htmlInit)(ScrollCarousel, 'carousel');
 /* harmony default export */ __webpack_exports__["default"] = (ScrollCarousel);
 }();
 __webpack_exports__ = __webpack_exports__["default"];

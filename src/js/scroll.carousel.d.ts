@@ -22,13 +22,16 @@ declare class ScrollCarousel {
    * Clears all bindings.
    */
   destroy(): void;
-
   /**
    * Subscribes to events that indicate the result of a copy/cut operation.
    * @param eventname Event name ('ready' or 'scroll' or 'destroy').
    * @param listener Callback function.
    */
   on(eventname: ScrollCarouselEvent, listener: (...args: any[]) => void): this;
+  /**
+   * Re initialize the carousel after destroy
+   */
+  reinit(): this;
 }
 
 declare namespace ScrollCarousel {
@@ -50,6 +53,10 @@ declare namespace ScrollCarousel {
      */
     autoplay?: boolean;
     /**
+     * Speed control for autoplay
+     */
+    autoplaySpeed?: number;
+    /**
      * select slide with class name which you want to select for carousel.
      *  other element will behave as simple
      */
@@ -59,6 +66,10 @@ declare namespace ScrollCarousel {
      * on is useful for capturing events as ScrollCarousel is initialized, like ready
      */
     on: EventBindings | undefined;
+    /**
+     * moving direction of the slides
+     */
+    direction?: 'rtl' | 'ltr';
   }
 }
 

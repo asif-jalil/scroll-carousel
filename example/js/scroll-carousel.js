@@ -37,10 +37,11 @@
     smartSpeed: true
   });
 
-  new ScrollCarousel(demo1);
   new ScrollCarousel(demo2, {
     autoplay: true,
+    autoplaySpeed: 8,
     smartSpeed: true,
+    direction: 'ltr',
     speed: 9,
     margin: 5
   });

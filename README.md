@@ -150,13 +150,15 @@ You can initialize **Scroll Carousel** in HTML, without writing any JavaScript. 
 
 ### Options
 
-| Option        | Type    | Default | Description                                                                                             |
-| ------------- | ------- | ------- | ------------------------------------------------------------------------------------------------------- |
-| speed         | number  | 7       | The value given is actually how fast you want to move on scroll. It needs to be greater than 0.         |
-| smartSpeed    | boolean | false   | To calculate the speed more smartly on displacement and time difference.                                |
-| margin        | number  | 10      | To make gap between two slide                                                                           |
-| slideSelector | string  | null    | Select slide with class name which you want to select for carousel. Other element will behave as simple |
-| autoplay      | boolean | false   | To play the slider automatically                                                                        |
+| Option        | Type      | Default | Description                                                                                                                |
+| ------------- | --------- | ------- | -------------------------------------------------------------------------------------------------------------------------- |
+| speed         | `number`  | 7       | The value given is how fast you want to move on the scroll. It needs to be greater than 0.                                 |
+| smartSpeed    | `boolean` | false   | To calculate the speed of how fast or slow you are scrolling a website.                                                    |
+| margin        | `number`  | 10      | To make gap between two slide                                                                                              |
+| slideSelector | `string`  | null    | Select the slides with a class name you want to select for the carousel. Other elements will behave as simple.             |
+| autoplay      | `boolean` | false   | The option will allow the slides move automatically and still you will have the ability to handle sliding speed on scroll. |
+| autoplaySpeed | `number`  | 5       | Control autoplay speed. It needs to be greater than 0                                                                      |
+| direction     | `string`  | 'rtl'   | Control direction left to right or right to left. Two possible option - `ltr` or `rtl`                                     |
 
 ##### Example with options
 
@@ -164,8 +166,11 @@ You can initialize **Scroll Carousel** in HTML, without writing any JavaScript. 
 new ScrollCarousel(".my-carousel", {
   speed: 15,
   autoplay: true,
+  autoplaySpeed: 5,
   smartSpeed: true,
-  slideSelector: ".my-slide"
+  slideSelector: ".my-slide",
+  direction: "rtl",
+  margin: 10
 })
 ```
 
@@ -182,14 +187,15 @@ or,
 
 ### Methods
 
-| Method    | Description                                                                                                          |
-| --------- | -------------------------------------------------------------------------------------------------------------------- |
-| destroy() | Remove ScrollCarousel functionality completely. `destroy` will return the element back to its pre-initialized state. |
+| Method    | Return           | Description                                                                                                          |
+| --------- | ---------------- | -------------------------------------------------------------------------------------------------------------------- |
+| destroy() | void             | Remove ScrollCarousel functionality completely. `destroy` will return the element back to its pre-initialized state. |
+| reinit()  | ScrollCarousel{} | This will initialize your carousel after destroy with previous options and returned the `ScrollCarousel` instance.   |
 
 ##### Example of methods
 
 ```
-const scrollCarousel = new ScrollCarousel(".my-carousel", {
+let scrollCarousel = new ScrollCarousel(".my-carousel", {
   speed: 15,
   autoplay: true,
   smartSpeed: true,
@@ -197,7 +203,11 @@ const scrollCarousel = new ScrollCarousel(".my-carousel", {
 })
 
 document.querySelector('#button').addEventListener('click', function () {
-  scrollCarousel.destroy();
+  if(scrollCarousel.isActive) {
+    scrollCarousel.destroy();
+  } else {
+    scrollCarousel = scrollCarousel.reinit()
+  }
 });
 ```
 

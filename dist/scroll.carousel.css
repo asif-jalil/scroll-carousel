@@ -1,6 +1,6 @@
 /*!
  * 
- * scroll-carousel - 1.0.0
+ * scroll-carousel - 1.1.0
  * Responsive scroll slider
  *
  * https://asif-jalil.github.io/scroll-carousel-website
