@@ -169,7 +169,7 @@ proto._transform = function () {
     this._calcSmartSpeed();
   }
 
-  this.emitEvent('scroll', [this.progress]);
+  this.emitEvent('move', [this.progress]);
 };
 
 // calculate speed without smart speed
@@ -315,8 +315,4 @@ ScrollCarousel.data = function (elem) {
 htmlInit(ScrollCarousel, 'carousel');
 
 export default ScrollCarousel;
-
-
-
-
 
