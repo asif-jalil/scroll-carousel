@@ -24,10 +24,6 @@ return /******/ (function() { // webpackBootstrap
 /*!*****************************!*\
   !*** ./src/js/EvEmitter.js ***!
   \*****************************/
-/***/ "./src/js/scroll.carousel.const.js":
-/*!*****************************************!*\
-  !*** ./src/js/scroll.carousel.const.js ***!
-  \*****************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -112,6 +108,17 @@ proto.allOff = function () {
   delete this._onceEvents;
   return this;
 };
+
+/***/ }),
+
+/***/ "./src/js/scroll.carousel.const.js":
+/*!*****************************************!*\
+  !*** ./src/js/scroll.carousel.const.js ***!
+  \*****************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "LTR": function() { return /* binding */ LTR; },
 /* harmony export */   "RTL": function() { return /* binding */ RTL; }
 /* harmony export */ });
@@ -378,10 +385,9 @@ var __webpack_exports__ = {};
   \***********************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scss_main_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/main.scss */ "./src/scss/main.scss");
-/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util */ "./src/js/util.js");
-/* harmony import */ var _EvEmitter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./EvEmitter */ "./src/js/EvEmitter.js");
 /* harmony import */ var _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./scroll.carousel.const */ "./src/js/scroll.carousel.const.js");
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./util */ "./src/js/util.js");
+/* harmony import */ var _EvEmitter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./EvEmitter */ "./src/js/EvEmitter.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -391,6 +397,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -455,7 +462,7 @@ ScrollCarousel.defaults = {
 };
 var proto = ScrollCarousel.prototype;
 // inherit EventEmitter
-Object.assign(proto, _EvEmitter__WEBPACK_IMPORTED_MODULE_2__["default"].prototype);
+Object.assign(proto, _EvEmitter__WEBPACK_IMPORTED_MODULE_3__["default"].prototype);
 
 // start creating the carousel
 proto._create = function () {
@@ -557,13 +564,10 @@ proto._transform = function () {
 // calculate speed without smart speed
 proto._calcRegularSpeed = function () {
   var rect = this.slider.getBoundingClientRect();
-  this.slider.style.transform = "translateX(".concat(this._translate, "px)");
-  // progress is in percent. used to scroll event emit
-  this.progress = 100 * -this._translate / rect.width * 2;
-  this.isScrolling ? this._translate -= this.options.speed : this._translate -= 1.2;
-  if (this._translate <= -rect.width / 2) this._translate = 0;
   this.slider.style.transform = "translateX(".concat(this.translate, "px)");
   var speed = this.isScrolling ? this.options.speed : 1.2;
+  // progress is in percent. used to scroll event emit
+  this.progress = 100 * -this._translate / rect.width * 2;
   if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.RTL) this.translate -= speed;
   if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.LTR) this.translate += speed;
   if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.RTL && this.translate <= -rect.width / 2) this.translate = 0;
@@ -573,17 +577,13 @@ proto._calcRegularSpeed = function () {
 // calculate smart speed
 proto._calcSmartSpeed = function () {
   var documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-  var displacementAmount = this.isScrolling ? Math.abs(this.prevPosition - documentScrollTop) : 1.5;
-  this.displacement -= displacementAmount;
-  var translateAmount = this.displacement / 5.5e3 * (this.options.speed * 10) % 50;
-  // progress is in percent. used to scroll event emit
-  this.progress = -translateAmount * 2;
-  this.slider.style.transform = "translateX(".concat(translateAmount, "%)");
   this.displacement -= this.isScrolling ? Math.abs(this.prevPosition - documentScrollTop) : 1.2;
   if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.LTR && this.displacement < 0) {
     this.displacement = 50 / (this.options.speed * 10 / 5.5e3 % 50);
   }
   var translateBasic = this.displacement / 5.5e3 * (this.options.speed * 10) % 50;
+  // progress is in percent. used to scroll event emit
+  this.progress = -translateBasic * 2;
   var translate;
   if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.RTL) translate = translateBasic;
   if (this.options.direction === _scroll_carousel_const__WEBPACK_IMPORTED_MODULE_1__.LTR) translate = -translateBasic;
