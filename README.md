@@ -185,6 +185,8 @@ or,
 </div>
 ```
 
+> :warning: Options set in HTML must be valid JSON. Keys need to be quoted, for example "speed":. Note that the attribute value uses single quotes ', but the JSON entities use double-quotes ".
+
 ### Methods
 
 | Method    | Return           | Description                                                                                                          |
@@ -211,7 +213,36 @@ document.querySelector('#button').addEventListener('click', function () {
 });
 ```
 
-> :warning: Options set in HTML must be valid JSON. Keys need to be quoted, for example "speed":. Note that the attribute value uses single quotes ', but the JSON entities use double-quotes ".
+### Events
+
+| Event   | Description                                               |
+| ------- | --------------------------------------------------------- |
+| ready   | This event will fire when the plugin is ready to action   |
+| destroy | This event will fire when the destroy method is being hit |
+| move    | This event will fire when the carousel is on move         |
+
+##### Example of events
+
+```
+let scrollCarousel = new ScrollCarousel(".my-carousel", {
+  speed: 15,
+  autoplay: true,
+  smartSpeed: true,
+  slideSelector: ".my-slide",
+  on: {
+    ready: function () {
+      console.log("Be ready");
+    },
+    destroy: function () {
+      console.log("Destroyed");
+    }
+  }
+})
+
+scrollCarousel.on("move", function (progress) {
+  consol.log(progress);
+})
+```
 
 ## Browser support
 
