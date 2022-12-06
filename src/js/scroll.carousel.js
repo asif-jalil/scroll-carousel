@@ -177,14 +177,15 @@ proto._calcRegularSpeed = function () {
   const rect = this.slider.getBoundingClientRect();
   this.slider.style.transform = `translateX(${this.translate}px)`;
   const speed = this.isScrolling ? this.options.speed : 1.2;
-  // progress is in percent. used to scroll event emit
-  this.progress = ((100 * -this._translate) / rect.width) * 2;
-  
+
   if (this.options.direction === RTL) this.translate -= speed;
   if (this.options.direction === LTR) this.translate += speed;
 
   if (this.options.direction === RTL && this.translate <= -rect.width / 2) this.translate = 0;
   if (this.options.direction === LTR && this.translate >= 0) this.translate = -rect.width / 2;
+
+  // progress is in percent. used to scroll event emit
+  this.progress = ((100 * -this.translate) / rect.width) * 2;
 };
 
 // calculate smart speed
@@ -314,6 +315,8 @@ ScrollCarousel.data = function (elem) {
 htmlInit(ScrollCarousel, 'carousel');
 
 export default ScrollCarousel;
+
+
 
 
 

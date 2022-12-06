@@ -46,7 +46,9 @@
     margin: 5
   });
 
-  const dm3 = new ScrollCarousel(demo3);
+  const dm3 = new ScrollCarousel(demo3, {
+    smartSpeed: true
+  });
 
   dm3.on('scroll', function (progress) {
     console.log(progress);
