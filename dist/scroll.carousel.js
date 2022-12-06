@@ -1,6 +1,6 @@
 /*!
  * 
- * scroll-carousel - 1.1.0
+ * scroll-carousel - 1.2.0
  * Responsive scroll slider
  *
  * https://asif-jalil.github.io/scroll-carousel-website
@@ -558,7 +558,7 @@ proto._transform = function () {
   } else {
     this._calcSmartSpeed();
   }
-  this.emitEvent('scroll', [this.progress]);
+  this.emitEvent('move', [this.progress]);
 };
 
 // calculate speed without smart speed
