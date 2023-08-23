@@ -108,7 +108,7 @@ module.exports = {
       })
     ]
   },
-  devtool: !isProd ? false : 'source-map',
+  devtool: isProd ? false : 'source-map',
   devServer: {
     static: {
       directory: path.resolve(__dirname, 'example')

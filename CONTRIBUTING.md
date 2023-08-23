@@ -15,7 +15,8 @@
   - For feature create branch `feature/your-feature` and for bug fixing branch `fix/your-branch`
 - Your change should only be in the `src` folder.
 - Follow the code style. Spaces in brackets, semicolons, trailing commas.
-- For development, use `npm start`. This will start the development server and you can see your change what you did in the `example` & `src` folder.
+- For development, use `npm start`. This will start the development server and you can see your change what you did in the `src` folder.
+- Run `npm run build` to build the project.
 - Make commits of logical units.
 - Check for unnecessary whitespace before committing.
 - Use descriptive commit messages and reference the #issue number.

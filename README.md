@@ -24,7 +24,7 @@
 
 Simple content slider, works on scroll. Absolutely free for use. Thriving for precision & community growth.
 
-[Documentation](https://asif-jalil.github.io/scroll-carousel-website) | [Demos](https://asif-jalil.github.io/scroll-carousel-website/#demos)
+[NPM](https://www.npmjs.com/package/scroll-carousel) | [Documentation](https://asif-jalil.github.io/scroll-carousel-website) | [Demos](https://asif-jalil.github.io/scroll-carousel-website/#demos)
 
 **Note:** This carousel only operates in browser.
 
@@ -69,13 +69,13 @@ To get started with **Scroll Carousel** right away, there are a few CDN availabl
 Add a link to the css file in your `<head>`:
 
 ```
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scroll-carousel/dist/scroll.carousel.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scroll-carousel@1.2.2/dist/scroll.carousel.min.css">
 ```
 
 Then, before your closing `<body>` tag, add:
 
 ```
-<script src="https://cdn.jsdelivr.net/npm/scroll-carousel/dist/scroll.carousel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/scroll-carousel@1.2.2/dist/scroll.carousel.min.js"></script>
 ```
 
 ### Package managers

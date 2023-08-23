@@ -65,7 +65,7 @@ declare namespace ScrollCarousel {
      * Bind events within options by setting on to an Object. The object's keys should match the event names.
      * on is useful for capturing events as ScrollCarousel is initialized, like ready
      */
-    on: EventBindings | undefined;
+    on?: EventBindings;
     /**
      * moving direction of the slides
      */

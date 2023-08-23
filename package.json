@@ -1,6 +1,6 @@
 {
   "name": "scroll-carousel",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Scroll carousel, a unique content slider that specially works on window scroll.",
   "main": "dist/scroll.carousel.js",
   "types": "src/js/scroll.carousel.d.ts",
@@ -10,7 +10,8 @@
     "start:serve": "webpack serve --config webpack.config.js",
     "start:watch": "webpack --watch --config webpack.config.js",
     "build:debug": "webpack --config webpack.config.js",
-    "build:prod": "cross-env NODE_ENV=production webpack --config webpack.config.js"
+    "clean": "rimraf dist",
+    "build:prod": "npm run clean & cross-env NODE_ENV=production webpack --config webpack.config.js"
   },
   "keywords": [
     "scroll",
@@ -28,6 +29,9 @@
     "mobile",
     "practice",
     "pages"
+  ],
+  "files": [
+    "dist"
   ],
   "contributors": [
     {
@@ -62,6 +66,7 @@
     "css-minimizer-webpack-plugin": "^4.2.2",
     "mini-css-extract-plugin": "^2.6.1",
     "node-sass": "^7.0.3",
+    "rimraf": "^5.0.1",
     "sass": "^1.55.0",
     "sass-loader": "^13.1.0",
     "style-loader": "^3.3.1",
