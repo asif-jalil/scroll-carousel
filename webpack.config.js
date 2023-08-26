@@ -6,6 +6,7 @@ const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const pkg = require('./package.json');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const { name, version, homepage } = pkg;
 const isProd = process.env.NODE_ENV === 'production';
@@ -36,11 +37,23 @@ module.exports = {
     globalObject: 'this'
   },
   plugins: [
+    // for optimization
     new RemoveEmptyScriptsPlugin(),
+    // css extraction
     new MiniCssExtractPlugin({
       filename: isProd ? '[name].min.css' : '[name].css'
     }),
-    new webpack.BannerPlugin({ banner })
+    // add banner to files
+    new webpack.BannerPlugin({ banner }),
+    // copy types file from src to dist
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/js/scroll.carousel.d.ts'),
+          to: path.resolve(__dirname, pkg.types)
+        }
+      ]
+    })
   ],
   module: {
     rules: [
