@@ -314,5 +314,7 @@ ScrollCarousel.data = function (elem) {
 // initialize with data attribute from here
 htmlInit(ScrollCarousel, 'carousel');
 
+export { ScrollCarousel };
+
 export default ScrollCarousel;
 

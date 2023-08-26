@@ -73,7 +73,9 @@ declare namespace ScrollCarousel {
   }
 }
 
-export = ScrollCarousel;
+export default ScrollCarousel;
+
+export { ScrollCarousel };
 
 export as namespace ScrollCarousel;
 
