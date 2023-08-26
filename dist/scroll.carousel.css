@@ -1,0 +1,28 @@
+/*!
+ * 
+ * scroll-carousel - 1.2.2
+ * Responsive scroll slider
+ *
+ * https://asif-jalil.github.io/scroll-carousel-website
+ *
+ */
+/*!*********************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./src/scss/main.scss ***!
+  \*********************************************************************************************************************************************************************/
+.scroll-carousel-viewport {
+  overflow: hidden;
+  position: relative;
+}
+
+.scroll-carousel-slider {
+  position: relative;
+  display: inline-flex;
+}
+
+.sc-slide {
+  position: relative;
+  display: inline-block;
+}
+.sc-slide img, .sc-slide video {
+  max-width: fit-content !important;
+}
