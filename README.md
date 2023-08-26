@@ -51,10 +51,10 @@ Simple content slider, works on scroll. Absolutely free for use. Thriving for pr
 
 - CSS
 
-  - [scroll.carousel.min.css](https://cdn.jsdelivr.net/npm/scroll-carousel@1.2.3/dist/scroll.carousel.min.css)
+  - [scroll.carousel.min.css](https://cdn.jsdelivr.net/npm/scroll-carousel@1.2.5/dist/scroll.carousel.min.css)
 
 - JS
-  - [scroll.carousel.min.js](https://cdn.jsdelivr.net/npm/scroll-carousel@1.2.3/dist/scroll.carousel.min.js)
+  - [scroll.carousel.min.js](https://cdn.jsdelivr.net/npm/scroll-carousel@1.2.5/dist/scroll.carousel.min.js)
 
 ### CDN
 
@@ -67,13 +67,13 @@ To get started with **Scroll Carousel** right away, there are a few CDN availabl
 Add a link to the css file in your `<head>`:
 
 ```
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scroll-carousel@1.2.3/dist/scroll.carousel.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scroll-carousel@1.2.5/dist/scroll.carousel.min.css">
 ```
 
 Then, before your closing `<body>` tag, add:
 
 ```
-<script src="https://cdn.jsdelivr.net/npm/scroll-carousel@1.2.3/dist/scroll.carousel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/scroll-carousel@1.2.5/dist/scroll.carousel.min.js"></script>
 ```
 
 ### Package managers

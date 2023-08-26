@@ -17,8 +17,7 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
       # install dependencies
-      - name: Run tests
-        run: npm ci
+      - run: npm ci
 
       # build dist
       - name: Build dist

@@ -1,6 +1,6 @@
 {
   "name": "scroll-carousel",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Scroll carousel, a unique content slider that specially works on window scroll.",
   "main": "dist/scroll.carousel.min.js",
   "types": "dist/scroll.carousel.d.ts",
