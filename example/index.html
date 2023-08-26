@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll-carousel</title>
+  <link rel="stylesheet" href="../dist/scroll.carousel.css">
+  <style>
+    body {
+      min-height: 200vh;
+      margin-top: 70vh;
+    }
+
+    .item {
+      width: 12rem;
+      height: 9rem;
+      background: rgba(125, 211, 252, .2);
+      border: 2px solid rgba(125, 211, 252, .7);
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <button id="btn">Destroy/Re Initialize</button>
+    <br>
+    <br>
+    <div id="demo">
+      <div class="item">1</div>
+      <div class="item">2</div>
+      <div class="item">3</div>
+      <div class="item">4</div>
+      <div class="item">5</div>
+      <div class="item">6</div>
+      <div class="item">7</div>
+      <div class="item">8</div>
+      <div class="item">9</div>
+      <div class="item">10</div>
+      <div class="item">11</div>
+      <div class="item">12</div>
+    </div>
+  </main>
+  <footer>
+    <p class="text-center">CODE IS POETRY</p>
+  </footer>
+  <script src="../dist/scroll.carousel.js"></script>
+  <script>
+    let demo = document.querySelector('#demo');
+
+    let dm = new ScrollCarousel(demo, {
+      autoplay: true,
+      autoplaySpeed: 8,
+      smartSpeed: true,
+      slideSelector: '.item',
+      direction: 'rtl', // ltr
+      speed: 9,
+      margin: 5,
+      on: {
+        ready: function () {
+          console.log('Be ready');
+        },
+        destroy: function () {
+          console.log('Carousel destroyed');
+        }
+      }
+    });
+
+    document.querySelector('#btn').addEventListener('click', function () {
+      if (dm.isActive) {
+        dm.destroy();
+      } else {
+        dm = new ScrollCarousel(demo, {
+          autoplay: true,
+          autoplaySpeed: 8,
+          smartSpeed: true,
+          slideSelector: '.item',
+          direction: 'rtl', // ltr
+          speed: 9,
+          margin: 5,
+          on: {
+            ready: function () {
+              console.log('Be ready');
+            },
+            destroy: function () {
+              console.log('Carousel destroyed');
+            }
+          }
+        });
+      }
+    });
+  </script>
+</body>
