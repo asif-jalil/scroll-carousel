@@ -51,12 +51,10 @@ Simple content slider, works on scroll. Absolutely free for use. Thriving for pr
 
 - CSS
 
-  - [scroll.carousel.min.css](https://raw.githubusercontent.com/asif-jalil/scroll-carousel/main/dist/scroll.carousel.min.css) minified, or
-  - [scroll.carousel.css](https://raw.githubusercontent.com/asif-jalil/scroll-carousel/main/dist/scroll.carousel.css) not minified
+  - [scroll.carousel.min.css](https://cdn.jsdelivr.net/npm/scroll-carousel@1.2.2/dist/scroll.carousel.min.css)
 
 - JS
-  - [scroll.carousel.min.js](https://raw.githubusercontent.com/asif-jalil/scroll-carousel/main/dist/scroll.carousel.min.js) minified, or
-  - [scroll.carousel.js](https://raw.githubusercontent.com/asif-jalil/scroll-carousel/main/dist/scroll.carousel.js) not minified
+  - [scroll.carousel.min.js](https://cdn.jsdelivr.net/npm/scroll-carousel@1.2.2/dist/scroll.carousel.min.js)
 
 ### CDN
 
