@@ -4,15 +4,15 @@ interface EventBindings {
   /**
    * Triggered after ScrollCarousel has been activated.
    */
-  ready?: (() => void) | undefined;
+  ready?: () => void;
   /**
    * Triggered when the slider moves.
    */
-  scroll?: ((progress?: number) => void) | undefined;
+  scroll?: (progress?: number) => void;
   /**
    * Triggered when the carousel destroyed
    */
-  destroy?: (() => void) | undefined;
+  destroy?: () => void;
 }
 
 declare class ScrollCarousel {
