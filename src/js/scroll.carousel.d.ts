@@ -8,7 +8,7 @@ interface EventBindings {
   /**
    * Triggered when the slider moves.
    */
-  scroll?: (progress?: number) => void;
+  move?: (progress: number) => void;
   /**
    * Triggered when the carousel destroyed
    */
@@ -32,6 +32,10 @@ declare class ScrollCarousel {
    * Re initialize the carousel after destroy
    */
   reinit(): this;
+  /**
+   * The carousel is active or not
+   */
+  isActive: boolean;
 }
 
 declare namespace ScrollCarousel {
