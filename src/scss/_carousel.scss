@@ -1,18 +1,20 @@
-.scroll-carousel-viewport{
+.scroll-carousel-viewport {
   overflow: hidden;
   position: relative;
+  width: 100%;
 }
 
-.scroll-carousel-slider{
-  position:relative;
+.scroll-carousel-slider {
+  position: relative;
   display: inline-flex;
 }
 
-.sc-slide{
+.sc-slide {
   position: relative;
   display: inline-block;
 
-  img, video {
+  img,
+  video {
     max-width: fit-content !important;
   }
 }
